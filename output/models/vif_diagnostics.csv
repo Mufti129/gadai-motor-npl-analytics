@@ -1,0 +1,9 @@
+Variable,VIF,Status
+pinjaman_juta,2.2085,Aman (VIF < 5)
+usia_kendaraan_thn,2.0694,Aman (VIF < 5)
+LTV_MAX,1.4995,Aman (VIF < 5)
+"C(kondisi_stnk, Treatment(reference='A/N SENDIRI'))[T.A/N ORANG LAIN]",1.2961,Aman (VIF < 5)
+"C(merk_group, Treatment(reference='Honda'))[T.Yamaha]",1.0501,Aman (VIF < 5)
+"C(pajak_status, Treatment(reference='Pajak Tidak Aktif'))[T.Pajak Aktif]",1.0433,Aman (VIF < 5)
+"C(merk_group, Treatment(reference='Honda'))[T.Kawasaki]",1.0373,Aman (VIF < 5)
+"C(merk_group, Treatment(reference='Honda'))[T.LAINNYA]",1.0056,Aman (VIF < 5)
