@@ -34,7 +34,7 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
-# Theme-Adaptive CSS: Menggunakan variabel tema bawaan Streamlit agar kontras selalu sempurna
+# Custom High-Contrast CSS Styling — Bersih, Elegan, dan Responsif
 st.markdown("""
 <style>
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
@@ -48,21 +48,30 @@ st.markdown("""
         padding-bottom: 3rem;
     }
     
-    /* High-contrast decision highlight box */
-    .decision-score-display {
-        font-size: 3rem;
-        font-weight: 800;
-        line-height: 1.1;
-        margin: 8px 0;
+    /* Box Callout Instruksi dengan kontras warna tegas */
+    .instruction-card {
+        background-color: #F1F5F9;
+        color: #0F172A;
+        border-left: 5px solid #2563EB;
+        border-radius: 8px;
+        padding: 14px 18px;
+        margin-top: 10px;
+        margin-bottom: 12px;
+        font-size: 0.92rem;
+        line-height: 1.5;
     }
     
-    .status-pill {
-        display: inline-block;
-        padding: 4px 12px;
-        border-radius: 6px;
-        font-size: 0.8rem;
-        font-weight: 700;
-        letter-spacing: 0.02em;
+    /* Box Driver Risiko dengan latar belakang kontras */
+    .driver-row {
+        background-color: #F8FAFC;
+        color: #0F172A;
+        border: 1px solid #E2E8F0;
+        border-radius: 8px;
+        padding: 10px 14px;
+        margin-bottom: 8px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
     }
 </style>
 """, unsafe_allow_html=True)
@@ -473,21 +482,21 @@ def hitung_skor_underwriting(
     if is_stnk_orang_lain:
         msg = "STNK atas nama Orang Lain (+71% Odds NPL, Moral Hazard)"
         reasons.append(msg)
-        risk_drivers.append({"faktor": "Kepemilikan STNK", "kondisi": "A/N Orang Lain", "efek": "+71% Odds Macet", "tipe": "warning"})
+        risk_drivers.append({"faktor": "Kepemilikan STNK", "kondisi": "A/N Orang Lain", "efek": "+71% Odds Macet (Moral Hazard)", "tipe": "warning"})
     else:
-        risk_drivers.append({"faktor": "Kepemilikan STNK", "kondisi": "A/N Sendiri", "efek": "Basis Aman", "tipe": "success"})
+        risk_drivers.append({"faktor": "Kepemilikan STNK", "kondisi": "A/N Sendiri", "efek": "Basis Aman (Dokumen Sah)", "tipe": "success"})
 
     if not is_pajak_aktif:
         msg = "Pajak Kendaraan Tidak Aktif (Menurunkan likuiditas penjualan barang lelang)"
         reasons.append(msg)
-        risk_drivers.append({"faktor": "Pajak STNK", "kondisi": "Pajak Tidak Aktif", "efek": "Likuiditas Rendah", "tipe": "warning"})
+        risk_drivers.append({"faktor": "Pajak STNK", "kondisi": "Pajak Tidak Aktif", "efek": "Likuiditas Rendah Saat Lelang", "tipe": "warning"})
     else:
-        risk_drivers.append({"faktor": "Pajak STNK", "kondisi": "Pajak Aktif", "efek": "Likuiditas Tinggi", "tipe": "info"})
+        risk_drivers.append({"faktor": "Pajak STNK", "kondisi": "Pajak Aktif", "efek": "Likuiditas Tinggi (Pajak Hidup)", "tipe": "info"})
 
     if usia_thn >= 8:
         msg = f"Usia motor tergolong tua ({usia_thn:.0f} tahun), depresiasi aset tinggi (+9.3%/tahun)"
         reasons.append(msg)
-        risk_drivers.append({"faktor": "Usia Kendaraan", "kondisi": f"{usia_thn:.0f} Tahun", "efek": f"+{usia_thn*9.3:.1f}% Akumulasi Risiko", "tipe": "danger"})
+        risk_drivers.append({"faktor": "Usia Kendaraan", "kondisi": f"{usia_thn:.0f} Tahun", "efek": f"+{usia_thn*9.3:.1f}% Akumulasi Depresiasi", "tipe": "danger"})
     else:
         risk_drivers.append({"faktor": "Usia Kendaraan", "kondisi": f"{usia_thn:.0f} Tahun", "efek": "Depresiasi Terkendali", "tipe": "success"})
 
@@ -496,13 +505,13 @@ def hitung_skor_underwriting(
         reasons.append(msg)
         risk_drivers.append({"faktor": "Rasio LTV", "kondisi": f"{ltv*100:.1f}% (Over-limit)", "efek": f"Eksaserbasi Risiko ({ltv*100 - safe_ltv_limit*100:+.1f}%)", "tipe": "danger"})
     else:
-        risk_drivers.append({"faktor": "Rasio LTV", "kondisi": f"{ltv*100:.1f}%", "efek": "Dalam Batas Kebijakan", "tipe": "success"})
+        risk_drivers.append({"faktor": "Rasio LTV", "kondisi": f"{ltv*100:.1f}%", "efek": "Dalam Batas Kebijakan Aman", "tipe": "success"})
 
     if is_rep == 1:
         reasons.append("Status Debitur: Repeat Borrower (Memangkas risiko gagal bayar sebesar 72%)")
-        risk_drivers.append({"faktor": "Histori Debitur", "kondisi": "Repeat Borrower (Nasabah Lama)", "efek": "-72% Odds Gagal Bayar", "tipe": "success"})
+        risk_drivers.append({"faktor": "Histori Debitur", "kondisi": "Repeat Borrower (Nasabah Lama)", "efek": "-72% Odds Gagal Bayar (Proteksi)", "tipe": "success"})
     else:
-        risk_drivers.append({"faktor": "Histori Debitur", "kondisi": "Nasabah Baru", "efek": "Profil Standar", "tipe": "neutral"})
+        risk_drivers.append({"faktor": "Histori Debitur", "kondisi": "Nasabah Baru", "efek": "Profil Standar Portofolio", "tipe": "neutral"})
 
     if job_info['id'] != 'TIDAK_ISI':
         if job_info['or'] < 1.0:
@@ -709,13 +718,13 @@ if menu == "Executive Dashboard":
     st.info("**Temuan Kunci Divisi Risiko:** Penambahan faktor jaminan (STNK a/n Orang Lain) dan riwayat nasabah berulang (Repeat Borrower) terbukti secara ekonometrika memangkas deviasi prediksi hingga 62,7% dibanding acuan baseline acak.")
 
 # ==============================================================================
-# MODUL 2: CREDIT SCORING ENGINE
+# MODUL 2: CREDIT SCORING ENGINE (MODERN & TERSTRUKTUR RAPI)
 # ==============================================================================
 elif menu == "Credit Scoring Engine":
     st.title("Smart Underwriting Credit Scoring Engine")
     st.caption("Penilaian risiko kelayakan kredit calon debitur secara real-time berbasis Model 2 & Model 4")
 
-    col_in, col_res = st.columns([1.1, 1.2])
+    col_in, col_res = st.columns([1, 1.25])
 
     with col_in:
         with st.container(border=True):
@@ -751,13 +760,13 @@ elif menu == "Credit Scoring Engine":
         with st.container(border=True):
             st.subheader("Hasil Keputusan Underwriting")
             
-            # Prominent Risk & Probability Banner
+            # Kartu 1: Probabilitas & Peringkat Risiko
             c_score1, c_score2 = st.columns([1.2, 1])
             with c_score1:
                 st.metric(
                     label="PROBABILITAS GAGAL BAYAR (ESTIMASI NPL)",
                     value=f"{res['prob_final_pct']:.2f}%",
-                    delta=f"{res['prob_final_pct'] - 5.0:+.2f}% vs Batas Target 5.0%",
+                    delta=f"{res['prob_final_pct'] - 5.0:+.2f}% vs Batas Toleransi 5.0%",
                     delta_color="inverse"
                 )
             with c_score2:
@@ -767,40 +776,82 @@ elif menu == "Credit Scoring Engine":
                     delta=res['risk_tier']
                 )
 
-            # Decision alert banner
-            if res['risk_severity'] == 'success':
-                st.success(f"**REKOMENDASI: {res['decision']}**")
-            elif res['risk_severity'] == 'info':
-                st.info(f"**REKOMENDASI: {res['decision']}**")
-            elif res['risk_severity'] == 'warning':
-                st.warning(f"**REKOMENDASI: {res['decision']}**")
-            else:
-                st.error(f"**REKOMENDASI: {res['decision']}**")
+            st.write("")
 
-            # Operational action plan callout
-            st.write(f"**Instruksi Operasional Cabang:** {res['action_plan']}")
+            # Kartu 2: Banner Rekomendasi Resmi
+            if res['risk_severity'] == 'success':
+                st.success(f"### {res['decision']}")
+            elif res['risk_severity'] == 'info':
+                st.info(f"### {res['decision']}")
+            elif res['risk_severity'] == 'warning':
+                st.warning(f"### {res['decision']}")
+            else:
+                st.error(f"### {res['decision']}")
+
+            # Kartu 3: Box Instruksi Operasional Cabang
+            st.markdown(f"""
+            <div class="instruction-card">
+                <div style="font-weight: 700; margin-bottom: 4px;">Instruksi Operasional Cabang & Kebijakan Verifikasi:</div>
+                <div>{res['action_plan']}</div>
+            </div>
+            """, unsafe_allow_html=True)
             
-            st.divider()
+            # Kartu 4: Tiga Indikator Finansial Utama
             c_k1, c_k2, c_k3 = st.columns(3)
             with c_k1:
-                st.metric("Rasio LTV Diajukan", f"{res['ltv_pct']:.1f}%")
+                with st.container(border=True):
+                    st.metric("LTV Diajukan", f"{res['ltv_pct']:.1f}%")
             with c_k2:
-                st.metric("Batas Aman LTV", f"{res['safe_ltv_limit_pct']:.0f}%")
+                with st.container(border=True):
+                    st.metric("Batas Aman LTV", f"{res['safe_ltv_limit_pct']:.0f}%")
             with c_k3:
-                st.metric("Batas Plafon Aman", res['safe_loan_limit_fmt'])
+                with st.container(border=True):
+                    st.metric("Batas Plafon Aman", res['safe_loan_limit_fmt'])
 
-            st.divider()
-            st.subheader("Analisis Driver Pemicu Risiko")
+            # Kartu 5: Ringkasan Parameter Aplikasi yang Dievaluasi
+            with st.expander("Lihat Ringkasan Detail Parameter Aplikasi", expanded=True):
+                col_p1, col_p2 = st.columns(2)
+                with col_p1:
+                    st.write(f"**Agunan:** {res['merk']} (Usia {res['usia_thn']:.0f} Thn)")
+                    st.write(f"**Taksiran OTR:** {res['harga_taksiran_otr_fmt']}")
+                    st.write(f"**Pinjaman Diajukan:** {res['pinjaman_pokok_fmt']}")
+                with col_p2:
+                    st.write(f"**STNK:** {res['kondisi_stnk']} ({res['pajak_status']})")
+                    st.write(f"**Profesi:** {res['job_label']} ({res['job_cluster']})")
+                    st.write(f"**Riwayat:** {res['repeat_borrower_label']}")
+
+            # Kartu 6: Driver Pemicu Risiko
+            st.subheader("Analisis Driver Pemicu Risiko (Risk Drivers)")
             for driver in res['risk_drivers']:
                 badge_type = driver.get('tipe', 'neutral')
                 if badge_type == 'success':
-                    st.write(f"- :green[**{driver['faktor']}:**] `{driver['kondisi']}` — **{driver['efek']}**")
+                    st.markdown(f"""
+                    <div class="driver-row" style="border-left: 4px solid #059669;">
+                        <span><strong>{driver['faktor']}:</strong> {driver['kondisi']}</span>
+                        <span style="color: #059669; font-weight: 700;">{driver['efek']}</span>
+                    </div>
+                    """, unsafe_allow_html=True)
                 elif badge_type == 'warning':
-                    st.write(f"- :orange[**{driver['faktor']}:**] `{driver['kondisi']}` — **{driver['efek']}**")
+                    st.markdown(f"""
+                    <div class="driver-row" style="border-left: 4px solid #D97706;">
+                        <span><strong>{driver['faktor']}:</strong> {driver['kondisi']}</span>
+                        <span style="color: #D97706; font-weight: 700;">{driver['efek']}</span>
+                    </div>
+                    """, unsafe_allow_html=True)
                 elif badge_type == 'danger':
-                    st.write(f"- :red[**{driver['faktor']}:**] `{driver['kondisi']}` — **{driver['efek']}**")
+                    st.markdown(f"""
+                    <div class="driver-row" style="border-left: 4px solid #DC2626;">
+                        <span><strong>{driver['faktor']}:</strong> {driver['kondisi']}</span>
+                        <span style="color: #DC2626; font-weight: 700;">{driver['efek']}</span>
+                    </div>
+                    """, unsafe_allow_html=True)
                 else:
-                    st.write(f"- :blue[**{driver['faktor']}:**] `{driver['kondisi']}` — **{driver['efek']}**")
+                    st.markdown(f"""
+                    <div class="driver-row" style="border-left: 4px solid #2563EB;">
+                        <span><strong>{driver['faktor']}:</strong> {driver['kondisi']}</span>
+                        <span style="color: #2563EB; font-weight: 700;">{driver['efek']}</span>
+                    </div>
+                    """, unsafe_allow_html=True)
 
 # ==============================================================================
 # MODUL 3: WHAT-IF STRESS TESTING
