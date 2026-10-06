@@ -1285,16 +1285,16 @@ HTML_TEMPLATE = """
                 </span>
               </div>
               <select id="input-pekerjaan" onchange="runSingleScore()" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3.5 py-2.5 text-xs font-semibold text-slate-800 focus:ring-2 focus:ring-blue-500 focus:bg-white transition">
-                <option value="TIDAK_ISI" selected>⚪ Tidak Diketahui / Standar (Neutral Base)</option>
-                <option value="KARYAWAN_SWASTA">💼 Karyawan Swasta (Neutral Base)</option>
-                <option value="PNS">🏛️ PNS / ASN / Pegawai BUMN (Risk Bonus: OR 0.86x)</option>
-                <option value="GURU">🎓 Guru / Dosen (Risk Bonus: OR 0.65x — Paling Aman)</option>
-                <option value="IRT">🏠 Ibu Rumah Tangga (IRT — Netral)</option>
-                <option value="BURUH">🔨 Buruh Pabrik / Bangunan (Netral)</option>
-                <option value="PEDAGANG">🛒 Pedagang Toko / Kios (Volatil: OR 1.40x)</option>
-                <option value="WIRASWASTA">📈 Wiraswasta / Pengusaha (Volatil: OR 2.43x)</option>
-                <option value="PELAJAR">🎒 Pelajar / Mahasiswa (Rentan: OR 1.37x)</option>
-                <option value="BELUM_BEKERJA">⚠️ Belum / Tidak Bekerja (Rentan: OR 1.37x)</option>
+                <option value="TIDAK_ISI" selected>Tidak Diketahui / Standar (Neutral Base)</option>
+                <option value="KARYAWAN_SWASTA">Karyawan Swasta (Neutral Base)</option>
+                <option value="PNS">PNS / ASN / Pegawai BUMN (Risk Bonus: OR 0.86x)</option>
+                <option value="GURU">Guru / Dosen (Risk Bonus: OR 0.65x — Paling Aman)</option>
+                <option value="IRT">Ibu Rumah Tangga (IRT — Netral)</option>
+                <option value="BURUH">Buruh Pabrik / Bangunan (Netral)</option>
+                <option value="PEDAGANG">Pedagang Toko / Kios (Volatil: OR 1.40x)</option>
+                <option value="WIRASWASTA">Wiraswasta / Pengusaha (Volatil: OR 2.43x)</option>
+                <option value="PELAJAR">Pelajar / Mahasiswa (Rentan: OR 1.37x)</option>
+                <option value="BELUM_BEKERJA">Belum / Tidak Bekerja (Rentan: OR 1.37x)</option>
               </select>
               <p class="text-[11px] text-slate-500 mt-1">Mengaplikasikan Delta Logit empiris (N=24.857) & penyesuaian LTV kebijakan cabang.</p>
             </div>
