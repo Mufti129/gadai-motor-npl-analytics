@@ -7,7 +7,7 @@ PUSAT GADAI INDONESIA (PGI) — EXECUTIVE RISK ANALYTICS & SMART UNDERWRITING EN
 Penulis      : Mukhammad Rekza Mufti (Data Analyst — Divisi Bisnis & Risiko)
 Dataset Acuan: 139.493 Transaksi Kredit Valid
 Dokumen Acuan: Laporan_Design_Riset_NPL_Gadai_Kendaraan.pdf & README.md
-Platform     : Streamlit Community Cloud Ready (100% Logic Parity with Flask API)
+Platform     : Streamlit Community Cloud Ready (100% Parity with Flask REST API)
 ====================================================================================================
 """
 
@@ -32,7 +32,7 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
-# Custom CSS styling — Modern, Elegant, Professional Corporate Dashboard
+# Custom High-Contrast CSS styling — Guaranteed 100% Readability & Contrast
 st.markdown("""
 <style>
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
@@ -41,28 +41,36 @@ st.markdown("""
         font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     }
     
+    /* Global Container Padding */
+    .block-container {
+        padding-top: 2rem;
+        padding-bottom: 3rem;
+    }
+    
+    /* Header Typography with guaranteed high contrast */
     .main-title {
         font-size: 1.85rem;
         font-weight: 800;
-        color: #0F172A;
+        color: #0F172A !important;
         letter-spacing: -0.025em;
         margin-bottom: 0.25rem;
     }
     
     .sub-title {
         font-size: 0.95rem;
-        color: #64748B;
+        color: #475569 !important;
         font-weight: 500;
         margin-bottom: 1.5rem;
     }
     
+    /* High-Contrast Corporate Cards */
     .card-kpi {
-        background: #FFFFFF;
-        border: 1px solid #E2E8F0;
-        border-radius: 12px;
-        padding: 20px 24px;
-        box-shadow: 0 1px 3px rgba(0,0,0,0.05);
-        margin-bottom: 1rem;
+        background-color: #FFFFFF !important;
+        border: 1px solid #CBD5E1 !important;
+        border-radius: 10px;
+        padding: 18px 20px;
+        box-shadow: 0 2px 4px rgba(15, 23, 42, 0.06);
+        margin-bottom: 0.75rem;
     }
     
     .card-kpi-label {
@@ -70,35 +78,52 @@ st.markdown("""
         font-weight: 700;
         text-transform: uppercase;
         letter-spacing: 0.05em;
-        color: #64748B;
-        margin-bottom: 0.4rem;
+        color: #475569 !important;
+        margin-bottom: 0.35rem;
     }
     
     .card-kpi-val {
         font-size: 1.75rem;
         font-weight: 800;
-        color: #0F172A;
+        color: #0F172A !important;
         line-height: 1.2;
     }
     
     .card-kpi-sub {
         font-size: 0.8rem;
-        color: #94A3B8;
+        color: #64748B !important;
         margin-top: 0.35rem;
         font-weight: 500;
     }
     
-    .decision-container {
+    /* High-Contrast Decision Box */
+    .decision-card {
+        background-color: #FFFFFF !important;
         border-radius: 12px;
         padding: 24px;
         text-align: center;
-        margin-bottom: 1.5rem;
-        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+        margin-bottom: 1.25rem;
+        box-shadow: 0 4px 6px -1px rgba(15, 23, 42, 0.08);
+    }
+    
+    .decision-title {
+        font-size: 0.8rem;
+        font-weight: 700;
+        color: #475569 !important;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+    }
+    
+    .decision-score {
+        font-size: 3.25rem;
+        font-weight: 800;
+        line-height: 1.1;
+        margin: 8px 0;
     }
     
     .risk-badge {
         display: inline-block;
-        padding: 6px 14px;
+        padding: 6px 16px;
         border-radius: 9999px;
         font-size: 0.85rem;
         font-weight: 700;
@@ -106,37 +131,103 @@ st.markdown("""
         text-transform: uppercase;
     }
     
-    .badge-grade-a { background: #DCFCE7; color: #166534; border: 1px solid #86EFAC; }
-    .badge-grade-b { background: #FEF9C3; color: #854D0E; border: 1px solid #FDE047; }
-    .badge-grade-c { background: #FFEDD5; color: #9A3412; border: 1px solid #FDBA74; }
-    .badge-grade-d { background: #FFE4E6; color: #9F1239; border: 1px solid #FDA4AF; }
+    .badge-grade-a { background-color: #DCFCE7 !important; color: #14532D !important; border: 1.5px solid #4ADE80 !important; }
+    .badge-grade-b { background-color: #FEF9C3 !important; color: #713F12 !important; border: 1.5px solid #FACC15 !important; }
+    .badge-grade-c { background-color: #FFEDD5 !important; color: #7C2D12 !important; border: 1.5px solid #FB923C !important; }
+    .badge-grade-d { background-color: #FFE4E6 !important; color: #881337 !important; border: 1.5px solid #FB7185 !important; }
     
+    /* Info Box Callouts */
+    .info-box-blue {
+        background-color: #F0F7FF !important;
+        border-left: 4px solid #2563EB !important;
+        border-top: 1px solid #BFDBFE !important;
+        border-right: 1px solid #BFDBFE !important;
+        border-bottom: 1px solid #BFDBFE !important;
+        border-radius: 8px;
+        padding: 14px 18px;
+        color: #1E3A8A !important;
+        font-size: 0.88rem;
+        margin-top: 1rem;
+        margin-bottom: 1rem;
+    }
+    
+    .info-box-emerald {
+        background-color: #F0FDF4 !important;
+        border-left: 4px solid #059669 !important;
+        border-top: 1px solid #BBF7D0 !important;
+        border-right: 1px solid #BBF7D0 !important;
+        border-bottom: 1px solid #BBF7D0 !important;
+        border-radius: 8px;
+        padding: 14px 18px;
+        color: #064E3B !important;
+        font-size: 0.88rem;
+        margin-top: 1rem;
+        margin-bottom: 1rem;
+    }
+
+    .info-box-rose {
+        background-color: #FFF1F2 !important;
+        border-left: 4px solid #E11D48 !important;
+        border-top: 1px solid #FECDD3 !important;
+        border-right: 1px solid #FECDD3 !important;
+        border-bottom: 1px solid #FECDD3 !important;
+        border-radius: 8px;
+        padding: 14px 18px;
+        color: #881337 !important;
+        font-size: 0.88rem;
+        margin-top: 1rem;
+        margin-bottom: 1rem;
+    }
+    
+    /* Status Pill Badges */
     .status-pill {
         display: inline-block;
         padding: 3px 10px;
         border-radius: 6px;
         font-size: 0.75rem;
-        font-weight: 600;
+        font-weight: 700;
     }
-    .pill-success { background: #ECFDF5; color: #065F46; border: 1px solid #A7F3D0; }
-    .pill-warning { background: #FFFBEB; color: #92400E; border: 1px solid #FDE68A; }
-    .pill-danger { background: #FEF2F2; color: #991B1B; border: 1px solid #FECACA; }
-    .pill-info { background: #EFF6FF; color: #1E40AF; border: 1px solid #BFDBFE; }
+    .pill-success { background-color: #DCFCE7 !important; color: #14532D !important; border: 1px solid #86EFAC !important; }
+    .pill-warning { background-color: #FEF3C7 !important; color: #78350F !important; border: 1px solid #FCD34D !important; }
+    .pill-danger  { background-color: #FEE2E2 !important; color: #7F1D1D !important; border: 1px solid #FCA5A5 !important; }
+    .pill-info    { background-color: #DBEAFE !important; color: #1E3A8A !important; border: 1px solid #93C5FD !important; }
+    .pill-neutral { background-color: #F1F5F9 !important; color: #334155 !important; border: 1px solid #CBD5E1 !important; }
     
     .section-header {
         font-size: 1.15rem;
         font-weight: 700;
-        color: #1E293B;
-        margin-top: 1rem;
+        color: #0F172A !important;
+        margin-top: 1.25rem;
         margin-bottom: 0.75rem;
-        border-bottom: 2px solid #F1F5F9;
-        padding-bottom: 0.5rem;
+        border-bottom: 2px solid #E2E8F0;
+        padding-bottom: 0.4rem;
+    }
+    
+    /* Custom Metric Item Box */
+    .metric-item-box {
+        background-color: #F8FAFC !important;
+        border: 1px solid #CBD5E1 !important;
+        border-radius: 8px;
+        padding: 12px 14px;
+        text-align: center;
+    }
+    .metric-item-label {
+        font-size: 0.75rem;
+        color: #475569 !important;
+        font-weight: 600;
+        margin-bottom: 4px;
+        text-transform: uppercase;
+    }
+    .metric-item-val {
+        font-size: 1.25rem;
+        font-weight: 800;
+        color: #0F172A !important;
     }
 </style>
 """, unsafe_allow_html=True)
 
 # ==============================================================================
-# KONFIGURASI GLOBAL, PATH, & AMBANG BATAS RISIKO (IDENTIK 100% DENGAN FLASK)
+# KONFIGURASI GLOBAL & AMBANG BATAS RISIKO (100% PERSIS DENGAN FLASK)
 # ==============================================================================
 BASE_DIR = Path(__file__).resolve().parent
 OUTPUT_DIR = BASE_DIR / "output"
@@ -155,7 +246,6 @@ CONFIG_UNDERWRITING = {
     'MAX_SAFE_LTV_USIA_TUA': 0.35        # Rekomendasi batas aman LTV: Motor Tua >= 7 Thn (35%)
 }
 
-# Koefisien Resmi Model 2 (Core + LTV_MAX)
 MODEL_2_PARAMS = {
     'Intercept': -3.442634,
     'stnk_orang_lain': 0.536569,
@@ -168,7 +258,6 @@ MODEL_2_PARAMS = {
     'ltv_max': -2.328395
 }
 
-# Koefisien Resmi Model 4 (Full Enhanced + Repeat Borrower) — Champion Model
 MODEL_4_PARAMS = {
     'Intercept': -3.109156,
     'stnk_orang_lain': 0.518621,
@@ -394,7 +483,7 @@ BRANCH_OPERATIONAL_POLICIES = [
 ]
 
 # ==============================================================================
-# HELPER FORMATTING & ESTIMASI RISIKO (100% PERSIS DENGAN FLASK app_server_api.py)
+# HELPER FUNCTIONS
 # ==============================================================================
 def rupiah(nilai: float) -> str:
     if pd.isna(nilai) or nilai == 0:
@@ -512,7 +601,6 @@ def hitung_skor_underwriting(
     )
     prob_m4_pct = (1.0 / (1.0 + np.exp(-logit_m4))) * 100.0
 
-    # Model acuan operasional: Model 4 jika repeat borrower teridentifikasi, Model 2 jika nasabah baru
     prob_final = prob_m4_pct if is_rep == 1 else prob_m2_pct
 
     # 5. Penentuan Peringkat Risiko (Risk Tier & Grade)
@@ -689,7 +777,7 @@ with st.sidebar:
     st.markdown("---")
     
     menu = st.radio(
-        "Navigasi Modul:",
+        "PILIH MODUL:",
         [
             "Executive Dashboard",
             "Credit Scoring Engine",
@@ -730,7 +818,7 @@ if menu == "Executive Dashboard":
         st.markdown("""
         <div class="card-kpi">
             <div class="card-kpi-label">Tingkat NPL Aktual</div>
-            <div class="card-kpi-val" style="color: #DC2626;">6,91%</div>
+            <div class="card-kpi-val" style="color: #DC2626 !important;">6,91%</div>
             <div class="card-kpi-sub">9.640 Debitur Gagal Bayar</div>
         </div>
         """, unsafe_allow_html=True)
@@ -738,7 +826,7 @@ if menu == "Executive Dashboard":
         st.markdown("""
         <div class="card-kpi">
             <div class="card-kpi-label">Target Toleransi Korporasi</div>
-            <div class="card-kpi-val" style="color: #059669;">&lt; 5,00%</div>
+            <div class="card-kpi-val" style="color: #059669 !important;">&lt; 5,00%</div>
             <div class="card-kpi-sub">Ambang Batas Portofolio Sehat</div>
         </div>
         """, unsafe_allow_html=True)
@@ -746,7 +834,7 @@ if menu == "Executive Dashboard":
         st.markdown("""
         <div class="card-kpi">
             <div class="card-kpi-label">Model Champion (Model 4)</div>
-            <div class="card-kpi-val" style="color: #2563EB;">67,02%</div>
+            <div class="card-kpi-val" style="color: #2563EB !important;">67,02%</div>
             <div class="card-kpi-sub">ROC-AUC (+62,7% Precision)</div>
         </div>
         """, unsafe_allow_html=True)
@@ -790,6 +878,12 @@ if menu == "Executive Dashboard":
         fig_merk.update_layout(template="plotly_white", yaxis_title="Tingkat NPL (%)", showlegend=False)
         st.plotly_chart(fig_merk, use_container_width=True)
 
+    st.markdown("""
+    <div class="info-box-blue">
+        <strong>Temuan Kunci Divisi Risiko:</strong> Penambahan faktor jaminan (STNK a/n Orang Lain) dan riwayat nasabah berulang (Repeat Borrower) terbukti secara ekonometrika memangkas deviasi prediksi hingga 62,7% dibanding acuan baseline acak.
+    </div>
+    """, unsafe_allow_html=True)
+
 # ==============================================================================
 # MODUL 2: CREDIT SCORING ENGINE
 # ==============================================================================
@@ -800,22 +894,23 @@ elif menu == "Credit Scoring Engine":
     col_in, col_res = st.columns([1.1, 1.2])
 
     with col_in:
-        st.markdown('<div class="section-header">Parameter Aplikasi Kredit</div>', unsafe_allow_html=True)
-        merk = st.selectbox("Merk Kendaraan:", ["Honda", "Yamaha", "Kawasaki", "Lainnya"])
-        usia_thn = st.slider("Usia Kendaraan (Tahun):", min_value=0, max_value=20, value=4)
-        otr = st.number_input("Nilai Taksiran Pasar (OTR) - Rp:", min_value=1_000_000, max_value=100_000_000, value=12_000_000, step=500_000)
-        pinjaman = st.number_input("Nominal Pinjaman Diajukan - Rp:", min_value=500_000, max_value=50_000_000, value=5_000_000, step=250_000)
-        
-        c_r1, c_r2 = st.columns(2)
-        with c_r1:
-            kondisi_stnk = st.radio("Kepemilikan STNK:", ["A/N Sendiri", "A/N Orang Lain"])
-        with c_r2:
-            pajak_status = st.radio("Status Pajak STNK:", ["Pajak Aktif", "Pajak Tidak Aktif"])
+        with st.container(border=True):
+            st.markdown('<div class="section-header">Parameter Aplikasi Kredit</div>', unsafe_allow_html=True)
+            merk = st.selectbox("Merk Kendaraan:", ["Honda", "Yamaha", "Kawasaki", "Lainnya"])
+            usia_thn = st.slider("Usia Kendaraan (Tahun):", min_value=0, max_value=20, value=4)
+            otr = st.number_input("Nilai Taksiran Pasar (OTR) - Rp:", min_value=1_000_000, max_value=100_000_000, value=12_000_000, step=500_000)
+            pinjaman = st.number_input("Nominal Pinjaman Diajukan - Rp:", min_value=500_000, max_value=50_000_000, value=5_000_000, step=250_000)
+            
+            c_r1, c_r2 = st.columns(2)
+            with c_r1:
+                kondisi_stnk = st.radio("Kepemilikan STNK:", ["A/N Sendiri", "A/N Orang Lain"])
+            with c_r2:
+                pajak_status = st.radio("Status Pajak STNK:", ["Pajak Aktif", "Pajak Tidak Aktif"])
 
-        job_options = {k: f"{v['label']} ({v['cluster']})" for k, v in JOB_RISK_FACTORS.items()}
-        job_key = st.selectbox("Profesi / Pekerjaan Debitur:", options=list(job_options.keys()), format_func=lambda x: job_options[x])
-        
-        is_repeat = st.checkbox("Repeat Borrower (Nasabah Lama dengan Riwayat Lunas Sempurna)", value=False)
+            job_options = {k: f"{v['label']} ({v['cluster']})" for k, v in JOB_RISK_FACTORS.items()}
+            job_key = st.selectbox("Profesi / Pekerjaan Debitur:", options=list(job_options.keys()), format_func=lambda x: job_options[x])
+            
+            is_repeat = st.checkbox("Repeat Borrower (Nasabah Lama dengan Riwayat Lunas Sempurna)", value=False)
 
     res = hitung_skor_underwriting(
         merk=merk,
@@ -829,37 +924,59 @@ elif menu == "Credit Scoring Engine":
     )
 
     with col_res:
-        st.markdown('<div class="section-header">Hasil Keputusan Underwriting</div>', unsafe_allow_html=True)
-        
-        st.markdown(f"""
-        <div class="decision-container" style="background: #FFFFFF; border: 2px solid {res['color_hex']};">
-            <div style="font-size: 0.8rem; font-weight: 700; color: #64748B; text-transform: uppercase; letter-spacing: 0.05em;">Probabilitas Gagal Bayar (Estimasi NPL)</div>
-            <div style="font-size: 3.25rem; font-weight: 800; color: {res['color_hex']}; line-height: 1.1; margin: 8px 0;">{res['prob_final_pct']:.2f}%</div>
-            <div style="margin-bottom: 14px;">
-                <span class="risk-badge {res['badge_css']}">{res['risk_grade']} — {res['risk_tier']}</span>
+        with st.container(border=True):
+            st.markdown('<div class="section-header">Hasil Keputusan Underwriting</div>', unsafe_allow_html=True)
+            
+            st.markdown(f"""
+            <div class="decision-card" style="border: 2px solid {res['color_hex']};">
+                <div class="decision-title">Probabilitas Gagal Bayar (Estimasi NPL)</div>
+                <div class="decision-score" style="color: {res['color_hex']} !important;">{res['prob_final_pct']:.2f}%</div>
+                <div style="margin-bottom: 14px;">
+                    <span class="risk-badge {res['badge_css']}">{res['risk_grade']} — {res['risk_tier']}</span>
+                </div>
+                <div style="font-size: 1.05rem; font-weight: 800; color: #0F172A !important; border-top: 1px solid #E2E8F0; padding-top: 12px;">
+                    REKOMENDASI: <span style="color: {res['color_hex']} !important;">{res['decision']}</span>
+                </div>
+                <div style="font-size: 0.85rem; color: #1E293B !important; margin-top: 10px; text-align: left; background-color: #F8FAFC !important; padding: 12px 14px; border-radius: 8px; border: 1px solid #CBD5E1 !important;">
+                    <strong>Instruksi Operasional:</strong> {res['action_plan']}
+                </div>
             </div>
-            <div style="font-size: 1.05rem; font-weight: 700; color: #0F172A; border-top: 1px solid #E2E8F0; padding-top: 12px;">
-                REKOMENDASI: <span style="color: {res['color_hex']};">{res['decision']}</span>
-            </div>
-            <div style="font-size: 0.85rem; color: #475569; margin-top: 6px; text-align: left; background: #F8FAFC; padding: 10px 14px; border-radius: 8px; border: 1px solid #E2E8F0;">
-                <strong>Instruksi Operasional:</strong> {res['action_plan']}
-            </div>
-        </div>
-        """, unsafe_allow_html=True)
-        
-        c_k1, c_k2, c_k3 = st.columns(3)
-        with c_k1:
-            st.metric("Rasio LTV Diajukan", f"{res['ltv_pct']:.1f}%")
-        with c_k2:
-            st.metric("Batas Aman LTV", f"{res['safe_ltv_limit_pct']:.0f}%")
-        with c_k3:
-            st.metric("Batas Plafon Aman", res['safe_loan_limit_fmt'])
+            """, unsafe_allow_html=True)
+            
+            c_k1, c_k2, c_k3 = st.columns(3)
+            with c_k1:
+                st.markdown(f"""
+                <div class="metric-item-box">
+                    <div class="metric-item-label">Rasio LTV Diajukan</div>
+                    <div class="metric-item-val">{res['ltv_pct']:.1f}%</div>
+                </div>
+                """, unsafe_allow_html=True)
+            with c_k2:
+                st.markdown(f"""
+                <div class="metric-item-box">
+                    <div class="metric-item-label">Batas Aman LTV</div>
+                    <div class="metric-item-val">{res['safe_ltv_limit_pct']:.0f}%</div>
+                </div>
+                """, unsafe_allow_html=True)
+            with c_k3:
+                st.markdown(f"""
+                <div class="metric-item-box">
+                    <div class="metric-item-label">Batas Plafon Aman</div>
+                    <div class="metric-item-val">{res['safe_loan_limit_fmt']}</div>
+                </div>
+                """, unsafe_allow_html=True)
 
-        st.markdown("##### Driver Pemicu Risiko (Risk Factors):")
-        for driver in res['risk_drivers']:
-            badge_type = driver.get('tipe', 'neutral')
-            pill_class = 'pill-success' if badge_type == 'success' else ('pill-warning' if badge_type == 'warning' else ('pill-danger' if badge_type == 'danger' else 'pill-info'))
-            st.markdown(f"- **{driver['faktor']}**: `{driver['kondisi']}` — <span class='status-pill {pill_class}'>{driver['efek']}</span>", unsafe_allow_html=True)
+            st.write("")
+            st.markdown('<div class="section-header">Analisis Driver Pemicu Risiko:</div>', unsafe_allow_html=True)
+            for driver in res['risk_drivers']:
+                badge_type = driver.get('tipe', 'neutral')
+                pill_class = 'pill-success' if badge_type == 'success' else ('pill-warning' if badge_type == 'warning' else ('pill-danger' if badge_type == 'danger' else 'pill-info'))
+                st.markdown(f"""
+                <div style="display: flex; justify-content: space-between; align-items: center; padding: 6px 12px; background-color: #F8FAFC !important; border: 1px solid #E2E8F0 !important; border-radius: 6px; margin-bottom: 6px;">
+                    <span style="color: #0F172A !important; font-size: 0.85rem; font-weight: 600;">{driver['faktor']}: <span style="color: #475569 !important; font-weight: 500;">{driver['kondisi']}</span></span>
+                    <span class="status-pill {pill_class}">{driver['efek']}</span>
+                </div>
+                """, unsafe_allow_html=True)
 
 # ==============================================================================
 # MODUL 3: WHAT-IF STRESS TESTING
@@ -870,53 +987,55 @@ elif menu == "What-If Stress Testing":
 
     col_w1, col_w2 = st.columns([1, 2])
     with col_w1:
-        st.markdown('<div class="section-header">Parameter Motor Uji</div>', unsafe_allow_html=True)
-        w_merk = st.selectbox("Merk Kendaraan:", ["Honda", "Yamaha", "Kawasaki", "Lainnya"], key="w_merk")
-        w_usia = st.slider("Usia Kendaraan (Tahun):", 0, 15, 3, key="w_usia")
-        w_otr = st.number_input("Harga OTR Pasar (Rp):", min_value=2_000_000, max_value=50_000_000, value=15_000_000, step=1_000_000, key="w_otr")
-        w_stnk = st.selectbox("Kepemilikan STNK:", ["A/N Sendiri", "A/N Orang Lain"], key="w_stnk")
-        w_pajak = st.selectbox("Status Pajak:", ["Pajak Aktif", "Pajak Tidak Aktif"], key="w_pajak")
-        w_job = st.selectbox("Profesi / Pekerjaan:", list(JOB_RISK_FACTORS.keys()), key="w_job")
+        with st.container(border=True):
+            st.markdown('<div class="section-header">Parameter Motor Uji</div>', unsafe_allow_html=True)
+            w_merk = st.selectbox("Merk Kendaraan:", ["Honda", "Yamaha", "Kawasaki", "Lainnya"], key="w_merk")
+            w_usia = st.slider("Usia Kendaraan (Tahun):", 0, 15, 3, key="w_usia")
+            w_otr = st.number_input("Harga OTR Pasar (Rp):", min_value=2_000_000, max_value=50_000_000, value=15_000_000, step=1_000_000, key="w_otr")
+            w_stnk = st.selectbox("Kepemilikan STNK:", ["A/N Sendiri", "A/N Orang Lain"], key="w_stnk")
+            w_pajak = st.selectbox("Status Pajak:", ["Pajak Aktif", "Pajak Tidak Aktif"], key="w_pajak")
+            w_job = st.selectbox("Profesi / Pekerjaan:", list(JOB_RISK_FACTORS.keys()), key="w_job")
 
     with col_w2:
-        pinjaman_grid = np.linspace(1_000_000, min(float(w_otr) * 1.0, 20_000_000.0), 30)
-        p_m2 = []
-        p_m4 = []
-        
-        for p_val in pinjaman_grid:
-            r_first = hitung_skor_underwriting(w_merk, float(w_usia), float(w_otr), p_val, w_stnk, w_pajak, 0, w_job)
-            p_m2.append(r_first['prob_final_pct'])
-            r_rep = hitung_skor_underwriting(w_merk, float(w_usia), float(w_otr), p_val, w_stnk, w_pajak, 1, w_job)
-            p_m4.append(r_rep['prob_final_pct'])
+        with st.container(border=True):
+            pinjaman_grid = np.linspace(1_000_000, min(float(w_otr) * 1.0, 20_000_000.0), 30)
+            p_m2 = []
+            p_m4 = []
+            
+            for p_val in pinjaman_grid:
+                r_first = hitung_skor_underwriting(w_merk, float(w_usia), float(w_otr), p_val, w_stnk, w_pajak, 0, w_job)
+                p_m2.append(r_first['prob_final_pct'])
+                r_rep = hitung_skor_underwriting(w_merk, float(w_usia), float(w_otr), p_val, w_stnk, w_pajak, 1, w_job)
+                p_m4.append(r_rep['prob_final_pct'])
 
-        df_stress = pd.DataFrame({
-            'Plafon_Juta': pinjaman_grid / 1_000_000.0,
-            'NPL_Nasabah_Baru': p_m2,
-            'NPL_Repeat_Borrower': p_m4
-        })
+            df_stress = pd.DataFrame({
+                'Plafon_Juta': pinjaman_grid / 1_000_000.0,
+                'NPL_Nasabah_Baru': p_m2,
+                'NPL_Repeat_Borrower': p_m4
+            })
 
-        fig_stress = go.Figure()
-        fig_stress.add_trace(go.Scatter(
-            x=df_stress['Plafon_Juta'], y=df_stress['NPL_Nasabah_Baru'],
-            mode='lines', name='Nasabah Baru (Model 2 Baseline)',
-            line=dict(color='#DC2626', width=3)
-        ))
-        fig_stress.add_trace(go.Scatter(
-            x=df_stress['Plafon_Juta'], y=df_stress['NPL_Repeat_Borrower'],
-            mode='lines', name='Repeat Borrower (Model 4 Champion)',
-            line=dict(color='#059669', width=3)
-        ))
-        
-        fig_stress.add_hline(y=5.0, line_dash="dash", line_color="#D97706", annotation_text="Target Batas NPL 5.0%")
-        fig_stress.update_layout(
-            template="plotly_white",
-            title="Kurva Sensitivitas Plafon Pinjaman terhadap NPL Rate (%)",
-            xaxis_title="Nominal Pinjaman Pokok (Juta Rupiah)",
-            yaxis_title="Probabilitas NPL (%)",
-            hovermode="x unified",
-            legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="right", x=1)
-        )
-        st.plotly_chart(fig_stress, use_container_width=True)
+            fig_stress = go.Figure()
+            fig_stress.add_trace(go.Scatter(
+                x=df_stress['Plafon_Juta'], y=df_stress['NPL_Nasabah_Baru'],
+                mode='lines', name='Nasabah Baru (Model 2 Baseline)',
+                line=dict(color='#DC2626', width=3)
+            ))
+            fig_stress.add_trace(go.Scatter(
+                x=df_stress['Plafon_Juta'], y=df_stress['NPL_Repeat_Borrower'],
+                mode='lines', name='Repeat Borrower (Model 4 Champion)',
+                line=dict(color='#059669', width=3)
+            ))
+            
+            fig_stress.add_hline(y=5.0, line_dash="dash", line_color="#D97706", annotation_text="Target Batas NPL 5.0%")
+            fig_stress.update_layout(
+                template="plotly_white",
+                title="Kurva Sensitivitas Plafon Pinjaman terhadap NPL Rate (%)",
+                xaxis_title="Nominal Pinjaman Pokok (Juta Rupiah)",
+                yaxis_title="Probabilitas NPL (%)",
+                hovermode="x unified",
+                legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="right", x=1)
+            )
+            st.plotly_chart(fig_stress, use_container_width=True)
 
 # ==============================================================================
 # MODUL 4: BATCH LOAN PROFILER
@@ -925,23 +1044,24 @@ elif menu == "Batch Loan Profiler":
     st.markdown('<div class="main-title">Multi-Loan Batch Application Profiler</div>', unsafe_allow_html=True)
     st.markdown('<div class="sub-title">Evaluasi massal portofolio calon debitur sekaligus dengan format terstandarisasi</div>', unsafe_allow_html=True)
 
-    if st.button("Generate 10 Sample Data Aplikasi Debitur"):
-        sample_data = pd.DataFrame({
-            'Nama_Debitur': [f'Debitur_{i+1}' for i in range(10)],
-            'Merk': ['Honda', 'Yamaha', 'Honda', 'Kawasaki', 'Honda', 'Yamaha', 'Honda', 'Yamaha', 'Honda', 'Lainnya'],
-            'Usia_Motor': [2, 5, 8, 1, 3, 10, 4, 6, 2, 7],
-            'Harga_OTR': [15000000, 12000000, 8000000, 25000000, 14000000, 6000000, 16000000, 11000000, 18000000, 7000000],
-            'Pinjaman': [6000000, 5000000, 4500000, 8000000, 5500000, 3500000, 6500000, 5000000, 7000000, 3500000],
-            'STNK': ['A/N Sendiri', 'A/N Orang Lain', 'A/N Orang Lain', 'A/N Sendiri', 'A/N Sendiri', 'A/N Orang Lain', 'A/N Sendiri', 'A/N Orang Lain', 'A/N Sendiri', 'A/N Orang Lain'],
-            'Pajak': ['Pajak Aktif', 'Pajak Aktif', 'Pajak Tidak Aktif', 'Pajak Aktif', 'Pajak Aktif', 'Pajak Tidak Aktif', 'Pajak Aktif', 'Pajak Tidak Aktif', 'Pajak Aktif', 'Pajak Tidak Aktif'],
-            'Pekerjaan': ['PNS', 'KARYAWAN_SWASTA', 'WIRASWASTA', 'PNS', 'GURU', 'BELUM_BEKERJA', 'PEDAGANG', 'BURUH', 'KARYAWAN_SWASTA', 'PELAJAR'],
-            'Repeat_Borrower': [1, 0, 0, 1, 1, 0, 0, 0, 1, 0]
-        })
-        st.session_state['batch_df'] = sample_data
+    with st.container(border=True):
+        if st.button("Generate 10 Sample Data Aplikasi Debitur"):
+            sample_data = pd.DataFrame({
+                'Nama_Debitur': [f'Debitur_{i+1}' for i in range(10)],
+                'Merk': ['Honda', 'Yamaha', 'Honda', 'Kawasaki', 'Honda', 'Yamaha', 'Honda', 'Yamaha', 'Honda', 'Lainnya'],
+                'Usia_Motor': [2, 5, 8, 1, 3, 10, 4, 6, 2, 7],
+                'Harga_OTR': [15000000, 12000000, 8000000, 25000000, 14000000, 6000000, 16000000, 11000000, 18000000, 7000000],
+                'Pinjaman': [6000000, 5000000, 4500000, 8000000, 5500000, 3500000, 6500000, 5000000, 7000000, 3500000],
+                'STNK': ['A/N Sendiri', 'A/N Orang Lain', 'A/N Orang Lain', 'A/N Sendiri', 'A/N Sendiri', 'A/N Orang Lain', 'A/N Sendiri', 'A/N Orang Lain', 'A/N Sendiri', 'A/N Orang Lain'],
+                'Pajak': ['Pajak Aktif', 'Pajak Aktif', 'Pajak Tidak Aktif', 'Pajak Aktif', 'Pajak Aktif', 'Pajak Tidak Aktif', 'Pajak Aktif', 'Pajak Tidak Aktif', 'Pajak Aktif', 'Pajak Tidak Aktif'],
+                'Pekerjaan': ['PNS', 'KARYAWAN_SWASTA', 'WIRASWASTA', 'PNS', 'GURU', 'BELUM_BEKERJA', 'PEDAGANG', 'BURUH', 'KARYAWAN_SWASTA', 'PELAJAR'],
+                'Repeat_Borrower': [1, 0, 0, 1, 1, 0, 0, 0, 1, 0]
+            })
+            st.session_state['batch_df'] = sample_data
 
-    uploaded_file = st.file_uploader("Upload File CSV Debitur:", type=['csv'])
-    if uploaded_file is not None:
-        st.session_state['batch_df'] = pd.read_csv(uploaded_file)
+        uploaded_file = st.file_uploader("Upload File CSV Debitur:", type=['csv'])
+        if uploaded_file is not None:
+            st.session_state['batch_df'] = pd.read_csv(uploaded_file)
 
     if 'batch_df' in st.session_state:
         df_eval = st.session_state['batch_df'].copy()
@@ -971,9 +1091,30 @@ elif menu == "Batch Loan Profiler":
         
         st.markdown('<div class="section-header">Ringkasan Keputusan Evaluasi Massal</div>', unsafe_allow_html=True)
         c_b1, c_b2, c_b3 = st.columns(3)
-        c_b1.metric("Disetujui Penuh", len(res_df[res_df['Grade'].isin(['Grade A', 'Grade B'])]))
-        c_b2.metric("Perlu Review / Potong Plafon", len(res_df[res_df['Grade'] == 'Grade C']))
-        c_b3.metric("Ditolak (Kritis)", len(res_df[res_df['Grade'] == 'Grade D']))
+        with c_b1:
+            st.markdown(f"""
+            <div class="card-kpi">
+                <div class="card-kpi-label">Disetujui Penuh</div>
+                <div class="card-kpi-val" style="color: #059669 !important;">{len(res_df[res_df['Grade'].isin(['Grade A', 'Grade B'])])} Debitur</div>
+                <div class="card-kpi-sub">Grade A & Grade B</div>
+            </div>
+            """, unsafe_allow_html=True)
+        with c_b2:
+            st.markdown(f"""
+            <div class="card-kpi">
+                <div class="card-kpi-label">Review / Pangkas Plafon</div>
+                <div class="card-kpi-val" style="color: #D97706 !important;">{len(res_df[res_df['Grade'] == 'Grade C'])} Debitur</div>
+                <div class="card-kpi-sub">Grade C (Risiko Moderat Tinggi)</div>
+            </div>
+            """, unsafe_allow_html=True)
+        with c_b3:
+            st.markdown(f"""
+            <div class="card-kpi">
+                <div class="card-kpi-label">Ditolak / Kritis</div>
+                <div class="card-kpi-val" style="color: #DC2626 !important;">{len(res_df[res_df['Grade'] == 'Grade D'])} Debitur</div>
+                <div class="card-kpi-sub">Grade D (Severe Moral Hazard)</div>
+            </div>
+            """, unsafe_allow_html=True)
 
 # ==============================================================================
 # MODUL 5: EKONOMETRIKA DIAGNOSTICS
@@ -982,28 +1123,30 @@ elif menu == "Ekonometrika Diagnostics":
     st.markdown('<div class="main-title">Ekonometrika & Model Diagnostics</div>', unsafe_allow_html=True)
     st.markdown('<div class="sub-title">Evaluasi Goodness-of-Fit Model 0 s/d Model 4, VIF, dan Pengujian 8 Hipotesis Riset</div>', unsafe_allow_html=True)
 
-    st.markdown('<div class="section-header">1. Tabel Perbandingan Model Ekonometrika</div>', unsafe_allow_html=True)
-    model_df = pd.DataFrame([
-        {"Model": "Model 0 (Null Model)", "Param (k)": 1, "Log-Likelihood": -35057.93, "AIC": 70117.86, "BIC": 70127.71, "Pseudo R²": "0,00%", "ROC-AUC": "0,5000", "PR-AUC": "0,0691", "Brier Score": "0,06433"},
-        {"Model": "Model 1 (Core Risk)", "Param (k)": 8, "Log-Likelihood": -34507.86, "AIC": 69031.72, "BIC": 69110.49, "Pseudo R²": "1,57%", "ROC-AUC": "0,6002", "PR-AUC": "0,0923", "Brier Score": "0,06385"},
-        {"Model": "Model 2 (Core + LTV_MAX)", "Param (k)": 9, "Log-Likelihood": -34456.81, "AIC": 68931.62, "BIC": 69020.23, "Pseudo R²": "1,71%", "ROC-AUC": "0,6039", "PR-AUC": "0,0924", "Brier Score": "0,06383"},
-        {"Model": "Model 3 (Core + Zona LTV)", "Param (k)": 10, "Log-Likelihood": -34469.49, "AIC": 68958.99, "BIC": 69057.45, "Pseudo R²": "1,68%", "ROC-AUC": "0,6027", "PR-AUC": "0,0926", "Brier Score": "0,06381"},
-        {"Model": "Model 4 (Full Enhanced)", "Param (k)": 10, "Log-Likelihood": -33377.58, "AIC": 66775.15, "BIC": 66873.61, "Pseudo R²": "4,79%", "ROC-AUC": "0,6702", "PR-AUC": "0,1124", "Brier Score": "0,06291"}
-    ])
-    st.dataframe(model_df, use_container_width=True)
+    with st.container(border=True):
+        st.markdown('<div class="section-header">1. Tabel Perbandingan Model Ekonometrika</div>', unsafe_allow_html=True)
+        model_df = pd.DataFrame([
+            {"Model": "Model 0 (Null Model)", "Param (k)": 1, "Log-Likelihood": -35057.93, "AIC": 70117.86, "BIC": 70127.71, "Pseudo R²": "0,00%", "ROC-AUC": "0,5000", "PR-AUC": "0,0691", "Brier Score": "0,06433"},
+            {"Model": "Model 1 (Core Risk)", "Param (k)": 8, "Log-Likelihood": -34507.86, "AIC": 69031.72, "BIC": 69110.49, "Pseudo R²": "1,57%", "ROC-AUC": "0,6002", "PR-AUC": "0,0923", "Brier Score": "0,06385"},
+            {"Model": "Model 2 (Core + LTV_MAX)", "Param (k)": 9, "Log-Likelihood": -34456.81, "AIC": 68931.62, "BIC": 69020.23, "Pseudo R²": "1,71%", "ROC-AUC": "0,6039", "PR-AUC": "0,0924", "Brier Score": "0,06383"},
+            {"Model": "Model 3 (Core + Zona LTV)", "Param (k)": 10, "Log-Likelihood": -34469.49, "AIC": 68958.99, "BIC": 69057.45, "Pseudo R²": "1,68%", "ROC-AUC": "0,6027", "PR-AUC": "0,0926", "Brier Score": "0,06381"},
+            {"Model": "Model 4 (Full Enhanced)", "Param (k)": 10, "Log-Likelihood": -33377.58, "AIC": 66775.15, "BIC": 66873.61, "Pseudo R²": "4,79%", "ROC-AUC": "0,6702", "PR-AUC": "0,1124", "Brier Score": "0,06291"}
+        ])
+        st.dataframe(model_df, use_container_width=True)
 
-    st.markdown('<div class="section-header">2. Hasil Pengujian Formal 8 Hipotesis Riset</div>', unsafe_allow_html=True)
-    hyp_df = pd.DataFrame([
-        {"ID": "H1", "Hipotesis": "Hubungan kepemilikan STNK dan NPL", "Odds Ratio": "1,710", "Status": "DITERIMA", "Interpretasi": "STNK orang lain menaikkan odds macet +71% (p < 0.0001)"},
-        {"ID": "H2", "Hipotesis": "Hubungan jenis pekerjaan dan NPL", "Odds Ratio": "3,460", "Status": "DITERIMA", "Interpretasi": "Pengangguran berisiko 3.46x dibanding Karyawan Swasta"},
-        {"ID": "H3", "Hipotesis": "Hubungan merk kendaraan dan NPL", "Odds Ratio": "1,050", "Status": "DITERIMA", "Interpretasi": "Yamaha memiliki odds macet 5% lebih tinggi dibanding Honda"},
-        {"ID": "H4", "Hipotesis": "Hubungan usia kendaraan dan NPL", "Odds Ratio": "1,093", "Status": "DITERIMA", "Interpretasi": "Tiap 1 tahun usia motor menambah odds macet +9.3%"},
-        {"ID": "H5", "Hipotesis": "Hubungan status pajak dan NPL", "Odds Ratio": "1,118", "Status": "DITERIMA", "Interpretasi": "Pajak aktif berkorelasi dengan plafon pinjaman lebih besar"},
-        {"ID": "H6", "Hipotesis": "Hubungan nominal pinjaman pokok dan NPL", "Odds Ratio": "1,434", "Status": "DITERIMA", "Interpretasi": "Tiap kenaikan Rp 1 juta pinjaman menaikkan odds macet +43.4%"},
-        {"ID": "H7", "Hipotesis": "Signifikansi fitur LTV_MAX", "Odds Ratio": "0,097", "Status": "DITERIMA", "Interpretasi": "LTV_MAX kontinu memperbaiki AIC secara signifikan"},
-        {"ID": "H8", "Hipotesis": "Signifikansi klasifikasi Zona LTV", "Odds Ratio": "0,680", "Status": "DITERIMA", "Interpretasi": "Zona LTV terbukti signifikan namun inferior dibanding LTV_MAX"}
-    ])
-    st.dataframe(hyp_df, use_container_width=True)
+    with st.container(border=True):
+        st.markdown('<div class="section-header">2. Hasil Pengujian Formal 8 Hipotesis Riset</div>', unsafe_allow_html=True)
+        hyp_df = pd.DataFrame([
+            {"ID": "H1", "Hipotesis": "Hubungan kepemilikan STNK dan NPL", "Odds Ratio": "1,710", "Status": "DITERIMA", "Interpretasi": "STNK orang lain menaikkan odds macet +71% (p < 0.0001)"},
+            {"ID": "H2", "Hipotesis": "Hubungan jenis pekerjaan dan NPL", "Odds Ratio": "3,460", "Status": "DITERIMA", "Interpretasi": "Pengangguran berisiko 3.46x dibanding Karyawan Swasta"},
+            {"ID": "H3", "Hipotesis": "Hubungan merk kendaraan dan NPL", "Odds Ratio": "1,050", "Status": "DITERIMA", "Interpretasi": "Yamaha memiliki odds macet 5% lebih tinggi dibanding Honda"},
+            {"ID": "H4", "Hipotesis": "Hubungan usia kendaraan dan NPL", "Odds Ratio": "1,093", "Status": "DITERIMA", "Interpretasi": "Tiap 1 tahun usia motor menambah odds macet +9.3%"},
+            {"ID": "H5", "Hipotesis": "Hubungan status pajak dan NPL", "Odds Ratio": "1,118", "Status": "DITERIMA", "Interpretasi": "Pajak aktif berkorelasi dengan plafon pinjaman lebih besar"},
+            {"ID": "H6", "Hipotesis": "Hubungan nominal pinjaman pokok dan NPL", "Odds Ratio": "1,434", "Status": "DITERIMA", "Interpretasi": "Tiap kenaikan Rp 1 juta pinjaman menaikkan odds macet +43.4%"},
+            {"ID": "H7", "Hipotesis": "Signifikansi fitur LTV_MAX", "Odds Ratio": "0,097", "Status": "DITERIMA", "Interpretasi": "LTV_MAX kontinu memperbaiki AIC secara signifikan"},
+            {"ID": "H8", "Hipotesis": "Signifikansi klasifikasi Zona LTV", "Odds Ratio": "0,680", "Status": "DITERIMA", "Interpretasi": "Zona LTV terbukti signifikan namun inferior dibanding LTV_MAX"}
+        ])
+        st.dataframe(hyp_df, use_container_width=True)
 
 # ==============================================================================
 # MODUL 6: MATRIKS KEBIJAKAN CABANG
@@ -1015,10 +1158,12 @@ elif menu == "Matriks Kebijakan Cabang":
     tab1, tab2 = st.tabs(["Matriks Kebijakan 4 Klaster Pekerjaan", "Rule of Thumb Metrik Ahli"])
 
     with tab1:
-        st.dataframe(pd.DataFrame(BRANCH_OPERATIONAL_POLICIES), use_container_width=True)
+        with st.container(border=True):
+            st.dataframe(pd.DataFrame(BRANCH_OPERATIONAL_POLICIES), use_container_width=True)
 
     with tab2:
-        st.dataframe(pd.DataFrame(EXPERT_RULES_OF_THUMB), use_container_width=True)
+        with st.container(border=True):
+            st.dataframe(pd.DataFrame(EXPERT_RULES_OF_THUMB), use_container_width=True)
 
 # ==============================================================================
 # MODUL 7: GALERI PUBLIKASI RISET
@@ -1039,7 +1184,7 @@ elif menu == "Galeri Publikasi Riset":
     for title, path_str in figures:
         p = BASE_DIR / path_str
         if p.exists():
-            st.markdown(f"#### {title}")
-            st.image(str(p), use_column_width=True)
-            st.markdown("---")
+            with st.container(border=True):
+                st.markdown(f"#### {title}")
+                st.image(str(p), use_column_width=True)
 
