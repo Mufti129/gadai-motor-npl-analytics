@@ -12,7 +12,9 @@ Platform     : Streamlit Community Cloud Ready (100% Parity with Flask REST API)
 """
 
 import os
+import io
 import json
+import zipfile
 from pathlib import Path
 from typing import Dict, Any, List
 
@@ -41,13 +43,11 @@ st.markdown("""
         font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     }
     
-    /* Global Container Padding */
     .block-container {
-        padding-top: 2rem;
+        padding-top: 1.8rem;
         padding-bottom: 3rem;
     }
     
-    /* Header Typography with guaranteed high contrast */
     .main-title {
         font-size: 1.85rem;
         font-weight: 800;
@@ -63,7 +63,6 @@ st.markdown("""
         margin-bottom: 1.5rem;
     }
     
-    /* High-Contrast Corporate Cards */
     .card-kpi {
         background-color: #FFFFFF !important;
         border: 1px solid #CBD5E1 !important;
@@ -96,7 +95,6 @@ st.markdown("""
         font-weight: 500;
     }
     
-    /* High-Contrast Decision Box */
     .decision-card {
         background-color: #FFFFFF !important;
         border-radius: 12px;
@@ -136,7 +134,6 @@ st.markdown("""
     .badge-grade-c { background-color: #FFEDD5 !important; color: #7C2D12 !important; border: 1.5px solid #FB923C !important; }
     .badge-grade-d { background-color: #FFE4E6 !important; color: #881337 !important; border: 1.5px solid #FB7185 !important; }
     
-    /* Info Box Callouts */
     .info-box-blue {
         background-color: #F0F7FF !important;
         border-left: 4px solid #2563EB !important;
@@ -151,35 +148,6 @@ st.markdown("""
         margin-bottom: 1rem;
     }
     
-    .info-box-emerald {
-        background-color: #F0FDF4 !important;
-        border-left: 4px solid #059669 !important;
-        border-top: 1px solid #BBF7D0 !important;
-        border-right: 1px solid #BBF7D0 !important;
-        border-bottom: 1px solid #BBF7D0 !important;
-        border-radius: 8px;
-        padding: 14px 18px;
-        color: #064E3B !important;
-        font-size: 0.88rem;
-        margin-top: 1rem;
-        margin-bottom: 1rem;
-    }
-
-    .info-box-rose {
-        background-color: #FFF1F2 !important;
-        border-left: 4px solid #E11D48 !important;
-        border-top: 1px solid #FECDD3 !important;
-        border-right: 1px solid #FECDD3 !important;
-        border-bottom: 1px solid #FECDD3 !important;
-        border-radius: 8px;
-        padding: 14px 18px;
-        color: #881337 !important;
-        font-size: 0.88rem;
-        margin-top: 1rem;
-        margin-bottom: 1rem;
-    }
-    
-    /* Status Pill Badges */
     .status-pill {
         display: inline-block;
         padding: 3px 10px;
@@ -203,7 +171,6 @@ st.markdown("""
         padding-bottom: 0.4rem;
     }
     
-    /* Custom Metric Item Box */
     .metric-item-box {
         background-color: #F8FAFC !important;
         border: 1px solid #CBD5E1 !important;
@@ -223,11 +190,19 @@ st.markdown("""
         font-weight: 800;
         color: #0F172A !important;
     }
+    
+    .sidebar-download-box {
+        background-color: #F8FAFC !important;
+        border: 1px solid #CBD5E1 !important;
+        border-radius: 8px;
+        padding: 12px;
+        margin-top: 10px;
+    }
 </style>
 """, unsafe_allow_html=True)
 
 # ==============================================================================
-# KONFIGURASI GLOBAL & AMBANG BATAS RISIKO (100% PERSIS DENGAN FLASK)
+# PATH & PARAMETER AMBANG BATAS RISIKO (100% PERSIS DENGAN FLASK)
 # ==============================================================================
 BASE_DIR = Path(__file__).resolve().parent
 OUTPUT_DIR = BASE_DIR / "output"
@@ -236,14 +211,14 @@ MODELS_DIR = OUTPUT_DIR / "models"
 TABLES_DIR = OUTPUT_DIR / "tables"
 
 CONFIG_UNDERWRITING = {
-    'TARGET_NPL_CUTOFF_PCT': 5.0,        # Batas toleransi NPL korporasi ideal (5,0%)
-    'MODERATE_RISK_THRESHOLD_PCT': 7.0,  # Ambang batas risiko moderat (Grade B)
-    'HIGH_RISK_THRESHOLD_PCT': 10.0,     # Ambang batas risiko tinggi (Grade C)
-    'SEVERE_RISK_THRESHOLD_PCT': 15.0,   # Ambang batas risiko kritis / tolak mutlak (Grade D)
-    'MAX_SAFE_LTV_SENDIRI': 0.45,        # Rekomendasi batas aman LTV: STNK Sendiri (45%)
-    'MAX_SAFE_LTV_ORANG_LAIN': 0.35,     # Rekomendasi batas aman LTV: STNK Orang Lain (35%)
-    'MAX_SAFE_LTV_PAJAK_MATI': 0.35,     # Rekomendasi batas aman LTV: Pajak Mati (35%)
-    'MAX_SAFE_LTV_USIA_TUA': 0.35        # Rekomendasi batas aman LTV: Motor Tua >= 7 Thn (35%)
+    'TARGET_NPL_CUTOFF_PCT': 5.0,
+    'MODERATE_RISK_THRESHOLD_PCT': 7.0,
+    'HIGH_RISK_THRESHOLD_PCT': 10.0,
+    'SEVERE_RISK_THRESHOLD_PCT': 15.0,
+    'MAX_SAFE_LTV_SENDIRI': 0.45,
+    'MAX_SAFE_LTV_ORANG_LAIN': 0.35,
+    'MAX_SAFE_LTV_PAJAK_MATI': 0.35,
+    'MAX_SAFE_LTV_USIA_TUA': 0.35
 }
 
 MODEL_2_PARAMS = {
@@ -273,112 +248,62 @@ MODEL_4_PARAMS = {
 
 JOB_RISK_FACTORS = {
     'TIDAK_ISI': {
-        'id': 'TIDAK_ISI',
-        'label': 'Tidak Diketahui / Standar',
-        'beta': 0.0,
-        'or': 1.000,
-        'cluster': 'Klaster 2: Core Baseline',
-        'cluster_code': 'CORE',
-        'ltv_mod': 0.0,
+        'id': 'TIDAK_ISI', 'label': 'Tidak Diketahui / Standar', 'beta': 0.0, 'or': 1.000,
+        'cluster': 'Klaster 2: Core Baseline', 'cluster_code': 'CORE', 'ltv_mod': 0.0,
         'policy': 'Skema Standar Cabang (LTV 45% Sendiri / 35% Orang Lain)',
         'verifikasi': 'Prosedur loket standar, cek fisik no rangka/mesin.'
     },
     'KARYAWAN_SWASTA': {
-        'id': 'KARYAWAN_SWASTA',
-        'label': 'Karyawan Swasta',
-        'beta': 0.0,
-        'or': 1.000,
-        'cluster': 'Klaster 2: Core Baseline',
-        'cluster_code': 'CORE',
-        'ltv_mod': 0.0,
+        'id': 'KARYAWAN_SWASTA', 'label': 'Karyawan Swasta', 'beta': 0.0, 'or': 1.000,
+        'cluster': 'Klaster 2: Core Baseline', 'cluster_code': 'CORE', 'ltv_mod': 0.0,
         'policy': 'Skema Standar Cabang (Baseline Portofolio)',
         'verifikasi': 'Cek ID Card / slip gaji atau mutasi rekening jika tersedia.'
     },
     'PNS': {
-        'id': 'PNS',
-        'label': 'PNS / ASN / Pegawai BUMN',
-        'beta': -0.147041,
-        'or': 0.863,
-        'cluster': 'Klaster 1: Prime / Preferred',
-        'cluster_code': 'PRIME',
-        'ltv_mod': 0.05,
+        'id': 'PNS', 'label': 'PNS / ASN / Pegawai BUMN', 'beta': -0.147041, 'or': 0.863,
+        'cluster': 'Klaster 1: Prime / Preferred', 'cluster_code': 'PRIME', 'ltv_mod': 0.05,
         'policy': 'Bonus LTV +5% (Maksimal 50%) & Fast-Track Approval',
         'verifikasi': 'Fast-Track: Lampirkan SK/Kartu Pegawai/Slip Gaji, tanpa survey fisik domisili.'
     },
     'GURU': {
-        'id': 'GURU',
-        'label': 'Guru / Dosen',
-        'beta': -0.428912,
-        'or': 0.651,
-        'cluster': 'Klaster 1: Prime / Preferred',
-        'cluster_code': 'PRIME',
-        'ltv_mod': 0.05,
+        'id': 'GURU', 'label': 'Guru / Dosen', 'beta': -0.428912, 'or': 0.651,
+        'cluster': 'Klaster 1: Prime / Preferred', 'cluster_code': 'PRIME', 'ltv_mod': 0.05,
         'policy': 'Bonus LTV +5% (Maksimal 50%) & Fast-Track Approval (Profil Paling Aman)',
         'verifikasi': 'Fast-Track: Verifikasi kartu tanda guru/dosen/NUPTK aktif.'
     },
     'IRT': {
-        'id': 'IRT',
-        'label': 'Ibu Rumah Tangga (IRT)',
-        'beta': 0.002206,
-        'or': 1.002,
-        'cluster': 'Klaster 2: Core Baseline',
-        'cluster_code': 'CORE',
-        'ltv_mod': 0.0,
+        'id': 'IRT', 'label': 'Ibu Rumah Tangga (IRT)', 'beta': 0.002206, 'or': 1.002,
+        'cluster': 'Klaster 2: Core Baseline', 'cluster_code': 'CORE', 'ltv_mod': 0.0,
         'policy': 'Skema Standar (Verifikasi Sumber Nafkah Belanja Keluarga)',
         'verifikasi': 'Konfirmasi nomor kontak suami / kepala keluarga serumah.'
     },
     'BURUH': {
-        'id': 'BURUH',
-        'label': 'Buruh Pabrik / Bangunan',
-        'beta': 0.017158,
-        'or': 1.017,
-        'cluster': 'Klaster 2: Core Baseline',
-        'cluster_code': 'CORE',
-        'ltv_mod': 0.0,
+        'id': 'BURUH', 'label': 'Buruh Pabrik / Bangunan', 'beta': 0.017158, 'or': 1.017,
+        'cluster': 'Klaster 2: Core Baseline', 'cluster_code': 'CORE', 'ltv_mod': 0.0,
         'policy': 'Skema Standar (Upah Rutin Mingguan/Bulanan)',
         'verifikasi': 'Konfirmasi tempat kerja buruh/pabrik.'
     },
     'PEDAGANG': {
-        'id': 'PEDAGANG',
-        'label': 'Pedagang Toko / Kios / Pasar',
-        'beta': 0.333499,
-        'or': 1.396,
-        'cluster': 'Klaster 3: Arus Kas Volatil',
-        'cluster_code': 'VOLATILE',
-        'ltv_mod': -0.05,
+        'id': 'PEDAGANG', 'label': 'Pedagang Toko / Kios / Pasar', 'beta': 0.333499, 'or': 1.396,
+        'cluster': 'Klaster 3: Arus Kas Volatil', 'cluster_code': 'VOLATILE', 'ltv_mod': -0.05,
         'policy': 'Pengetatan LTV -5% (Maksimal 40%) & Wajib Cek Nota Usaha',
         'verifikasi': 'Lampirkan foto kios/lapak dagang atau bukti nota transaksi 1 minggu terakhir.'
     },
     'WIRASWASTA': {
-        'id': 'WIRASWASTA',
-        'label': 'Wiraswasta / Pengusaha',
-        'beta': 0.889340,
-        'or': 2.434,
-        'cluster': 'Klaster 3: Arus Kas Volatil',
-        'cluster_code': 'VOLATILE',
-        'ltv_mod': -0.05,
+        'id': 'WIRASWASTA', 'label': 'Wiraswasta / Pengusaha', 'beta': 0.889340, 'or': 2.434,
+        'cluster': 'Klaster 3: Arus Kas Volatil', 'cluster_code': 'VOLATILE', 'ltv_mod': -0.05,
         'policy': 'Pengetatan LTV -5% (Maksimal 40%) & Verifikasi Fisik Tempat Usaha',
         'verifikasi': 'Wajib dokumentasi tempat usaha fisik untuk mitigasi risiko volatilitas omzet modal kerja.'
     },
     'PELAJAR': {
-        'id': 'PELAJAR',
-        'label': 'Pelajar / Mahasiswa',
-        'beta': 0.313070,
-        'or': 1.368,
-        'cluster': 'Klaster 4: Rentan / Moral Hazard',
-        'cluster_code': 'VULNERABLE',
-        'ltv_mod': -0.05,
+        'id': 'PELAJAR', 'label': 'Pelajar / Mahasiswa', 'beta': 0.313070, 'or': 1.368,
+        'cluster': 'Klaster 4: Rentan / Moral Hazard', 'cluster_code': 'VULNERABLE', 'ltv_mod': -0.05,
         'policy': 'Plafon Dibatasi Maksimal Rp 2.500.000 & STNK Wajib A/N Sendiri',
         'verifikasi': 'Wajib Kartu Tanda Mahasiswa (KTM) & nomor HP orang tua/wali aktif.'
     },
     'BELUM_BEKERJA': {
-        'id': 'BELUM_BEKERJA',
-        'label': 'Belum / Tidak Bekerja (Pengangguran)',
-        'beta': 0.317378,
-        'or': 1.374,
-        'cluster': 'Klaster 4: Rentan / Moral Hazard',
-        'cluster_code': 'VULNERABLE',
-        'ltv_mod': -0.10,
+        'id': 'BELUM_BEKERJA', 'label': 'Belum / Tidak Bekerja (Pengangguran)', 'beta': 0.317378, 'or': 1.374,
+        'cluster': 'Klaster 4: Rentan / Moral Hazard', 'cluster_code': 'VULNERABLE', 'ltv_mod': -0.10,
         'policy': 'Plafon Cap Maks Rp 2.500.000 (Pinjaman > Rp 2.5 Jt Wajib Approval Kepala Cabang)',
         'verifikasi': 'Wajib ada penjamin keluarga serumah yang bekerja & survey domisili debitur.'
     }
@@ -482,9 +407,57 @@ BRANCH_OPERATIONAL_POLICIES = [
     }
 ]
 
+# Kamus Data Definisi Kolom Dataset Cleaned
+DATA_DICTIONARY = [
+    {"Kolom": "tanggal_gadai", "Tipe": "Date", "Deskripsi": "Tanggal pencairan transaksi gadai motor."},
+    {"Kolom": "merk_group", "Tipe": "Categorical", "Deskripsi": "Pengelompokan merk kendaraan utama (Honda, Yamaha, Kawasaki, Lainnya)."},
+    {"Kolom": "kondisi_stnk", "Tipe": "Categorical", "Deskripsi": "Status kepemilikan dokumen STNK (A/N SENDIRI vs A/N ORANG LAIN)."},
+    {"Kolom": "pajak_status", "Tipe": "Categorical", "Deskripsi": "Status masa berlaku pajak STNK (Pajak Aktif vs Pajak Tidak Aktif)."},
+    {"Kolom": "usia_kendaraan_thn", "Tipe": "Numeric", "Deskripsi": "Usia kendaraan bermotor dalam satuan tahun pada saat digadaikan."},
+    {"Kolom": "nilai_taksiran", "Tipe": "Numeric (Rp)", "Deskripsi": "Nilai estimasi harga pasar wajar kendaraan (OTR) oleh penaksir cabang."},
+    {"Kolom": "pinjaman_pokok_efektif", "Tipe": "Numeric (Rp)", "Deskripsi": "Nominal pokok pinjaman uang yang dicairkan ke debitur."},
+    {"Kolom": "LTV", "Tipe": "Float", "Deskripsi": "Rasio pinjaman terhadap nilai taksiran pasar kendaraan (Pinjaman / OTR)."},
+    {"Kolom": "LTV_MAX", "Tipe": "Float", "Deskripsi": "Fitur normalisasi kontinu LTV yang dibatasi pada batas atas 1.50."},
+    {"Kolom": "pekerjaan_group", "Tipe": "Categorical", "Deskripsi": "Standardisasi 10 kategori profesi/pekerjaan debitur."},
+    {"Kolom": "is_repeat_borrower", "Tipe": "Binary (0/1)", "Deskripsi": "Indikator riwayat debitur (1 = Repeat Borrower, 0 = Nasabah Baru)."},
+    {"Kolom": "NPL_clean", "Tipe": "Binary (0/1)", "Deskripsi": "Target biner status kredit macet (1 = Gagal Bayar/NPL, 0 = Lancar/Lunas)."}
+]
+
 # ==============================================================================
-# HELPER FUNCTIONS
+# HELPER DATASET LOADING DENGAN STREAMLIT CACHING
 # ==============================================================================
+@st.cache_data(show_spinner="Memuat dataset portofolio 139.493 baris...")
+def load_clean_dataset() -> pd.DataFrame:
+    """Memuat dataset cleaned (mengutamakan format parquet yang super cepat)."""
+    pq_path = OUTPUT_DIR / "data_cleaned.parquet"
+    if pq_path.exists():
+        try:
+            return pd.read_parquet(pq_path)
+        except Exception:
+            pass
+    
+    zip_path = OUTPUT_DIR / "data_cleaned.zip"
+    if zip_path.exists():
+        try:
+            with zipfile.ZipFile(zip_path, 'r') as z:
+                with z.open('data_cleaned.csv') as f:
+                    return pd.read_csv(f, low_memory=False)
+        except Exception:
+            pass
+
+    csv_path = OUTPUT_DIR / "data_cleaned.csv"
+    if csv_path.exists():
+        try:
+            return pd.read_csv(csv_path, low_memory=False)
+        except Exception:
+            pass
+            
+    sample_path = OUTPUT_DIR / "data_cleaned_sample.csv"
+    if sample_path.exists():
+        return pd.read_csv(sample_path)
+        
+    return pd.DataFrame()
+
 def rupiah(nilai: float) -> str:
     if pd.isna(nilai) or nilai == 0:
         return "Rp 0"
@@ -544,7 +517,6 @@ def hitung_skor_underwriting(
     is_repeat_borrower: int = 0,
     pekerjaan: str = "TIDAK_ISI"
 ) -> Dict[str, Any]:
-    # 1. Normalisasi dan Derivasi Fitur Agunan
     otr = max(float(harga_taksiran_otr), 1.0)
     pinjaman = float(pinjaman_pokok)
     ltv = pinjaman / otr
@@ -564,11 +536,9 @@ def hitung_skor_underwriting(
 
     is_rep = 1 if int(is_repeat_borrower) == 1 else 0
 
-    # 2. Faktor Risiko Pekerjaan (Delta Logit Overlay)
     job_info = get_job_info(pekerjaan)
     delta_logit_job = job_info['beta']
 
-    # 3. Estimasi Logit Model 2 (Baseline Core + LTV_MAX + Job Delta)
     p2 = MODEL_2_PARAMS
     logit_m2 = (
         p2['Intercept'] +
@@ -584,7 +554,6 @@ def hitung_skor_underwriting(
     )
     prob_m2_pct = (1.0 / (1.0 + np.exp(-logit_m2))) * 100.0
 
-    # 4. Estimasi Logit Model 4 (Full Enhanced + Repeat Borrower + Job Delta)
     p4 = MODEL_4_PARAMS
     logit_m4 = (
         p4['Intercept'] +
@@ -603,7 +572,6 @@ def hitung_skor_underwriting(
 
     prob_final = prob_m4_pct if is_rep == 1 else prob_m2_pct
 
-    # 5. Penentuan Peringkat Risiko (Risk Tier & Grade)
     if prob_final < CONFIG_UNDERWRITING['TARGET_NPL_CUTOFF_PCT']:
         risk_tier = "RENDAH (LOW RISK)"
         risk_grade = "Grade A"
@@ -625,7 +593,6 @@ def hitung_skor_underwriting(
         color_hex = "#DC2626"
         badge_css = "badge-grade-d"
 
-    # 6. Batas Aman Plafon dan Rasio LTV Sesuai Kebijakan Risiko + Overlay Profesi
     if is_stnk_orang_lain:
         base_safe_ltv = CONFIG_UNDERWRITING['MAX_SAFE_LTV_ORANG_LAIN']
     elif not is_pajak_aktif or usia_thn >= 7:
@@ -640,7 +607,6 @@ def hitung_skor_underwriting(
     else:
         safe_loan_limit = otr * safe_ltv_limit
 
-    # 7. Analisis Driver Pemicu Risiko
     reasons = []
     risk_drivers = []
 
@@ -695,7 +661,6 @@ def hitung_skor_underwriting(
         reasons.append(f"Overlay Profesi ({job_info['label']}): {job_effect} — {job_info['cluster']}.")
         risk_drivers.append({"faktor": "Profesi Debitur", "kondisi": job_info['label'], "efek": job_effect, "tipe": job_tip})
 
-    # 8. Sintesis Keputusan Underwriting Cabang & Rencana Aksi (100% Identik dengan Flask)
     if job_info['cluster_code'] == 'VULNERABLE' and is_stnk_orang_lain:
         decision = "REJECTED (TOLAK PENGAJUAN)"
         decision_code = "REJECT"
@@ -769,7 +734,7 @@ def hitung_skor_underwriting(
     }
 
 # ==============================================================================
-# SIDEBAR NAVIGATION
+# SIDEBAR NAVIGATION & QUICK DOWNLOAD
 # ==============================================================================
 with st.sidebar:
     st.markdown("### PUSAT GADAI INDONESIA")
@@ -783,12 +748,39 @@ with st.sidebar:
             "Credit Scoring Engine",
             "What-If Stress Testing",
             "Batch Loan Profiler",
+            "Dataset Clean & Explorer",
             "Ekonometrika Diagnostics",
             "Matriks Kebijakan Cabang",
             "Galeri Publikasi Riset"
         ]
     )
     
+    st.markdown("---")
+    st.markdown("**UNDUH DATASET CEPAT:**")
+    
+    # Download Parquet / Zip Button directly in sidebar
+    zip_file_path = OUTPUT_DIR / "data_cleaned.zip"
+    if zip_file_path.exists():
+        with open(zip_file_path, "rb") as fz:
+            st.download_button(
+                label="Unduh Full Dataset (.ZIP - 10MB)",
+                data=fz.read(),
+                file_name="data_cleaned_pgi_gadai_motor.zip",
+                mime="application/zip",
+                use_container_width=True
+            )
+            
+    parquet_file_path = OUTPUT_DIR / "data_cleaned.parquet"
+    if parquet_file_path.exists():
+        with open(parquet_file_path, "rb") as fp:
+            st.download_button(
+                label="Unduh Parquet (.PARQUET - 8MB)",
+                data=fp.read(),
+                file_name="data_cleaned_pgi_gadai_motor.parquet",
+                mime="application/octet-stream",
+                use_container_width=True
+            )
+
     st.markdown("---")
     st.markdown("""
     **Parameter Acuan Portofolio:**
@@ -1117,7 +1109,173 @@ elif menu == "Batch Loan Profiler":
             """, unsafe_allow_html=True)
 
 # ==============================================================================
-# MODUL 5: EKONOMETRIKA DIAGNOSTICS
+# MODUL 5: DATASET CLEAN & DATA EXPLORER (BARU)
+# ==============================================================================
+elif menu == "Dataset Clean & Explorer":
+    st.markdown('<div class="main-title">Dataset Clean & Data Explorer</div>', unsafe_allow_html=True)
+    st.markdown('<div class="sub-title">Preview data komprehensif, ringkasan statistik deskriptif, dan pusat unduhan dataset resmi</div>', unsafe_allow_html=True)
+
+    df_full = load_clean_dataset()
+
+    # KPI Dataset Overview Cards
+    k1, k2, k3, k4 = st.columns(4)
+    with k1:
+        st.markdown(f"""
+        <div class="card-kpi">
+            <div class="card-kpi-label">Total Baris Transaksi</div>
+            <div class="card-kpi-val">{len(df_full):,}</div>
+            <div class="card-kpi-sub">100% Data Valid Terverifikasi</div>
+        </div>
+        """, unsafe_allow_html=True)
+    with k2:
+        st.markdown(f"""
+        <div class="card-kpi">
+            <div class="card-kpi-label">Total Fitur / Kolom</div>
+            <div class="card-kpi-val">{df_full.shape[1]} Kolom</div>
+            <div class="card-kpi-sub">Data Agunan & Finansial</div>
+        </div>
+        """, unsafe_allow_html=True)
+    with k3:
+        st.markdown("""
+        <div class="card-kpi">
+            <div class="card-kpi-label">Tingkat Prevalensi NPL</div>
+            <div class="card-kpi-val" style="color: #DC2626 !important;">6,91%</div>
+            <div class="card-kpi-sub">9.640 Debitur Macet</div>
+        </div>
+        """, unsafe_allow_html=True)
+    with k4:
+        st.markdown("""
+        <div class="card-kpi">
+            <div class="card-kpi-label">Penyaluran Pinjaman</div>
+            <div class="card-kpi-val" style="color: #059669 !important;">Rp 274,87 M</div>
+            <div class="card-kpi-sub">Rata-rata Rp 1,97 Juta</div>
+        </div>
+        """, unsafe_allow_html=True)
+
+    tab_data1, tab_data2, tab_data3, tab_data4 = st.tabs([
+        "Preview Data Interaktif",
+        "Statistik Deskriptif",
+        "Kamus Data & Variabel",
+        "Pusat Unduhan Dataset"
+    ])
+
+    # Tab 1: Interactive Data Preview
+    with tab_data1:
+        with st.container(border=True):
+            st.markdown('<div class="section-header">Filter & Tampilkan Kolom</div>', unsafe_allow_html=True)
+            
+            # Default important columns
+            default_cols = [
+                'tanggal_gadai', 'merk_group', 'kondisi_stnk', 'pajak_status',
+                'usia_kendaraan_thn', 'nilai_taksiran', 'pinjaman_pokok_efektif',
+                'LTV', 'LTV_MAX', 'pekerjaan_group', 'is_repeat_borrower', 'NPL_clean'
+            ]
+            available_cols = [c for c in default_cols if c in df_full.columns]
+            all_cols = df_full.columns.tolist()
+
+            col_select = st.multiselect("Pilih Kolom yang Ditampilkan:", all_cols, default=available_cols if available_cols else all_cols[:10])
+            
+            c_s1, c_s2 = st.columns([1, 2])
+            with c_s1:
+                row_limit = st.slider("Jumlah Baris Preview:", min_value=10, max_value=1000, value=50, step=10)
+            with c_s2:
+                search_term = st.text_input("Pencarian Teks (Merk / Profesi / STNK):", "")
+
+            df_display = df_full[col_select] if col_select else df_full
+            
+            if search_term:
+                mask = df_display.astype(str).apply(lambda row: row.str.contains(search_term, case=False).any(), axis=1)
+                df_display = df_display[mask]
+
+            st.dataframe(df_display.head(row_limit), use_container_width=True)
+            st.caption(f"Menampilkan {min(row_limit, len(df_display))} dari total {len(df_full):,} baris data.")
+
+    # Tab 2: Descriptive Statistics
+    with tab_data2:
+        with st.container(border=True):
+            st.markdown('<div class="section-header">Ringkasan Statistik Fitur Numerik</div>', unsafe_allow_html=True)
+            num_cols = df_full.select_dtypes(include=[np.number]).columns.tolist()
+            if num_cols:
+                desc_df = df_full[num_cols].describe().T
+                desc_df = desc_df.rename(columns={
+                    'count': 'Jumlah', 'mean': 'Rata-rata', 'std': 'Standar Deviasi',
+                    'min': 'Minimum', '25%': 'Q1 (25%)', '50%': 'Median (50%)',
+                    '75%': 'Q3 (75%)', 'max': 'Maksimum'
+                })
+                st.dataframe(desc_df, use_container_width=True)
+            else:
+                st.info("Tidak ada fitur numerik yang terdeteksi.")
+
+    # Tab 3: Data Dictionary
+    with tab_data3:
+        with st.container(border=True):
+            st.markdown('<div class="section-header">Kamus Data & Definisi Variabel Penelitian</div>', unsafe_allow_html=True)
+            st.dataframe(pd.DataFrame(DATA_DICTIONARY), use_container_width=True)
+
+    # Tab 4: Download Center
+    with tab_data4:
+        with st.container(border=True):
+            st.markdown('<div class="section-header">Pusat Unduhan Format Dataset Lengkap</div>', unsafe_allow_html=True)
+            st.write("Silakan pilih format file dataset yang sesuai dengan kebutuhan analisis Anda:")
+            
+            col_d1, col_d2, col_d3 = st.columns(3)
+            
+            with col_d1:
+                st.markdown("""
+                <div class="card-kpi" style="text-align: center;">
+                    <div class="card-kpi-label">Dataset Penuh (CSV Zip)</div>
+                    <div class="card-kpi-val" style="font-size: 1.3rem;">10.2 MB</div>
+                    <div class="card-kpi-sub">Format CSV terkompresi (139k baris)</div>
+                </div>
+                """, unsafe_allow_html=True)
+                if (OUTPUT_DIR / "data_cleaned.zip").exists():
+                    with open(OUTPUT_DIR / "data_cleaned.zip", "rb") as fz:
+                        st.download_button(
+                            label="Unduh CSV.ZIP (10 MB)",
+                            data=fz.read(),
+                            file_name="data_cleaned_pgi_gadai_motor.zip",
+                            mime="application/zip",
+                            use_container_width=True
+                        )
+
+            with col_d2:
+                st.markdown("""
+                <div class="card-kpi" style="text-align: center;">
+                    <div class="card-kpi-label">Dataset Parquet (Cepat)</div>
+                    <div class="card-kpi-val" style="font-size: 1.3rem; color: #2563EB !important;">8.5 MB</div>
+                    <div class="card-kpi-sub">Format binary columnar Pandas/PyArrow</div>
+                </div>
+                """, unsafe_allow_html=True)
+                if (OUTPUT_DIR / "data_cleaned.parquet").exists():
+                    with open(OUTPUT_DIR / "data_cleaned.parquet", "rb") as fp:
+                        st.download_button(
+                            label="Unduh Parquet (8.5 MB)",
+                            data=fp.read(),
+                            file_name="data_cleaned_pgi_gadai_motor.parquet",
+                            mime="application/octet-stream",
+                            use_container_width=True
+                        )
+
+            with col_d3:
+                st.markdown("""
+                <div class="card-kpi" style="text-align: center;">
+                    <div class="card-kpi-label">Sample Data (1.000 Baris)</div>
+                    <div class="card-kpi-val" style="font-size: 1.3rem; color: #059669 !important;">100 KB</div>
+                    <div class="card-kpi-sub">Sample ringkas format CSV standar</div>
+                </div>
+                """, unsafe_allow_html=True)
+                if (OUTPUT_DIR / "data_cleaned_sample.csv").exists():
+                    with open(OUTPUT_DIR / "data_cleaned_sample.csv", "rb") as fs:
+                        st.download_button(
+                            label="Unduh Sample CSV (100 KB)",
+                            data=fs.read(),
+                            file_name="data_cleaned_sample_1000_rows.csv",
+                            mime="text/csv",
+                            use_container_width=True
+                        )
+
+# ==============================================================================
+# MODUL 6: EKONOMETRIKA DIAGNOSTICS
 # ==============================================================================
 elif menu == "Ekonometrika Diagnostics":
     st.markdown('<div class="main-title">Ekonometrika & Model Diagnostics</div>', unsafe_allow_html=True)
@@ -1149,7 +1307,7 @@ elif menu == "Ekonometrika Diagnostics":
         st.dataframe(hyp_df, use_container_width=True)
 
 # ==============================================================================
-# MODUL 6: MATRIKS KEBIJAKAN CABANG
+# MODUL 7: MATRIKS KEBIJAKAN CABANG
 # ==============================================================================
 elif menu == "Matriks Kebijakan Cabang":
     st.markdown('<div class="main-title">Matriks Kebijakan Operasional & Rule of Thumb Ahli</div>', unsafe_allow_html=True)
@@ -1166,7 +1324,7 @@ elif menu == "Matriks Kebijakan Cabang":
             st.dataframe(pd.DataFrame(EXPERT_RULES_OF_THUMB), use_container_width=True)
 
 # ==============================================================================
-# MODUL 7: GALERI PUBLIKASI RISET
+# MODUL 8: GALERI PUBLIKASI RISET
 # ==============================================================================
 elif menu == "Galeri Publikasi Riset":
     st.markdown('<div class="main-title">Galeri Visualisasi Publikasi Riset 300 DPI</div>', unsafe_allow_html=True)
