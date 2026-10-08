@@ -1,0 +1,133 @@
+{
+  "total_rows": 139493,
+  "total_columns": 74,
+  "target_summary": {
+    "npl_30_count": 9640,
+    "npl_30_rate_pct": 6.9107,
+    "npl_90_count": 7756,
+    "npl_90_rate_pct": 5.5601,
+    "transition_31_90_count": 1884,
+    "transition_31_90_rate_pct": 1.3506,
+    "non_npl_30_count": 129853,
+    "non_npl_90_count": 131737
+  },
+  "verification_lunas_faktur_11208251226017": "PASSED (NPL_clean = 0)",
+  "verification_proses_lelang_count": "PASSED (16 baris berstatus NPL_clean = 1)",
+  "duplicate_fraktur_count": 0,
+  "risk_distribution": {
+    "kondisi_stnk": {
+      "A/N ORANG LAIN": {
+        "total": 75995,
+        "npl": 6504,
+        "npl_rate_pct": 8.56
+      },
+      "A/N SENDIRI": {
+        "total": 63498,
+        "npl": 3136,
+        "npl_rate_pct": 4.94
+      }
+    },
+    "pajak_status": {
+      "Pajak Aktif": {
+        "total": 49104,
+        "npl": 3543,
+        "npl_rate_pct": 7.22
+      },
+      "Pajak Tidak Aktif": {
+        "total": 90389,
+        "npl": 6097,
+        "npl_rate_pct": 6.75
+      }
+    },
+    "merk_group": {
+      "Honda": {
+        "total": 106611,
+        "npl": 7085,
+        "npl_rate_pct": 6.65
+      },
+      "Kawasaki": {
+        "total": 1117,
+        "npl": 91,
+        "npl_rate_pct": 8.15
+      },
+      "LAINNYA": {
+        "total": 529,
+        "npl": 40,
+        "npl_rate_pct": 7.56
+      },
+      "Yamaha": {
+        "total": 31236,
+        "npl": 2424,
+        "npl_rate_pct": 7.76
+      }
+    },
+    "skala_pinjaman_std": {
+      "< Rp 1 Juta": {
+        "total": 27537,
+        "npl": 1865,
+        "npl_rate_pct": 6.77
+      },
+      "> Rp 2 Juta": {
+        "total": 53617,
+        "npl": 3922,
+        "npl_rate_pct": 7.31
+      },
+      "Rp 1 - 2 Juta": {
+        "total": 58339,
+        "npl": 3853,
+        "npl_rate_pct": 6.6
+      }
+    },
+    "usia_kendaraan_bin": {
+      "0-3 thn (Sangat Baru)": {
+        "total": 29877,
+        "npl": 1766,
+        "npl_rate_pct": 5.91
+      },
+      "4-6 thn (Sedang)": {
+        "total": 36140,
+        "npl": 2352,
+        "npl_rate_pct": 6.51
+      },
+      "7-9 thn (Lama)": {
+        "total": 45070,
+        "npl": 3329,
+        "npl_rate_pct": 7.39
+      },
+      ">=10 thn (Tua)": {
+        "total": 28406,
+        "npl": 2193,
+        "npl_rate_pct": 7.72
+      }
+    },
+    "zona_ltv_std": {
+      "36%-40%": {
+        "total": 64682,
+        "npl": 5110,
+        "npl_rate_pct": 7.9
+      },
+      "41%-50%": {
+        "total": 15892,
+        "npl": 1011,
+        "npl_rate_pct": 6.36
+      },
+      "<=35%": {
+        "total": 58919,
+        "npl": 3519,
+        "npl_rate_pct": 5.97
+      }
+    },
+    "is_repeat_borrower": {
+      "0": {
+        "total": 90190,
+        "npl": 8310,
+        "npl_rate_pct": 9.21
+      },
+      "1": {
+        "total": 49303,
+        "npl": 1330,
+        "npl_rate_pct": 2.7
+      }
+    }
+  }
+}

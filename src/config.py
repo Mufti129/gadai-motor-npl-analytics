@@ -37,6 +37,8 @@ TABEL11_CSV = TABLES_OUTPUT_DIR / "tabel11_analisis_bivariat_lengkap.csv"
 
 # Business Constants & Rules
 DAYS_LATE_THRESHOLD = 30
+DAYS_LATE_THRESHOLD_30 = 30
+DAYS_LATE_THRESHOLD_90 = 90
 STATUS_NPL_ACTIVE = ["Berjalan", "Proses Lelang"]
 STATUS_LUNAS = "Lunas"
 

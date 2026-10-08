@@ -43,6 +43,68 @@ st.markdown("""
         font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Plus Jakarta Sans", sans-serif;
     }
     
+    /* Hide Streamlit Brandings & Footers while preserving Sidebar Navigation */
+    #MainMenu {visibility: hidden !important; display: none !important;}
+    footer {visibility: hidden !important; display: none !important;}
+    [data-testid="stDecoration"] {display: none !important; visibility: hidden !important;}
+    [data-testid="stStatusWidget"] {visibility: hidden !important; display: none !important;}
+    .viewerBadge_container__1QSob, [class*="viewerBadge"] {display: none !important; visibility: hidden !important;}
+
+    /* Keep Sidebar & Collapse Toggle 100% Accessible & Ultra-Visible */
+    [data-testid="stHeader"] {
+        background: transparent !important;
+        pointer-events: none !important;
+    }
+    [data-testid="stHeader"] > div:not(:first-child) {
+        display: none !important;
+    }
+
+    /* High Visibility Sidebar Toggle & Re-open Button */
+    [data-testid="stSidebarCollapseButton"], 
+    [data-testid="collapsedControl"],
+    [data-testid="stHeader"] button,
+    button[kind="header"] {
+        display: flex !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+        pointer-events: auto !important;
+        background: #1E293B !important;
+        border: 1.5px solid #6366F1 !important;
+        border-radius: 10px !important;
+        color: #FFFFFF !important;
+        box-shadow: 0 4px 14px rgba(99, 102, 241, 0.45) !important;
+        padding: 6px 10px !important;
+        z-index: 9999999 !important;
+        transition: all 0.2s ease-in-out !important;
+        cursor: pointer !important;
+    }
+
+    [data-testid="stSidebarCollapseButton"]:hover, 
+    [data-testid="collapsedControl"]:hover,
+    button[kind="header"]:hover {
+        background: #4F46E5 !important;
+        border-color: #818CF8 !important;
+        transform: scale(1.08) !important;
+    }
+
+    [data-testid="collapsedControl"] svg,
+    [data-testid="stSidebarCollapseButton"] svg {
+        fill: #FFFFFF !important;
+        stroke: #FFFFFF !important;
+        width: 20px !important;
+        height: 20px !important;
+    }
+
+    [data-testid="stSidebar"] {
+        visibility: visible !important;
+        display: block !important;
+        z-index: 99999 !important;
+    }
+    [data-testid="stSidebarNav"] {
+        display: block !important;
+        visibility: visible !important;
+    }
+
     .block-container {
         padding-top: 1.5rem;
         padding-bottom: 3rem;
@@ -432,6 +494,10 @@ BRANCH_OPERATIONAL_POLICIES = [
 
 DATA_DICTIONARY = [
     {"Kolom": "tanggal_gadai", "Tipe": "Date", "Deskripsi": "Tanggal pencairan transaksi gadai motor."},
+    {"Kolom": "Days Late", "Tipe": "Integer", "Deskripsi": "Jumlah hari keterlambatan pembayaran pasca jatuh tempo."},
+    {"Kolom": "NPL_30", "Tipe": "Binary (0/1)", "Deskripsi": "Target biner status kredit macet kriteria Days Late > 30 Hari (Standar Operasional Gadai)."},
+    {"Kolom": "NPL_90", "Tipe": "Binary (0/1)", "Deskripsi": "Target biner status kredit macet kriteria Days Late > 90 Hari (Standar Kolektibilitas 5 OJK / Perbankan)."},
+    {"Kolom": "kategori_kolektibilitas", "Tipe": "Categorical", "Deskripsi": "Tahapan status: Lancar, DPD 1-30, NPL Transisi 31-90 Hari, NPL Berat >90 Hari."},
     {"Kolom": "merk_group", "Tipe": "Categorical", "Deskripsi": "Pengelompokan merk kendaraan utama (Honda, Yamaha, Kawasaki, Lainnya)."},
     {"Kolom": "kondisi_stnk", "Tipe": "Categorical", "Deskripsi": "Status kepemilikan dokumen STNK (A/N SENDIRI vs A/N ORANG LAIN)."},
     {"Kolom": "pajak_status", "Tipe": "Categorical", "Deskripsi": "Status masa berlaku pajak STNK (Pajak Aktif vs Pajak Tidak Aktif)."},
@@ -442,7 +508,7 @@ DATA_DICTIONARY = [
     {"Kolom": "LTV_MAX", "Tipe": "Float", "Deskripsi": "Fitur normalisasi kontinu LTV yang dibatasi pada batas atas 1.50."},
     {"Kolom": "pekerjaan_group", "Tipe": "Categorical", "Deskripsi": "Standardisasi 10 kategori profesi/pekerjaan debitur."},
     {"Kolom": "is_repeat_borrower", "Tipe": "Binary (0/1)", "Deskripsi": "Indikator riwayat debitur (1 = Repeat Borrower, 0 = Nasabah Baru)."},
-    {"Kolom": "NPL_clean", "Tipe": "Binary (0/1)", "Deskripsi": "Target biner status kredit macet (1 = Gagal Bayar/NPL, 0 = Lancar/Lunas)."}
+    {"Kolom": "NPL_clean", "Tipe": "Binary (0/1)", "Deskripsi": "Target biner status kredit macet default (>30 hari / NPL_30)."}
 ]
 
 # ==============================================================================
@@ -783,6 +849,17 @@ menu = st.sidebar.radio(
 )
 
 st.sidebar.divider()
+st.sidebar.markdown("**PENGATURAN KRITERIA NPL:**")
+npl_kriteria = st.sidebar.radio(
+    "Pilih Definisi Kriteria NPL:",
+    [
+        "NPL > 30 Hari (Operasional Gadai)",
+        "NPL > 90 Hari (Standar OJK / Kolektibilitas 5)",
+        "Komparasi Dual (30 vs 90 Hari)"
+    ]
+)
+
+st.sidebar.divider()
 st.sidebar.markdown("**PUSAT UNDUHAN DATASET:**")
 
 zip_file_path = OUTPUT_DIR / "data_cleaned.zip"
@@ -814,13 +891,21 @@ st.sidebar.caption("Dataset Acuan: 139.493 Transaksi Kredit Valid\nDivisi Bisnis
 # MODUL 1: EXECUTIVE DASHBOARD
 # ==============================================================================
 if menu == "Executive Dashboard":
-    st.markdown("""
+    is_90_days = "90" in npl_kriteria
+    is_dual = "Dual" in npl_kriteria
+
+    target_npl_label = "NPL > 90 Hari (OJK)" if is_90_days else ("NPL Komparatif (30 vs 90 Hari)" if is_dual else "NPL > 30 Hari (Operasional)")
+    npl_rate_val = "5,56%" if is_90_days else "6,91%"
+    npl_count_val = "7.756 Debitur Macet" if is_90_days else "9.640 Debitur Macet"
+
+    st.markdown(f"""
     <div class="hero-appbar">
         <div class="hero-title">Executive Dashboard Analisis Risiko NPL Gadai Motor</div>
-        <div class="hero-subtitle">Pusat Gadai Indonesia (PGI) — Ringkasan Portofolio & Model Ekonometrika 2026</div>
+        <div class="hero-subtitle">Pusat Gadai Indonesia (PGI) — Ringkasan Portofolio & Model Ekonometrika 2026 ({target_npl_label})</div>
         <div class="hero-tags">
             <span class="hero-tag-pill">139.493 Transaksi Valid</span>
-            <span class="hero-tag-pill">Baseline NPL 6.91%</span>
+            <span class="hero-tag-pill">NPL >30 Hari: 6.91%</span>
+            <span class="hero-tag-pill">NPL >90 Hari: 5.56%</span>
             <span class="hero-tag-pill">Champion Model 4 (ROC 0.6702)</span>
             <span class="hero-tag-pill">Target Korporasi &lt; 5.0%</span>
         </div>
@@ -837,11 +922,11 @@ if menu == "Executive Dashboard":
         </div>
         """, unsafe_allow_html=True)
     with c2:
-        st.markdown("""
+        st.markdown(f"""
         <div class="pro-metric-card" style="border-color: #FECDD3;">
-            <div class="pro-metric-label">Tingkat NPL Aktual</div>
-            <div class="pro-metric-val" style="color: #DC2626;">6,91%</div>
-            <div class="pro-metric-sub">9.640 Debitur Gagal Bayar</div>
+            <div class="pro-metric-label">Tingkat {target_npl_label}</div>
+            <div class="pro-metric-val" style="color: #DC2626;">{npl_rate_val}</div>
+            <div class="pro-metric-sub">{npl_count_val}</div>
         </div>
         """, unsafe_allow_html=True)
     with c3:
@@ -861,22 +946,82 @@ if menu == "Executive Dashboard":
         </div>
         """, unsafe_allow_html=True)
 
+    # Visual Komparasi Bucket Kolektibilitas / NPL
     st.markdown('<div class="modern-card">', unsafe_allow_html=True)
-    st.subheader("Distribusi Risiko Portofolio Agunan")
+    st.subheader("Struktur Portofolio & Komparasi Kriteria NPL (>30 Hari vs >90 Hari)")
+    
+    col_k1, col_k2 = st.columns([1, 1])
+    with col_k1:
+        df_bucket = pd.DataFrame({
+            'Kategori Portofolio': [
+                '1. Lancar (DPD <= 30 / Lunas)',
+                '2. NPL Transisi (DPD 31-90 Hari)',
+                '3. NPL Berat / Macet (DPD >90 Hari)'
+            ],
+            'Volume Kontrak': [129853, 1884, 7756],
+            'Proporsi (%)': [93.09, 1.35, 5.56]
+        })
+        fig_donut = px.pie(
+            df_bucket, values='Volume Kontrak', names='Kategori Portofolio',
+            hole=0.55,
+            color='Kategori Portofolio',
+            color_discrete_map={
+                '1. Lancar (DPD <= 30 / Lunas)': '#10B981',
+                '2. NPL Transisi (DPD 31-90 Hari)': '#F59E0B',
+                '3. NPL Berat / Macet (DPD >90 Hari)': '#DC2626'
+            },
+            title="Distribusi Status Kolektibilitas Portofolio"
+        )
+        fig_donut.update_traces(textposition='inside', textinfo='percent+label')
+        fig_donut.update_layout(template="plotly_white", showlegend=False)
+        st.plotly_chart(fig_donut, use_container_width=True)
+
+    with col_k2:
+        df_comp_bar = pd.DataFrame({
+            'Kriteria NPL': ['NPL > 30 Hari (Operasional)', 'NPL > 90 Hari (Standar OJK)', 'Selisih Transisi (31-90)'],
+            'Tingkat NPL (%)': [6.91, 5.56, 1.35],
+            'Jumlah Pinjaman': [9640, 7756, 1884]
+        })
+        fig_comp = px.bar(
+            df_comp_bar, x='Kriteria NPL', y='Tingkat NPL (%)',
+            text='Tingkat NPL (%)',
+            color='Kriteria NPL',
+            color_discrete_map={
+                'NPL > 30 Hari (Operasional)': '#DC2626',
+                'NPL > 90 Hari (Standar OJK)': '#EA580C',
+                'Selisih Transisi (31-90)': '#F59E0B'
+            },
+            title="Perbandingan Tingkat NPL Berdasarkan Ambang Keterlambatan"
+        )
+        fig_comp.update_traces(texttemplate='%{text:.2f}%', textposition='outside')
+        fig_comp.add_hline(y=5.0, line_dash="dash", line_color="#059669", annotation_text="Batas Maks 5.0%")
+        fig_comp.update_layout(yaxis_title="Persentase Portofolio (%)", showlegend=False, template="plotly_white")
+        st.plotly_chart(fig_comp, use_container_width=True)
+
+    st.markdown('</div>', unsafe_allow_html=True)
+
+    st.markdown('<div class="modern-card">', unsafe_allow_html=True)
+    st.subheader(f"Distribusi Risiko Portofolio Agunan ({target_npl_label})")
     
     col_left, col_right = st.columns(2)
     with col_left:
+        # Data STNK berdasarkan kriteria
+        if is_90_days:
+            stnk_sendiri_rate, stnk_lain_rate = 3.98, 6.89
+        else:
+            stnk_sendiri_rate, stnk_lain_rate = 4.94, 8.56
+
         df_stnk = pd.DataFrame({
             'Kondisi STNK': ['A/N Sendiri', 'A/N Orang Lain'],
             'Volume': [63498, 75995],
-            'NPL_Rate': [4.94, 8.56]
+            'NPL_Rate': [stnk_sendiri_rate, stnk_lain_rate]
         })
         fig_stnk = px.bar(
             df_stnk, x='Kondisi STNK', y='NPL_Rate',
             color='Kondisi STNK',
             color_discrete_map={'A/N Sendiri': '#059669', 'A/N Orang Lain': '#DC2626'},
             text='NPL_Rate',
-            title="Tingkat NPL berdasarkan Kepemilikan STNK (Moral Hazard +71%)"
+            title=f"Tingkat NPL berdasarkan Kepemilikan STNK ({target_npl_label})"
         )
         fig_stnk.update_traces(texttemplate='%{text:.2f}%', textposition='outside')
         fig_stnk.add_hline(y=5.0, line_dash="dash", line_color="#D97706", annotation_text="Target Max 5.0%")
@@ -884,9 +1029,14 @@ if menu == "Executive Dashboard":
         st.plotly_chart(fig_stnk, use_container_width=True)
 
     with col_right:
+        if is_90_days:
+            merk_rates = [5.36, 6.22, 6.62, 6.05]
+        else:
+            merk_rates = [6.65, 7.76, 8.15, 7.56]
+
         df_merk = pd.DataFrame({
             'Merk': ['Honda', 'Yamaha', 'Kawasaki', 'Lainnya'],
-            'NPL_Rate': [6.65, 7.76, 8.15, 7.56],
+            'NPL_Rate': merk_rates,
             'Volume': [106611, 31236, 1117, 529]
         })
         fig_merk = px.bar(
@@ -894,7 +1044,7 @@ if menu == "Executive Dashboard":
             color='Merk',
             color_discrete_sequence=['#2563EB', '#4F46E5', '#7C3AED', '#64748B'],
             text='NPL_Rate',
-            title="Tingkat NPL berdasarkan Merk Kendaraan"
+            title=f"Tingkat NPL berdasarkan Merk Kendaraan ({target_npl_label})"
         )
         fig_merk.update_traces(texttemplate='%{text:.2f}%', textposition='outside')
         fig_merk.add_hline(y=5.0, line_dash="dash", line_color="#D97706", annotation_text="Target Max 5.0%")
@@ -903,7 +1053,7 @@ if menu == "Executive Dashboard":
 
     st.markdown("""
     <div class="report-box">
-        <strong>Temuan Kunci Divisi Risiko:</strong> Penambahan faktor jaminan (STNK a/n Orang Lain) dan riwayat nasabah berulang (Repeat Borrower) terbukti secara ekonometrika memangkas deviasi prediksi hingga 62,7% dibanding acuan baseline acak.
+        <strong>Temuan Kunci Divisi Risiko:</strong> Penambahan faktor jaminan (STNK a/n Orang Lain) dan riwayat nasabah berulang (Repeat Borrower) terbukti secara konsisten memangkas deviasi prediksi baik pada kriteria NPL operasional (&gt;30 hari) maupun kriteria OJK (&gt;90 hari).
     </div>
     """, unsafe_allow_html=True)
     st.markdown('</div>', unsafe_allow_html=True)
@@ -1275,7 +1425,8 @@ elif menu == "Dataset Clean & Explorer":
         default_cols = [
             'tanggal_gadai', 'merk_group', 'kondisi_stnk', 'pajak_status',
             'usia_kendaraan_thn', 'nilai_taksiran', 'pinjaman_pokok_efektif',
-            'LTV', 'LTV_MAX', 'pekerjaan_group', 'is_repeat_borrower', 'NPL_clean'
+            'LTV', 'LTV_MAX', 'pekerjaan_group', 'is_repeat_borrower',
+            'Days Late', 'NPL_30', 'NPL_90', 'kategori_kolektibilitas', 'NPL_clean'
         ]
         available_cols = [c for c in default_cols if c in df_full.columns]
         all_cols = df_full.columns.tolist()

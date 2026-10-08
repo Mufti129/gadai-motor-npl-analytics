@@ -1,0 +1,1000 @@
+<!DOCTYPE html>
+<html lang="id" class="h-full">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Doraemon Doors — Analytics Hub v1.0</title>
+    
+    <!-- Anti-Cache Headers for Mobile & Desktop Browsers -->
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+
+    <!-- Meta SEO & Open Graph -->
+    <meta name="description" content="Portal Pusat Sistem AI & Enterprise Business Intelligence — Doraemon Doors">
+    <meta property="og:title" content="Analytics Hub v1.0 — Doraemon Doors">
+    <meta property="og:description" content="Sistem Terpadu AI Defect Detection, Nego Intelligence, Gadai Motor NPL Risk, dan Market Price Motor Bekas">
+    <meta property="og:type" content="website">
+
+    <!-- Clean SVG Favicon -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%234f46e5' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><rect x='3' y='3' width='18' height='18' rx='2'/><path d='M9 3v18'/><circle cx='14' cy='12' r='1.5'/></svg>">
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#eef2ff',
+                            100: '#e0e7ff',
+                            400: '#818cf8',
+                            500: '#6366f1',
+                            600: '#4f46e5',
+                            700: '#4338ca',
+                            900: '#1e1b4b',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Lucide Icons CDN -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
+
+        * {
+            font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            background-color: #090d16;
+            color: #f1f5f9;
+        }
+
+        /* Custom Scrollbars */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #090d16;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #243049;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #3b4c6e;
+        }
+
+        .glass-card {
+            background: rgba(17, 24, 39, 0.78);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .glass-card:hover {
+            border-color: rgba(99, 102, 241, 0.4);
+            box-shadow: 0 12px 30px -10px rgba(99, 102, 241, 0.25);
+        }
+
+        .glow-effect {
+            position: absolute;
+            width: 450px;
+            height: 450px;
+            background: radial-gradient(circle, rgba(99, 102, 241, 0.15) 0%, rgba(0,0,0,0) 70%);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* Loading Spinner */
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        .animate-spin-fast {
+            animation: spin 0.8s linear infinite;
+        }
+
+        /* Shake animation for invalid login */
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            20%, 60% { transform: translateX(-8px); }
+            40%, 80% { transform: translateX(8px); }
+        }
+        .shake-box {
+            animation: shake 0.4s ease-in-out;
+        }
+
+        /* Viewport Container for Iframe */
+        .workspace-frame-container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            flex: 1 1 0%;
+            min-height: 0;
+            background-color: #0e1117;
+            overflow: hidden;
+        }
+
+        /* Iframe stretches 100% full width and height */
+        .embedded-frame {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: calc(100% + 40px); /* Pushes bottom external badge below visible area */
+            border: 0;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Native Enterprise Bottom Bar Shield */
+        .bottom-status-bar {
+            flex-shrink: 0;
+            height: 28px;
+            background: #090d16;
+            border-top: 1px solid #1e293b;
+            z-index: 30;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 16px;
+            font-size: 11px;
+            color: #64748b;
+            user-select: none;
+        }
+    </style>
+</head>
+<body class="bg-[#090d16] text-slate-100 h-full flex flex-col selection:bg-indigo-500 selection:text-white overflow-hidden">
+
+    <!-- Ambient Glowing Highlights -->
+    <div class="glow-effect top-0 left-1/4 -translate-x-1/2"></div>
+    <div class="glow-effect top-1/3 right-10"></div>
+    <div class="glow-effect bottom-10 left-10"></div>
+
+    <!-- ========================================================================= -->
+    <!-- GATEWAY 1: INTERACTIVE ENTERPRISE LOGIN SCREEN -->
+    <!-- ========================================================================= -->
+    <div id="login-screen" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#090d16]">
+        <div class="w-full max-w-md relative z-10">
+            
+            <!-- Login Card Container -->
+            <div id="login-card" class="glass-card rounded-3xl p-8 border border-slate-800/80 shadow-2xl relative overflow-hidden transition-all duration-300">
+                
+                <!-- Decorative Top Gradient Line -->
+                <div class="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-indigo-500 via-sky-400 to-emerald-400"></div>
+
+                <!-- Brand Header -->
+                <div class="text-center mb-8">
+                    <div class="w-14 h-14 mx-auto rounded-2xl bg-gradient-to-tr from-indigo-600 via-indigo-500 to-cyan-400 flex items-center justify-center shadow-xl shadow-indigo-500/25 text-white mb-4">
+                        <i data-lucide="door-open" class="w-7 h-7"></i>
+                    </div>
+                    <h2 class="text-2xl font-black text-white tracking-tight">
+                        DORAEMON DOORS
+                    </h2>
+                    <p class="text-xs font-semibold text-indigo-400 mt-1 uppercase tracking-wider">
+                        Analytics Hub & AI Ecosystem v1.0
+                    </p>
+                    <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-slate-800/80 border border-slate-700/60 text-slate-300 text-[11px] font-medium mt-3">
+                        <i data-lucide="lock" class="w-3 h-3 text-emerald-400"></i>
+                        <span>Akses Terbatas Internal</span>
+                    </div>
+                </div>
+
+                <!-- Login Form -->
+                <form id="login-form" onsubmit="handleLogin(event)" class="space-y-4">
+                    
+                    <!-- Username Field -->
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-300 mb-1.5">Username Analis</label>
+                        <div class="relative flex items-center">
+                            <i data-lucide="user" class="w-4 h-4 text-slate-400 absolute left-3.5 pointer-events-none"></i>
+                            <input 
+                                type="text" 
+                                id="login-username" 
+                                required 
+                                autocomplete="username"
+                                placeholder="Masukkan username" 
+                                class="w-full bg-slate-900/90 border border-slate-700 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 rounded-xl pl-10 pr-4 py-2.5 text-xs text-white placeholder-slate-500 outline-none transition"
+                            >
+                        </div>
+                    </div>
+
+                    <!-- Password Field -->
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-300 mb-1.5">Password Keamanan</label>
+                        <div class="relative flex items-center">
+                            <i data-lucide="key-round" class="w-4 h-4 text-slate-400 absolute left-3.5 pointer-events-none"></i>
+                            <input 
+                                type="password" 
+                                id="login-password" 
+                                required 
+                                autocomplete="current-password"
+                                placeholder="Masukkan password" 
+                                class="w-full bg-slate-900/90 border border-slate-700 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 rounded-xl pl-10 pr-10 py-2.5 text-xs text-white placeholder-slate-500 outline-none transition"
+                            >
+                            <button 
+                                type="button" 
+                                onclick="togglePasswordVisibility()" 
+                                class="absolute right-3.5 text-slate-400 hover:text-slate-200 transition focus:outline-none"
+                                title="Lihat/Sembunyikan Password"
+                            >
+                                <i id="eye-icon" data-lucide="eye" class="w-4 h-4"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Error Alert Placeholder -->
+                    <div id="login-error-msg" class="hidden p-3 rounded-xl bg-rose-500/10 border border-rose-500/30 text-rose-300 text-xs flex items-center gap-2">
+                        <i data-lucide="alert-circle" class="w-4 h-4 shrink-0 text-rose-400"></i>
+                        <span id="error-text">Username atau password tidak sesuai.</span>
+                    </div>
+
+                    <!-- Remember Session Checkbox -->
+                    <div class="flex items-center justify-between text-xs text-slate-400 pt-1">
+                        <label class="flex items-center gap-2 cursor-pointer select-none">
+                            <input type="checkbox" id="remember-me" checked class="rounded bg-slate-800 border-slate-700 text-indigo-600 focus:ring-0">
+                            <span>Ingat sesi saya</span>
+                        </label>
+                        <span class="text-[11px] text-slate-500">Internal Auth v1.0</span>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <button 
+                        type="submit" 
+                        id="btn-login-submit"
+                        class="w-full py-3 bg-gradient-to-r from-indigo-600 via-indigo-500 to-indigo-600 hover:from-indigo-500 hover:to-indigo-400 active:scale-[0.98] text-white rounded-xl text-xs font-bold flex items-center justify-center gap-2 shadow-lg shadow-indigo-600/30 transition mt-2 cursor-pointer"
+                    >
+                        <i data-lucide="log-in" class="w-4 h-4"></i>
+                        <span>Masuk ke Doraemon Doors Hub</span>
+                    </button>
+                </form>
+
+                <!-- Footer Info -->
+                <div class="mt-8 pt-4 border-t border-slate-800/80 text-center">
+                    <p class="text-[11px] text-slate-500">
+                        Narahubung Teknis: Mukhammad Rekza Mufti &bull; 081536175933
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========================================================================= -->
+    <!-- GATEWAY 2: AUTHENTICATED PORTAL CONTENT (Hidden until logged in) -->
+    <!-- ========================================================================= -->
+    <div id="authenticated-app" class="h-full flex flex-col hidden">
+        
+        <!-- TOP NAVIGATION BAR -->
+        <header class="flex-shrink-0 z-40 bg-[#090d16]/95 backdrop-blur-md border-b border-slate-800/80 px-4 lg:px-8 py-3">
+            <div class="max-w-7xl mx-auto flex items-center justify-between gap-4">
+                
+                <!-- Brand Logo -->
+                <div class="flex items-center gap-3 cursor-pointer" onclick="switchView('hub')">
+                    <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-indigo-600 via-indigo-500 to-cyan-500 flex items-center justify-center shadow-lg shadow-indigo-500/20 text-white font-black">
+                        <i data-lucide="door-open" class="w-5 h-5"></i>
+                    </div>
+                    <div>
+                        <div class="flex items-center gap-2">
+                            <span class="font-bold text-base sm:text-lg tracking-tight bg-gradient-to-r from-white via-slate-100 to-slate-300 bg-clip-text text-transparent">
+                                DORAEMON DOORS
+                            </span>
+                            <span class="px-2 py-0.5 text-[10px] font-semibold bg-indigo-500/20 text-indigo-300 border border-indigo-500/30 rounded-full">v1.0</span>
+                        </div>
+                        <p class="text-[10px] sm:text-[11px] text-slate-400 font-medium">Enterprise Intelligence & AI Ecosystem</p>
+                    </div>
+                </div>
+
+                <!-- Header Middle: Search Bar (Hub mode only) -->
+                <div id="nav-search-bar" class="hidden md:flex items-center gap-2 bg-slate-900/90 border border-slate-800 rounded-xl p-1 px-3">
+                    <i data-lucide="search" class="w-4 h-4 text-slate-400"></i>
+                    <input 
+                        type="text" 
+                        id="searchInput" 
+                        placeholder="Cari sistem atau modul analitik..." 
+                        class="bg-transparent text-xs text-slate-200 placeholder-slate-500 outline-none w-48 lg:w-64 py-1"
+                        oninput="handleSearch(this.value)"
+                    >
+                </div>
+
+                <!-- Right Controls: Status, User Badge & Logout -->
+                <div class="flex items-center gap-2 sm:gap-3">
+                    
+                    <!-- Active User Badge -->
+                    <div class="hidden sm:flex items-center gap-2 px-2.5 py-1 bg-slate-800/80 border border-slate-700/60 rounded-lg text-xs">
+                        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                        <span class="text-slate-300 font-medium">Analis Internal</span>
+                    </div>
+
+                    <!-- Mode Workspace Toggle -->
+                    <button onclick="toggleQuickWorkspace()" id="btn-workspace-toggle" class="px-3.5 py-1.5 bg-indigo-600 hover:bg-indigo-500 active:scale-95 text-white rounded-lg text-xs font-semibold flex items-center gap-1.5 shadow-md shadow-indigo-600/30 transition">
+                        <i data-lucide="layout-dashboard" class="w-4 h-4"></i>
+                        <span id="workspace-toggle-text">Mode Workspace</span>
+                    </button>
+
+                    <!-- Logout Button -->
+                    <button onclick="handleLogout()" class="p-1.5 text-slate-400 hover:text-rose-400 hover:bg-rose-500/10 bg-slate-800/90 border border-slate-700/70 rounded-lg transition" title="Keluar / Logout">
+                        <i data-lucide="log-out" class="w-4 h-4"></i>
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <!-- VIEW 1: HUB / PORTAL CATALOG (Scrollable) -->
+        <main id="hub-view" class="flex-1 w-full overflow-y-auto z-10">
+            <div class="max-w-7xl mx-auto px-4 lg:px-8 py-8 flex flex-col justify-between min-h-full">
+                <div>
+                    <!-- Hero Section -->
+                    <div class="text-center max-w-3xl mx-auto mb-8 pt-2">
+                        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-950/60 border border-indigo-500/30 text-indigo-300 text-xs font-semibold mb-3">
+                            <i data-lucide="sparkles" class="w-3.5 h-3.5 text-indigo-400"></i>
+                            <span>Portal Eksekutif Analitik & Sistem Cerdas Terpadu</span>
+                        </div>
+                        <h1 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight leading-tight">
+                            Pilih Platform & <span class="bg-gradient-to-r from-indigo-400 via-sky-300 to-emerald-400 bg-clip-text text-transparent">Modul Analitik</span>
+                        </h1>
+                        <p class="mt-3 text-slate-400 text-sm sm:text-base leading-relaxed">
+                            Akses terpadu ke seluruh sistem inspeksi AI Computer Vision, Analytics Negosiasi, Pemodelan Risiko Kredit NPL, dan Market Price Motor Bekas.
+                        </p>
+                    </div>
+
+                    <!-- Filter Pills -->
+                    <div class="flex items-center justify-center gap-2 mb-8 flex-wrap">
+                        <button onclick="filterCategory('all')" class="cat-pill active px-4 py-1.5 rounded-full text-xs font-semibold bg-indigo-600 text-white border border-indigo-500 transition shadow-sm" data-cat="all">Semua Modul (4)</button>
+                        <button onclick="filterCategory('vision')" class="cat-pill px-4 py-1.5 rounded-full text-xs font-semibold bg-slate-900/80 text-slate-400 hover:text-white border border-slate-800 transition" data-cat="vision">AI Computer Vision</button>
+                        <button onclick="filterCategory('credit')" class="cat-pill px-4 py-1.5 rounded-full text-xs font-semibold bg-slate-900/80 text-slate-400 hover:text-white border border-slate-800 transition" data-cat="credit">Credit & Risk Analytics</button>
+                        <button onclick="filterCategory('nego')" class="cat-pill px-4 py-1.5 rounded-full text-xs font-semibold bg-slate-900/80 text-slate-400 hover:text-white border border-slate-800 transition" data-cat="nego">Nego Intelligence</button>
+                        <button onclick="filterCategory('market')" class="cat-pill px-4 py-1.5 rounded-full text-xs font-semibold bg-slate-900/80 text-slate-400 hover:text-white border border-slate-800 transition" data-cat="market">Market Price & Valuation</button>
+                    </div>
+
+                    <!-- APP CARDS GRID (4 Cards) -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6" id="appGrid">
+                        
+                        <!-- CARD 1: DEFECT DETECTION AI -->
+                        <div class="app-card glass-card rounded-2xl p-6 flex flex-col justify-between transition-all duration-300 relative group overflow-hidden" data-category="vision" data-keywords="defect cek hp cacat kamera inspection cv computer vision yolo grading">
+                            <div class="absolute top-0 right-0 w-28 h-28 bg-rose-500/10 rounded-full blur-2xl group-hover:bg-rose-500/20 transition"></div>
+                            
+                            <div>
+                                <!-- Card Top Meta -->
+                                <div class="flex items-center justify-between mb-4">
+                                    <div class="w-12 h-12 rounded-xl bg-gradient-to-tr from-rose-600 to-orange-500 flex items-center justify-center shadow-lg shadow-rose-500/20 text-white">
+                                        <i data-lucide="scan" class="w-6 h-6"></i>
+                                    </div>
+                                    <div class="flex items-center gap-1.5 px-2.5 py-1 bg-emerald-500/10 border border-emerald-500/30 rounded-full text-emerald-400 text-[11px] font-semibold">
+                                        <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+                                        <span>Active</span>
+                                    </div>
+                                </div>
+
+                                <h3 class="text-xl font-bold text-white group-hover:text-rose-300 transition flex items-center gap-2">
+                                    AI Defect Detection System
+                                </h3>
+                                <p class="text-xs text-rose-400 font-semibold tracking-wide mt-0.5">Automated Smartphone Inspection & Grading</p>
+
+                                <p class="text-slate-300 text-xs mt-3 leading-relaxed">
+                                    Sistem pendeteksi cacat fisik otomatis (Scratch, Dent, Screen Crack, Housing Damage) pada unit Handphone menggunakan Deep Learning YOLOv8 & Computer Vision Spatial Scaler.
+                                </p>
+
+                                <!-- Features List -->
+                                <div class="mt-4 space-y-1.5">
+                                    <div class="flex items-center gap-2 text-[11px] text-slate-400">
+                                        <i data-lucide="check-circle-2" class="w-3.5 h-3.5 text-rose-400"></i>
+                                        <span>Multi-angle Phone Auto Cropping & Marker</span>
+                                    </div>
+                                    <div class="flex items-center gap-2 text-[11px] text-slate-400">
+                                        <i data-lucide="check-circle-2" class="w-3.5 h-3.5 text-rose-400"></i>
+                                        <span>Grading Otomatis (Grade A / B / C / D)</span>
+                                    </div>
+                                    <div class="flex items-center gap-2 text-[11px] text-slate-400">
+                                        <i data-lucide="check-circle-2" class="w-3.5 h-3.5 text-rose-400"></i>
+                                        <span>Live Photo Upload & Realtime Inference</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Card Actions -->
+                            <div class="mt-6 pt-4 border-t border-slate-800/80">
+                                <button onclick="launchApp('defect')" class="w-full py-2.5 px-4 bg-gradient-to-r from-rose-600 to-rose-500 hover:from-rose-500 hover:to-rose-400 active:scale-95 text-white rounded-xl text-xs font-bold flex items-center justify-center gap-2 shadow-md shadow-rose-600/20 transition cursor-pointer">
+                                    <i data-lucide="play" class="w-3.5 h-3.5 fill-current"></i>
+                                    <span>Buka Modul AI Defect</span>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- CARD 2: NEGO INTELLIGENCE PLATFORM -->
+                        <div class="app-card glass-card rounded-2xl p-6 flex flex-col justify-between transition-all duration-300 relative group overflow-hidden" data-category="nego" data-keywords="nego intelligence performance negosiasi agent kpi collection sales scoring">
+                            <div class="absolute top-0 right-0 w-28 h-28 bg-indigo-500/10 rounded-full blur-2xl group-hover:bg-indigo-500/20 transition"></div>
+                            
+                            <div>
+                                <!-- Card Top Meta -->
+                                <div class="flex items-center justify-between mb-4">
+                                    <div class="w-12 h-12 rounded-xl bg-gradient-to-tr from-indigo-600 to-cyan-500 flex items-center justify-center shadow-lg shadow-indigo-500/20 text-white">
+                                        <i data-lucide="trending-up" class="w-6 h-6"></i>
+                                    </div>
+                                    <div class="flex items-center gap-1.5 px-2.5 py-1 bg-emerald-500/10 border border-emerald-500/30 rounded-full text-emerald-400 text-[11px] font-semibold">
+                                        <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+                                        <span>Active</span>
+                                    </div>
+                                </div>
+
+                                <h3 class="text-xl font-bold text-white group-hover:text-indigo-300 transition flex items-center gap-2">
+                                    Nego Intelligence Platform
+                                </h3>
+                                <p class="text-xs text-indigo-400 font-semibold tracking-wide mt-0.5">Performance & Negotiation Analytics</p>
+
+                                <p class="text-slate-300 text-xs mt-3 leading-relaxed">
+                                    Platform evaluasi performa negosiasi agen/kolektor, analisis pola tawar-menawar, efektivitas recovery rate, serta smart KPI intelligence dashboard.
+                                </p>
+
+                                <!-- Features List -->
+                                <div class="mt-4 space-y-1.5">
+                                    <div class="flex items-center gap-2 text-[11px] text-slate-400">
+                                        <i data-lucide="check-circle-2" class="w-3.5 h-3.5 text-indigo-400"></i>
+                                        <span>Evaluasi Negosiasi & Recovery Rate Metrics</span>
+                                    </div>
+                                    <div class="flex items-center gap-2 text-[11px] text-slate-400">
+                                        <i data-lucide="check-circle-2" class="w-3.5 h-3.5 text-indigo-400"></i>
+                                        <span>Leaderboard Agent & Strategy Optimization</span>
+                                    </div>
+                                    <div class="flex items-center gap-2 text-[11px] text-slate-400">
+                                        <i data-lucide="check-circle-2" class="w-3.5 h-3.5 text-indigo-400"></i>
+                                        <span>Interactive Drill-down Intelligence Filters</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Card Actions -->
+                            <div class="mt-6 pt-4 border-t border-slate-800/80">
+                                <button onclick="launchApp('nego')" class="w-full py-2.5 px-4 bg-gradient-to-r from-indigo-600 to-indigo-500 hover:from-indigo-500 hover:to-indigo-400 active:scale-95 text-white rounded-xl text-xs font-bold flex items-center justify-center gap-2 shadow-md shadow-indigo-600/20 transition cursor-pointer">
+                                    <i data-lucide="play" class="w-3.5 h-3.5 fill-current"></i>
+                                    <span>Buka Modul Nego Intelligence</span>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- CARD 3: GADAI MOTOR NPL RISK ANALYTICS -->
+                        <div class="app-card glass-card rounded-2xl p-6 flex flex-col justify-between transition-all duration-300 relative group overflow-hidden" data-category="credit" data-keywords="gadai motor npl risk credit default kredit motor analytics portfolio scorecard">
+                            <div class="absolute top-0 right-0 w-28 h-28 bg-emerald-500/10 rounded-full blur-2xl group-hover:bg-emerald-500/20 transition"></div>
+                            
+                            <div>
+                                <!-- Card Top Meta -->
+                                <div class="flex items-center justify-between mb-4">
+                                    <div class="w-12 h-12 rounded-xl bg-gradient-to-tr from-emerald-600 to-teal-400 flex items-center justify-center shadow-lg shadow-emerald-500/20 text-white">
+                                        <i data-lucide="shield-alert" class="w-6 h-6"></i>
+                                    </div>
+                                    <div class="flex items-center gap-1.5 px-2.5 py-1 bg-emerald-500/10 border border-emerald-500/30 rounded-full text-emerald-400 text-[11px] font-semibold">
+                                        <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+                                        <span>Active</span>
+                                    </div>
+                                </div>
+
+                                <h3 class="text-xl font-bold text-white group-hover:text-emerald-300 transition flex items-center gap-2">
+                                    Gadai Motor NPL Risk Analytics
+                                </h3>
+                                <p class="text-xs text-emerald-400 font-semibold tracking-wide mt-0.5">Credit Risk & Portfolio Default Engine</p>
+
+                                <p class="text-slate-300 text-xs mt-3 leading-relaxed">
+                                    Sistem analitik risiko kredit NPL gadai kendaraan komprehensif, mencakup model prediktif default, segmentasi nasabah, rasio LTV, dan simulasi stress testing.
+                                </p>
+
+                                <!-- Features List -->
+                                <div class="mt-4 space-y-1.5">
+                                    <div class="flex items-center gap-2 text-[11px] text-slate-400">
+                                        <i data-lucide="check-circle-2" class="w-3.5 h-3.5 text-emerald-400"></i>
+                                        <span>Model Prediksi NPL & Scoring Risiko Nasabah</span>
+                                    </div>
+                                    <div class="flex items-center gap-2 text-[11px] text-slate-400">
+                                        <i data-lucide="check-circle-2" class="w-3.5 h-3.5 text-emerald-400"></i>
+                                        <span>Analisis LTV, Tenor, & Depresiasi Agunan Motor</span>
+                                    </div>
+                                    <div class="flex items-center gap-2 text-[11px] text-slate-400">
+                                        <i data-lucide="check-circle-2" class="w-3.5 h-3.5 text-emerald-400"></i>
+                                        <span>Simulasi Portofolio & Underwriting Engine</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Card Actions -->
+                            <div class="mt-6 pt-4 border-t border-slate-800/80">
+                                <button onclick="launchApp('gadai')" class="w-full py-2.5 px-4 bg-gradient-to-r from-emerald-600 to-emerald-500 hover:from-emerald-500 hover:to-emerald-400 active:scale-95 text-white rounded-xl text-xs font-bold flex items-center justify-center gap-2 shadow-md shadow-emerald-600/20 transition cursor-pointer">
+                                    <i data-lucide="play" class="w-3.5 h-3.5 fill-current"></i>
+                                    <span>Buka Modul Gadai Motor NPL</span>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- CARD 4: MOTOR PRICE INDONESIA (NEW MODULE) -->
+                        <div class="app-card glass-card rounded-2xl p-6 flex flex-col justify-between transition-all duration-300 relative group overflow-hidden" data-category="market" data-keywords="motor price harga pasaran motor bekas indonesia taksiran valuation depresiasi honda yamaha kawasaki suzuki">
+                            <div class="absolute top-0 right-0 w-28 h-28 bg-amber-500/10 rounded-full blur-2xl group-hover:bg-amber-500/20 transition"></div>
+                            
+                            <div>
+                                <!-- Card Top Meta -->
+                                <div class="flex items-center justify-between mb-4">
+                                    <div class="w-12 h-12 rounded-xl bg-gradient-to-tr from-amber-600 to-orange-500 flex items-center justify-center shadow-lg shadow-amber-500/20 text-white">
+                                        <i data-lucide="badge-dollar-sign" class="w-6 h-6"></i>
+                                    </div>
+                                    <div class="flex items-center gap-1.5 px-2.5 py-1 bg-emerald-500/10 border border-emerald-500/30 rounded-full text-emerald-400 text-[11px] font-semibold">
+                                        <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+                                        <span>Active</span>
+                                    </div>
+                                </div>
+
+                                <h3 class="text-xl font-bold text-white group-hover:text-amber-300 transition flex items-center gap-2">
+                                    Market Price Motor Bekas ID
+                                </h3>
+                                <p class="text-xs text-amber-400 font-semibold tracking-wide mt-0.5">Automated Used Motorcycle Valuation Engine</p>
+
+                                <p class="text-slate-300 text-xs mt-3 leading-relaxed">
+                                    Platform intelligence pemantauan harga pasaran motor bekas real-time di seluruh Indonesia, analisis kurva depresiasi tahunan, dan rekomendasi nilai taksiran agunan.
+                                </p>
+
+                                <!-- Features List -->
+                                <div class="mt-4 space-y-1.5">
+                                    <div class="flex items-center gap-2 text-[11px] text-slate-400">
+                                        <i data-lucide="check-circle-2" class="w-3.5 h-3.5 text-amber-400"></i>
+                                        <span>Database Harga Pasaran Motor Bekas Nasional</span>
+                                    </div>
+                                    <div class="flex items-center gap-2 text-[11px] text-slate-400">
+                                        <i data-lucide="check-circle-2" class="w-3.5 h-3.5 text-amber-400"></i>
+                                        <span>Kalkulator Depresiasi Merk & Tahun Pembuatan</span>
+                                    </div>
+                                    <div class="flex items-center gap-2 text-[11px] text-slate-400">
+                                        <i data-lucide="check-circle-2" class="w-3.5 h-3.5 text-amber-400"></i>
+                                        <span>Benchmark Nilai Taksiran & Plafon Kredit Realtime</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Card Actions -->
+                            <div class="mt-6 pt-4 border-t border-slate-800/80">
+                                <button onclick="launchApp('motorprice')" class="w-full py-2.5 px-4 bg-gradient-to-r from-amber-600 to-amber-500 hover:from-amber-500 hover:to-amber-400 active:scale-95 text-white rounded-xl text-xs font-bold flex items-center justify-center gap-2 shadow-md shadow-amber-600/20 transition cursor-pointer">
+                                    <i data-lucide="play" class="w-3.5 h-3.5 fill-current"></i>
+                                    <span>Buka Modul Harga Motor Bekas</span>
+                                </button>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- NARAHUBUNG SECTION -->
+                <div class="mt-12 glass-card rounded-2xl p-5 border border-slate-800 bg-slate-900/60 mb-6">
+                    <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+                        <div class="flex items-center gap-3.5">
+                            <div class="w-11 h-11 rounded-xl bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 flex items-center justify-center shrink-0">
+                                <i data-lucide="user-check" class="w-5 h-5"></i>
+                            </div>
+                            <div>
+                                <div class="flex items-center gap-2 flex-wrap">
+                                    <h4 class="text-sm font-bold text-white">Narahubung & Dukungan Teknis:</h4>
+                                    <span class="text-sm font-semibold text-indigo-300">Mukhammad Rekza Mufti</span>
+                                </div>
+                                <p class="text-xs text-slate-400 mt-0.5">
+                                    Data Analyst &bull; Doraemon Doors System
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-center gap-2 w-full md:w-auto">
+                            <a href="tel:081536175933" class="px-3.5 py-2 bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 rounded-xl text-xs font-semibold flex items-center gap-2 transition">
+                                <i data-lucide="phone" class="w-3.5 h-3.5 text-emerald-400"></i>
+                                <span>081536175933</span>
+                            </a>
+                            <a href="https://wa.me/6281536175933" target="_blank" rel="noopener noreferrer" class="px-3.5 py-2 bg-emerald-600/20 hover:bg-emerald-600/30 text-emerald-300 border border-emerald-500/30 rounded-xl text-xs font-semibold flex items-center gap-2 transition">
+                                <i data-lucide="message-square" class="w-3.5 h-3.5"></i>
+                                <span>WhatsApp</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Footer in Hub Mode -->
+                <footer class="border-t border-slate-800/80 pt-4 pb-2 text-center text-xs text-slate-500 flex flex-col sm:flex-row items-center justify-between gap-2">
+                    <p>&copy; 2026 Doraemon Doors &bull; Enterprise Intelligence Platform.</p>
+                    <p class="text-slate-400">Analytics Hub v1.0</p>
+                </footer>
+            </div>
+        </main>
+
+        <!-- VIEW 2: FULLSCREEN WORKSPACE VIEW (Pure 100% Flex Viewport) -->
+        <section id="workspace-view" class="hidden flex-1 w-full h-full flex flex-col min-h-0 bg-[#090d16] relative z-20">
+            
+            <!-- Workspace Sub-Header Control Bar -->
+            <div class="flex-shrink-0 bg-slate-900/95 border-b border-slate-800 px-4 py-2 flex flex-wrap items-center justify-between gap-2">
+                
+                <!-- Left: Module Switcher Tabs (4 Tabs) -->
+                <div class="flex items-center gap-1.5 overflow-x-auto py-0.5 max-w-full">
+                    <button onclick="switchWorkspaceApp('defect')" id="tab-defect" class="ws-tab px-3 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-2 bg-slate-800 text-slate-300 hover:text-white transition cursor-pointer shrink-0">
+                        <span class="w-2 h-2 rounded-full bg-rose-500"></span>
+                        <span>AI Defect Detection</span>
+                    </button>
+                    <button onclick="switchWorkspaceApp('nego')" id="tab-nego" class="ws-tab px-3 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-2 bg-slate-800 text-slate-300 hover:text-white transition cursor-pointer shrink-0">
+                        <span class="w-2 h-2 rounded-full bg-indigo-500"></span>
+                        <span>Nego Intelligence</span>
+                    </button>
+                    <button onclick="switchWorkspaceApp('gadai')" id="tab-gadai" class="ws-tab px-3 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-2 bg-slate-800 text-slate-300 hover:text-white transition cursor-pointer shrink-0">
+                        <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+                        <span>Gadai Motor NPL</span>
+                    </button>
+                    <button onclick="switchWorkspaceApp('motorprice')" id="tab-motorprice" class="ws-tab px-3 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-2 bg-slate-800 text-slate-300 hover:text-white transition cursor-pointer shrink-0">
+                        <span class="w-2 h-2 rounded-full bg-amber-500"></span>
+                        <span>Pasar Motor Bekas</span>
+                    </button>
+                </div>
+
+                <!-- Right: Action Tools -->
+                <div class="flex items-center gap-2 ml-auto">
+                    <!-- Clean Internal Endpoint Identifier -->
+                    <div class="hidden lg:flex items-center gap-1.5 text-[11px] text-indigo-300 font-mono bg-slate-950 px-2.5 py-1 rounded border border-slate-800">
+                        <i data-lucide="server" class="w-3.5 h-3.5 text-indigo-400"></i>
+                        <span id="activeAppEndpointText">doors-core.internal/vision-defect</span>
+                    </div>
+                    
+                    <button onclick="reloadActiveFrame()" class="p-1.5 text-slate-400 hover:text-white bg-slate-800 hover:bg-slate-700 rounded-lg transition" title="Muat Ulang Modul">
+                        <i data-lucide="rotate-cw" class="w-4 h-4"></i>
+                    </button>
+
+                    <button onclick="toggleFrameFullscreen()" class="p-1.5 text-slate-400 hover:text-white bg-slate-800 hover:bg-slate-700 rounded-lg transition" title="Fullscreen">
+                        <i data-lucide="maximize" class="w-4 h-4"></i>
+                    </button>
+
+                    <button onclick="switchView('hub')" class="px-2.5 py-1.5 bg-slate-800 hover:bg-rose-500/20 hover:text-rose-300 text-slate-300 rounded-lg text-xs font-semibold flex items-center gap-1.5 border border-slate-700 transition cursor-pointer">
+                        <i data-lucide="layout-grid" class="w-3.5 h-3.5"></i>
+                        <span>Tutup Workspace</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- 100% Full Height Iframe Container -->
+            <div class="workspace-frame-container">
+                
+                <!-- Loading Indicator Overlay -->
+                <div id="frame-loader" class="absolute inset-0 bg-[#0e1117] flex flex-col items-center justify-center z-40 transition-opacity duration-300">
+                    <div class="w-9 h-9 border-3 border-slate-700 border-t-indigo-500 rounded-full animate-spin-fast mb-3"></div>
+                    <p class="text-sm font-semibold text-slate-200" id="frame-loading-title">Memuat Modul Sistem...</p>
+                    <p class="text-xs text-slate-500 mt-1">Mengoneksikan ke server...</p>
+                </div>
+
+                <!-- Main Full-Screen Embedded Frame -->
+                <iframe 
+                    id="main-iframe" 
+                    src="about:blank"
+                    class="embedded-frame"
+                    allow="camera; microphone; clipboard-read; clipboard-write; fullscreen"
+                    onload="onIframeLoaded()"
+                ></iframe>
+            </div>
+
+            <!-- Sleek Bottom Status Bar -->
+            <div class="bottom-status-bar">
+                <div class="flex items-center gap-2">
+                    <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+                    <span class="font-medium text-slate-400">Doraemon Doors Engine v1.0 &bull; Secure Encrypted Session</span>
+                </div>
+                <div class="font-mono text-[10px] text-slate-500 hidden sm:block">
+                    Doraemon Doors &bull; Business & Risk Intelligence
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- ========================================================================= -->
+    <!-- JAVASCRIPT AUTHENTICATION & PORTAL LOGIC -->
+    <!-- ========================================================================= -->
+    <script>
+        // ==========================================
+        // INTERNAL AUTHENTICATION CREDENTIALS
+        // ==========================================
+        const AUTH_CONFIG = {
+            validUsername: "analis",
+            validPassword: "mufti123456",
+            sessionKey: "doraemon_doors_authenticated_v1"
+        };
+
+        // Module Configurations (4 Integrated Platforms)
+        const APP_CONFIG = {
+            defect: {
+                id: 'defect',
+                name: 'AI Defect Detection System',
+                endpoint: 'doors-core.internal/vision-defect',
+                url: 'https://defectcek.streamlit.app/?embed=true&embed_options=show_colored_line',
+                tabClass: 'bg-rose-600 text-white shadow-md shadow-rose-600/30'
+            },
+            nego: {
+                id: 'nego',
+                name: 'Nego Intelligence Platform',
+                endpoint: 'doors-core.internal/nego-intelligence',
+                url: 'https://nego-intelligence.streamlit.app/?embed=true&embed_options=show_colored_line',
+                tabClass: 'bg-indigo-600 text-white shadow-md shadow-indigo-600/30'
+            },
+            gadai: {
+                id: 'gadai',
+                name: 'Gadai Motor NPL Risk Analytics',
+                endpoint: 'doors-core.internal/risk-analytics',
+                url: 'https://gadai-motor-npl-analytics.streamlit.app/?embed=true&embed_options=show_colored_line',
+                tabClass: 'bg-emerald-600 text-white shadow-md shadow-emerald-600/30'
+            },
+            motorprice: {
+                id: 'motorprice',
+                name: 'Market Price Motor Bekas Indonesia',
+                endpoint: 'doors-core.internal/market-price-motor',
+                url: 'https://motor-price-id.streamlit.app/?embed=true&embed_options=show_colored_line',
+                tabClass: 'bg-amber-600 text-white shadow-md shadow-amber-600/30'
+            }
+        };
+
+        let currentActiveApp = 'defect';
+        let currentView = 'hub';
+
+        // Check authentication state upon load
+        document.addEventListener('DOMContentLoaded', () => {
+            lucide.createIcons();
+            checkExistingSession();
+        });
+
+        // Toggle Password Visibility
+        function togglePasswordVisibility() {
+            const pwdInput = document.getElementById('login-password');
+            const eyeIcon = document.getElementById('eye-icon');
+            
+            if (pwdInput.type === 'password') {
+                pwdInput.type = 'text';
+                eyeIcon.setAttribute('data-lucide', 'eye-off');
+            } else {
+                pwdInput.type = 'password';
+                eyeIcon.setAttribute('data-lucide', 'eye');
+            }
+            lucide.createIcons();
+        }
+
+        // Check Saved Session
+        function checkExistingSession() {
+            const isAuthSession = sessionStorage.getItem(AUTH_CONFIG.sessionKey);
+            const isAuthLocal = localStorage.getItem(AUTH_CONFIG.sessionKey);
+
+            if (isAuthSession === 'true' || isAuthLocal === 'true') {
+                unlockPortal();
+            } else {
+                lockPortal();
+            }
+        }
+
+        // Handle Login Submission
+        function handleLogin(event) {
+            event.preventDefault();
+            
+            const usernameInput = document.getElementById('login-username').value.trim().toLowerCase();
+            const passwordInput = document.getElementById('login-password').value;
+            const rememberMe = document.getElementById('remember-me').checked;
+            const errorBox = document.getElementById('login-error-msg');
+            const loginCard = document.getElementById('login-card');
+
+            // Authentication verification
+            if (usernameInput === AUTH_CONFIG.validUsername && passwordInput === AUTH_CONFIG.validPassword) {
+                // Success
+                errorBox.classList.add('hidden');
+                
+                if (rememberMe) {
+                    localStorage.setItem(AUTH_CONFIG.sessionKey, 'true');
+                } else {
+                    sessionStorage.setItem(AUTH_CONFIG.sessionKey, 'true');
+                }
+
+                unlockPortal();
+            } else {
+                // Invalid credentials: show error and shake card
+                errorBox.classList.remove('hidden');
+                loginCard.classList.remove('shake-box');
+                void loginCard.offsetWidth; // Trigger reflow for animation restart
+                loginCard.classList.add('shake-box');
+                
+                // Focus password field
+                document.getElementById('login-password').value = '';
+                document.getElementById('login-password').focus();
+            }
+        }
+
+        // Unlock & Reveal Portal Dashboard
+        function unlockPortal() {
+            document.getElementById('login-screen').classList.add('hidden');
+            document.getElementById('authenticated-app').classList.remove('hidden');
+            lucide.createIcons();
+        }
+
+        // Lock & Return to Login Screen
+        function lockPortal() {
+            document.getElementById('authenticated-app').classList.add('hidden');
+            document.getElementById('login-screen').classList.remove('hidden');
+            
+            // Clear iframe to stop background consumption
+            const iframe = document.getElementById('main-iframe');
+            if (iframe) iframe.src = 'about:blank';
+            
+            lucide.createIcons();
+        }
+
+        // Handle Logout
+        function handleLogout() {
+            sessionStorage.removeItem(AUTH_CONFIG.sessionKey);
+            localStorage.removeItem(AUTH_CONFIG.sessionKey);
+            
+            // Clear input fields
+            document.getElementById('login-username').value = '';
+            document.getElementById('login-password').value = '';
+            document.getElementById('login-error-msg').classList.add('hidden');
+            
+            lockPortal();
+        }
+
+        // Switch View (Hub Catalog vs Integrated Workspace)
+        function switchView(view) {
+            currentView = view;
+            const hubView = document.getElementById('hub-view');
+            const wsView = document.getElementById('workspace-view');
+            const toggleBtnText = document.getElementById('workspace-toggle-text');
+            const searchBar = document.getElementById('nav-search-bar');
+
+            if (view === 'workspace') {
+                hubView.classList.add('hidden');
+                wsView.classList.remove('hidden');
+                toggleBtnText.textContent = 'Mode Portal';
+                if (searchBar) searchBar.classList.add('hidden');
+                
+                const iframe = document.getElementById('main-iframe');
+                if (iframe.src === 'about:blank' || !iframe.src) {
+                    switchWorkspaceApp(currentActiveApp);
+                }
+            } else {
+                wsView.classList.add('hidden');
+                hubView.classList.remove('hidden');
+                toggleBtnText.textContent = 'Mode Workspace';
+                if (searchBar) searchBar.classList.remove('hidden');
+            }
+        }
+
+        function toggleQuickWorkspace() {
+            if (currentView === 'hub') {
+                switchView('workspace');
+                if (document.getElementById('main-iframe').src === 'about:blank') {
+                    switchWorkspaceApp(currentActiveApp);
+                }
+            } else {
+                switchView('hub');
+            }
+        }
+
+        // Launch app directly into integrated workspace
+        function launchApp(appKey) {
+            currentActiveApp = appKey;
+            switchView('workspace');
+            switchWorkspaceApp(appKey);
+        }
+
+        // Switch App inside Workspace
+        function switchWorkspaceApp(appKey) {
+            const config = APP_CONFIG[appKey];
+            if (!config) return;
+
+            currentActiveApp = appKey;
+            
+            // Update Tab styles
+            ['defect', 'nego', 'gadai', 'motorprice'].forEach(key => {
+                const tab = document.getElementById(`tab-${key}`);
+                if (!tab) return;
+                if (key === appKey) {
+                    tab.className = `ws-tab px-3 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-2 ${config.tabClass}`;
+                } else {
+                    tab.className = 'ws-tab px-3 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-2 bg-slate-800 text-slate-300 hover:text-white transition cursor-pointer shrink-0';
+                }
+            });
+
+            // Update Endpoint label & Loading status
+            document.getElementById('activeAppEndpointText').textContent = config.endpoint;
+            document.getElementById('frame-loading-title').textContent = `Memuat ${config.name}...`;
+
+            // Show Loader
+            showFrameLoader();
+
+            // Load iframe
+            const iframe = document.getElementById('main-iframe');
+            if (iframe.src !== config.url) {
+                iframe.src = config.url;
+            } else {
+                hideFrameLoader();
+            }
+
+            // Fallback loader hide
+            setTimeout(hideFrameLoader, 4000);
+        }
+
+        function showFrameLoader() {
+            const loader = document.getElementById('frame-loader');
+            loader.style.opacity = '1';
+            loader.style.display = 'flex';
+        }
+
+        function hideFrameLoader() {
+            const loader = document.getElementById('frame-loader');
+            loader.style.opacity = '0';
+            setTimeout(() => {
+                loader.style.display = 'none';
+            }, 300);
+        }
+
+        function onIframeLoaded() {
+            hideFrameLoader();
+        }
+
+        function reloadActiveFrame() {
+            showFrameLoader();
+            const iframe = document.getElementById('main-iframe');
+            const currentSrc = iframe.src;
+            iframe.src = 'about:blank';
+            setTimeout(() => {
+                iframe.src = currentSrc;
+            }, 150);
+        }
+
+        function toggleFrameFullscreen() {
+            const container = document.getElementById('workspace-view');
+            if (!document.fullscreenElement) {
+                container.requestFullscreen().catch(err => {
+                    alert(`Gagal fullscreen: ${err.message}`);
+                });
+            } else {
+                document.exitFullscreen();
+            }
+        }
+
+        // Category Filter
+        function filterCategory(cat) {
+            const cards = document.querySelectorAll('.app-card');
+            const buttons = document.querySelectorAll('.cat-pill');
+
+            buttons.forEach(btn => {
+                if (btn.dataset.cat === cat) {
+                    btn.className = 'cat-pill active px-4 py-1.5 rounded-full text-xs font-semibold bg-indigo-600 text-white border border-indigo-500 transition shadow-sm';
+                } else {
+                    btn.className = 'cat-pill px-4 py-1.5 rounded-full text-xs font-semibold bg-slate-900/80 text-slate-400 hover:text-white border border-slate-800 transition';
+                }
+            });
+
+            cards.forEach(card => {
+                if (cat === 'all' || card.dataset.category === cat) {
+                    card.style.display = 'flex';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        // Search Filter
+        function handleSearch(query) {
+            const term = query.toLowerCase().trim();
+            const cards = document.querySelectorAll('.app-card');
+
+            cards.forEach(card => {
+                const keywords = card.dataset.keywords || '';
+                const text = card.textContent.toLowerCase();
+                if (text.includes(term) || keywords.includes(term)) {
+                    card.style.display = 'flex';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+    </script>
+</body>
+</html>

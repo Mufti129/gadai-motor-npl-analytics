@@ -15,12 +15,12 @@ from patsy import dmatrices
 from src.config import FORMULA_MODEL_2, FORMULA_MODEL_4
 
 
-def evaluate_models_comparison(models: Dict[str, Any], df: pd.DataFrame) -> pd.DataFrame:
+def evaluate_models_comparison(models: Dict[str, Any], df: pd.DataFrame, target_col: str = "NPL_clean") -> pd.DataFrame:
     """
     Generate comparative performance table across all fitted models.
     Corresponds to Table 16 in Research Design PDF.
     """
-    y_true = df["NPL_clean"].values
+    y_true = df[target_col].values if target_col in df.columns else df["NPL_clean"].values
     null_model = models.get("Model 0 (Null Model)")
     ll_null = null_model.llf if null_model else list(models.values())[0].llnull
 

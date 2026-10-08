@@ -22,18 +22,34 @@ def validate_clean_dataset(df: pd.DataFrame) -> Dict[str, Any]:
     report["total_rows"] = total_rows
     report["total_columns"] = len(df.columns)
 
-    # 1. Assertions on Target Variable
+    # 1. Assertions on Target Variable (>30 Days & >90 Days)
     assert "NPL_clean" in df.columns, "Kolom NPL_clean tidak ditemukan!"
+    assert "NPL_30" in df.columns, "Kolom NPL_30 tidak ditemukan!"
+    assert "NPL_90" in df.columns, "Kolom NPL_90 tidak ditemukan!"
     assert df["NPL_clean"].isnull().sum() == 0, "Ditemukan nilai NULL pada NPL_clean!"
-    unique_npl = set(df["NPL_clean"].unique())
-    assert unique_npl.issubset({0, 1}), f"Nilai NPL_clean tidak valid: {unique_npl}"
+    assert df["NPL_90"].isnull().sum() == 0, "Ditemukan nilai NULL pada NPL_90!"
+    
+    unique_npl_30 = set(df["NPL_30"].unique())
+    unique_npl_90 = set(df["NPL_90"].unique())
+    assert unique_npl_30.issubset({0, 1}), f"Nilai NPL_30 tidak valid: {unique_npl_30}"
+    assert unique_npl_90.issubset({0, 1}), f"Nilai NPL_90 tidak valid: {unique_npl_90}"
+    assert (df["NPL_90"] <= df["NPL_30"]).all(), "Error: NPL_90 harus merupakan subset dari NPL_30!"
 
-    npl_count = int(df["NPL_clean"].sum())
-    npl_rate = (npl_count / total_rows) * 100
+    npl_30_count = int(df["NPL_30"].sum())
+    npl_30_rate = (npl_30_count / total_rows) * 100
+
+    npl_90_count = int(df["NPL_90"].sum())
+    npl_90_rate = (npl_90_count / total_rows) * 100
+
     report["target_summary"] = {
-        "npl_count": npl_count,
-        "non_npl_count": total_rows - npl_count,
-        "npl_rate_pct": round(npl_rate, 4)
+        "npl_30_count": npl_30_count,
+        "npl_30_rate_pct": round(npl_30_rate, 4),
+        "npl_90_count": npl_90_count,
+        "npl_90_rate_pct": round(npl_90_rate, 4),
+        "transition_31_90_count": npl_30_count - npl_90_count,
+        "transition_31_90_rate_pct": round((npl_30_count - npl_90_count) / total_rows * 100, 4),
+        "non_npl_30_count": total_rows - npl_30_count,
+        "non_npl_90_count": total_rows - npl_90_count
     }
 
     # 2. Specific Verification on Previously Identified Mismatches

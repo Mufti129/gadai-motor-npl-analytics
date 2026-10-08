@@ -54,22 +54,26 @@ def generate_table1_characteristics(df: pd.DataFrame) -> pd.DataFrame:
 
 def generate_table2_npl_distribution(df: pd.DataFrame) -> pd.DataFrame:
     """
-    Tabel 2: Distribusi Status NPL.
+    Tabel 2: Distribusi Status NPL Komparatif (Kriteria >30 Hari vs >90 Hari).
     """
     TABLES_OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
 
     total = len(df)
-    npl_cnt = int(df["NPL_clean"].sum())
-    non_cnt = total - npl_cnt
+    npl_30_cnt = int(df["NPL_30"].sum()) if "NPL_30" in df.columns else int(df["NPL_clean"].sum())
+    npl_90_cnt = int(df["NPL_90"].sum()) if "NPL_90" in df.columns else 0
+    transition_cnt = npl_30_cnt - npl_90_cnt
+    non_cnt = total - npl_30_cnt
 
     t2_df = pd.DataFrame([
-        {"Status": "Kredit Lancar (Non-NPL = 0)", "Frekuensi": non_cnt, "Persentase (%)": round((non_cnt/total)*100, 2)},
-        {"Status": "Kredit Macet (NPL = 1)", "Frekuensi": npl_cnt, "Persentase (%)": round((npl_cnt/total)*100, 2)},
-        {"Status": "Total Populasi", "Frekuensi": total, "Persentase (%)": 100.0}
+        {"Status / Klasifikasi": "Kredit Lancar (Non-NPL / <= 30 Hari)", "Frekuensi": non_cnt, "Persentase (%)": round((non_cnt/total)*100, 2), "Definisi / Acuan": "Days Late <= 30 atau Lunas"},
+        {"Status / Klasifikasi": "Kredit Macet NPL > 30 Hari (Operasional)", "Frekuensi": npl_30_cnt, "Persentase (%)": round((npl_30_cnt/total)*100, 2), "Definisi / Acuan": "Days Late > 30 Hari (Standar Gadai)"},
+        {"Status / Klasifikasi": "  ├── NPL Transisi (DPD 31-90 Hari)", "Frekuensi": transition_cnt, "Persentase (%)": round((transition_cnt/total)*100, 2), "Definisi / Acuan": "31 <= Days Late <= 90 Hari"},
+        {"Status / Klasifikasi": "  └── NPL Berat / Macet > 90 Hari (OJK)", "Frekuensi": npl_90_cnt, "Persentase (%)": round((npl_90_cnt/total)*100, 2), "Definisi / Acuan": "Days Late > 90 Hari (Standar OJK Kolektibilitas 5)"},
+        {"Status / Klasifikasi": "Total Seluruh Populasi", "Frekuensi": total, "Persentase (%)": 100.0, "Definisi / Acuan": "139.493 Transaksi Valid"}
     ])
 
     t2_df.to_csv(TABEL2_CSV, index=False)
-    print(f"[Tabel] Tabel 2 (Distribusi NPL) disimpan: {TABEL2_CSV.name}")
+    print(f"[Tabel] Tabel 2 (Distribusi NPL Komparatif) disimpan: {TABEL2_CSV.name}")
     return t2_df
 
 

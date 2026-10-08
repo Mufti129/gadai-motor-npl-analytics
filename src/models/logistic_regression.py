@@ -66,9 +66,9 @@ def extract_coefficients(model_fit: Any, model_name: str) -> pd.DataFrame:
     return df_coef
 
 
-def fit_all_models(df: pd.DataFrame) -> Tuple[Dict[str, Any], pd.DataFrame]:
+def fit_all_models(df: pd.DataFrame, target_col: str = "NPL_clean") -> Tuple[Dict[str, Any], pd.DataFrame]:
     """
-    Fit hierarchical models Model 0 through Model 4.
+    Fit hierarchical models Model 0 through Model 4 for specified target column (e.g., 'NPL_clean', 'NPL_30', 'NPL_90').
 
     Returns:
     --------
@@ -78,21 +78,27 @@ def fit_all_models(df: pd.DataFrame) -> Tuple[Dict[str, Any], pd.DataFrame]:
     models = {}
     coef_list = []
 
+    def adapt_formula(f: str) -> str:
+        if target_col != "NPL_clean":
+            return f.replace("NPL_clean", target_col)
+        return f
+
     model_specs = [
-        ("Model 0 (Null Model)", FORMULA_MODEL_0),
-        ("Model 1 (Core Risk Model)", FORMULA_MODEL_1),
-        ("Model 2 (Core + LTV_MAX)", FORMULA_MODEL_2),
-        ("Model 3 (Core + Zona LTV)", FORMULA_MODEL_3),
-        ("Model 4 (Full Enhanced Model)", FORMULA_MODEL_4)
+        ("Model 0 (Null Model)", adapt_formula(FORMULA_MODEL_0)),
+        ("Model 1 (Core Risk Model)", adapt_formula(FORMULA_MODEL_1)),
+        ("Model 2 (Core + LTV_MAX)", adapt_formula(FORMULA_MODEL_2)),
+        ("Model 3 (Core + Zona LTV)", adapt_formula(FORMULA_MODEL_3)),
+        ("Model 4 (Full Enhanced Model)", adapt_formula(FORMULA_MODEL_4))
     ]
 
-    print("\n[Modeling] Memulai estimasi regresi logistik bertingkat (statsmodels)...")
+    print(f"\n[Modeling] Memulai estimasi regresi logistik bertingkat (Target: {target_col})...")
     for name, formula in model_specs:
         t0 = time.time()
-        print(f"  -> Mengestimasi {name} ...")
+        print(f"  -> Mengestimasi {name} ({target_col}) ...")
         m = smf.logit(formula, data=df).fit(disp=False)
         models[name] = m
         coef_df = extract_coefficients(m, name)
+        coef_df["Target"] = target_col
         coef_list.append(coef_df)
         print(f"     Selesai dalam {time.time() - t0:.2f} detik. Log-Likelihood: {m.llf:.2f}")
 

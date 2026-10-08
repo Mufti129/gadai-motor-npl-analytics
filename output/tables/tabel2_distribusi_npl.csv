@@ -1,4 +1,6 @@
-Status,Frekuensi,Persentase (%)
-Kredit Lancar (Non-NPL = 0),129853,93.09
-Kredit Macet (NPL = 1),9640,6.91
-Total Populasi,139493,100.0
+Status / Klasifikasi,Frekuensi,Persentase (%),Definisi / Acuan
+Kredit Lancar (Non-NPL / <= 30 Hari),129853,93.09,Days Late <= 30 atau Lunas
+Kredit Macet NPL > 30 Hari (Operasional),9640,6.91,Days Late > 30 Hari (Standar Gadai)
+  ├── NPL Transisi (DPD 31-90 Hari),1884,1.35,31 <= Days Late <= 90 Hari
+  └── NPL Berat / Macet > 90 Hari (OJK),7756,5.56,Days Late > 90 Hari (Standar OJK Kolektibilitas 5)
+Total Seluruh Populasi,139493,100.0,139.493 Transaksi Valid
