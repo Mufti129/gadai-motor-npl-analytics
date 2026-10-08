@@ -136,6 +136,18 @@ def evaluate_hypotheses(models: Dict[str, Any], df_subset_job_model: Any = None)
         "interpretasi": "Zona LTV berhubungan signifikan, namun perbandingan AIC membuktikan representasi kontinu LTV_MAX jauh lebih superior dibanding pengelompokan Zona LTV."
     })
 
+    # H9: Pengaruh Daerah / Wilayah / Cabang terhadap NPL
+    results.append({
+        "id": "H9",
+        "hipotesis": "Terdapat pengaruh spasial / daerah (wilayah dan cabang) terhadap tingkat risiko NPL.",
+        "variabel": "wilayah_group / cabang",
+        "p_value": 9.2344e-60,
+        "odds_ratio": 2.276,
+        "ci_95": "[1.92, 2.70]",
+        "kesimpulan": "DITERIMA (Sangat Signifikan)",
+        "interpretasi": "Faktor daerah terbukti berpengaruh sangat signifikan (LR Test p = 9.23e-60, penurunan AIC 296,6 poin). Nasabah di wilayah Garut, Bandung, dan Subang memiliki odds risiko macet 2.19 - 2.28 kali lipat lebih tinggi dibandingkan wilayah Tangerang (NPL 9,1% vs 4,1%)."
+    })
+
     with open(HYPOTHESIS_RESULTS_JSON, "w", encoding="utf-8") as f:
         json.dump(results, f, indent=2)
 

@@ -13,7 +13,7 @@
     <!-- Meta SEO & Open Graph -->
     <meta name="description" content="Portal Pusat Sistem AI & Enterprise Business Intelligence — Doraemon Doors">
     <meta property="og:title" content="Analytics Hub v1.0 — Doraemon Doors">
-    <meta property="og:description" content="Sistem Terpadu AI Defect Detection, Nego Intelligence, Gadai Motor NPL Risk, dan Market Price Motor Bekas">
+    <meta property="og:description" content="Sistem Terpadu AI Defect Detection, Nego Intelligence, Gadai Motor NPL Risk, Market Price Motor & Mobil Bekas">
     <meta property="og:type" content="website">
 
     <!-- Clean SVG Favicon -->
@@ -346,21 +346,21 @@
                             Pilih Platform & <span class="bg-gradient-to-r from-indigo-400 via-sky-300 to-emerald-400 bg-clip-text text-transparent">Modul Analitik</span>
                         </h1>
                         <p class="mt-3 text-slate-400 text-sm sm:text-base leading-relaxed">
-                            Akses terpadu ke seluruh sistem inspeksi AI Computer Vision, Analytics Negosiasi, Pemodelan Risiko Kredit NPL, dan Market Price Motor Bekas.
+                            Akses terpadu ke seluruh sistem inspeksi AI Computer Vision, Analytics Negosiasi, Pemodelan Risiko Kredit NPL, serta Market Price Motor & Mobil Bekas.
                         </p>
                     </div>
 
-                    <!-- Filter Pills -->
+                    <!-- Filter Pills (5 Categories) -->
                     <div class="flex items-center justify-center gap-2 mb-8 flex-wrap">
-                        <button onclick="filterCategory('all')" class="cat-pill active px-4 py-1.5 rounded-full text-xs font-semibold bg-indigo-600 text-white border border-indigo-500 transition shadow-sm" data-cat="all">Semua Modul (4)</button>
+                        <button onclick="filterCategory('all')" class="cat-pill active px-4 py-1.5 rounded-full text-xs font-semibold bg-indigo-600 text-white border border-indigo-500 transition shadow-sm" data-cat="all">Semua Modul (5)</button>
                         <button onclick="filterCategory('vision')" class="cat-pill px-4 py-1.5 rounded-full text-xs font-semibold bg-slate-900/80 text-slate-400 hover:text-white border border-slate-800 transition" data-cat="vision">AI Computer Vision</button>
                         <button onclick="filterCategory('credit')" class="cat-pill px-4 py-1.5 rounded-full text-xs font-semibold bg-slate-900/80 text-slate-400 hover:text-white border border-slate-800 transition" data-cat="credit">Credit & Risk Analytics</button>
                         <button onclick="filterCategory('nego')" class="cat-pill px-4 py-1.5 rounded-full text-xs font-semibold bg-slate-900/80 text-slate-400 hover:text-white border border-slate-800 transition" data-cat="nego">Nego Intelligence</button>
                         <button onclick="filterCategory('market')" class="cat-pill px-4 py-1.5 rounded-full text-xs font-semibold bg-slate-900/80 text-slate-400 hover:text-white border border-slate-800 transition" data-cat="market">Market Price & Valuation</button>
                     </div>
 
-                    <!-- APP CARDS GRID (4 Cards) -->
-                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6" id="appGrid">
+                    <!-- APP CARDS GRID (5 Cards) -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="appGrid">
                         
                         <!-- CARD 1: DEFECT DETECTION AI -->
                         <div class="app-card glass-card rounded-2xl p-6 flex flex-col justify-between transition-all duration-300 relative group overflow-hidden" data-category="vision" data-keywords="defect cek hp cacat kamera inspection cv computer vision yolo grading">
@@ -515,7 +515,7 @@
                             </div>
                         </div>
 
-                        <!-- CARD 4: MOTOR PRICE INDONESIA (NEW MODULE) -->
+                        <!-- CARD 4: MOTOR PRICE INDONESIA -->
                         <div class="app-card glass-card rounded-2xl p-6 flex flex-col justify-between transition-all duration-300 relative group overflow-hidden" data-category="market" data-keywords="motor price harga pasaran motor bekas indonesia taksiran valuation depresiasi honda yamaha kawasaki suzuki">
                             <div class="absolute top-0 right-0 w-28 h-28 bg-amber-500/10 rounded-full blur-2xl group-hover:bg-amber-500/20 transition"></div>
                             
@@ -562,6 +562,57 @@
                                 <button onclick="launchApp('motorprice')" class="w-full py-2.5 px-4 bg-gradient-to-r from-amber-600 to-amber-500 hover:from-amber-500 hover:to-amber-400 active:scale-95 text-white rounded-xl text-xs font-bold flex items-center justify-center gap-2 shadow-md shadow-amber-600/20 transition cursor-pointer">
                                     <i data-lucide="play" class="w-3.5 h-3.5 fill-current"></i>
                                     <span>Buka Modul Harga Motor Bekas</span>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- CARD 5: CAR PRICE ID (NEW MODULE) -->
+                        <div class="app-card glass-card rounded-2xl p-6 flex flex-col justify-between transition-all duration-300 relative group overflow-hidden" data-category="market" data-keywords="car price harga pasaran mobil bekas indonesia taksiran valuation depresiasi toyota honda daihatsu mitsubishi suzuki nissan">
+                            <div class="absolute top-0 right-0 w-28 h-28 bg-cyan-500/10 rounded-full blur-2xl group-hover:bg-cyan-500/20 transition"></div>
+                            
+                            <div>
+                                <!-- Card Top Meta -->
+                                <div class="flex items-center justify-between mb-4">
+                                    <div class="w-12 h-12 rounded-xl bg-gradient-to-tr from-cyan-600 to-blue-500 flex items-center justify-center shadow-lg shadow-cyan-500/20 text-white">
+                                        <i data-lucide="car" class="w-6 h-6"></i>
+                                    </div>
+                                    <div class="flex items-center gap-1.5 px-2.5 py-1 bg-emerald-500/10 border border-emerald-500/30 rounded-full text-emerald-400 text-[11px] font-semibold">
+                                        <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+                                        <span>Active</span>
+                                    </div>
+                                </div>
+
+                                <h3 class="text-xl font-bold text-white group-hover:text-cyan-300 transition flex items-center gap-2">
+                                    Car Price ID (Mobil Bekas)
+                                </h3>
+                                <p class="text-xs text-cyan-400 font-semibold tracking-wide mt-0.5">Automated Used Car Valuation & Intelligence</p>
+
+                                <p class="text-slate-300 text-xs mt-3 leading-relaxed">
+                                    Platform intelligence pemantauan harga pasaran mobil bekas real-time di seluruh Indonesia, analisis depresiasi transmisi, segmen kendaraan, dan rekomendasi plafon taksiran roda 4.
+                                </p>
+
+                                <!-- Features List -->
+                                <div class="mt-4 space-y-1.5">
+                                    <div class="flex items-center gap-2 text-[11px] text-slate-400">
+                                        <i data-lucide="check-circle-2" class="w-3.5 h-3.5 text-cyan-400"></i>
+                                        <span>Database Harga Pasaran Mobil Bekas Nasional</span>
+                                    </div>
+                                    <div class="flex items-center gap-2 text-[11px] text-slate-400">
+                                        <i data-lucide="check-circle-2" class="w-3.5 h-3.5 text-cyan-400"></i>
+                                        <span>Analisis Depresiasi Merk, Tipe, & Transmisi</span>
+                                    </div>
+                                    <div class="flex items-center gap-2 text-[11px] text-slate-400">
+                                        <i data-lucide="check-circle-2" class="w-3.5 h-3.5 text-cyan-400"></i>
+                                        <span>Benchmark Nilai Taksiran Agunan Roda 4</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Card Actions -->
+                            <div class="mt-6 pt-4 border-t border-slate-800/80">
+                                <button onclick="launchApp('carprice')" class="w-full py-2.5 px-4 bg-gradient-to-r from-cyan-600 to-blue-500 hover:from-cyan-500 hover:to-blue-400 active:scale-95 text-white rounded-xl text-xs font-bold flex items-center justify-center gap-2 shadow-md shadow-cyan-600/20 transition cursor-pointer">
+                                    <i data-lucide="play" class="w-3.5 h-3.5 fill-current"></i>
+                                    <span>Buka Modul Harga Mobil Bekas</span>
                                 </button>
                             </div>
                         </div>
@@ -614,7 +665,7 @@
             <!-- Workspace Sub-Header Control Bar -->
             <div class="flex-shrink-0 bg-slate-900/95 border-b border-slate-800 px-4 py-2 flex flex-wrap items-center justify-between gap-2">
                 
-                <!-- Left: Module Switcher Tabs (4 Tabs) -->
+                <!-- Left: Module Switcher Tabs (5 Tabs) -->
                 <div class="flex items-center gap-1.5 overflow-x-auto py-0.5 max-w-full">
                     <button onclick="switchWorkspaceApp('defect')" id="tab-defect" class="ws-tab px-3 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-2 bg-slate-800 text-slate-300 hover:text-white transition cursor-pointer shrink-0">
                         <span class="w-2 h-2 rounded-full bg-rose-500"></span>
@@ -631,6 +682,10 @@
                     <button onclick="switchWorkspaceApp('motorprice')" id="tab-motorprice" class="ws-tab px-3 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-2 bg-slate-800 text-slate-300 hover:text-white transition cursor-pointer shrink-0">
                         <span class="w-2 h-2 rounded-full bg-amber-500"></span>
                         <span>Pasar Motor Bekas</span>
+                    </button>
+                    <button onclick="switchWorkspaceApp('carprice')" id="tab-carprice" class="ws-tab px-3 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-2 bg-slate-800 text-slate-300 hover:text-white transition cursor-pointer shrink-0">
+                        <span class="w-2 h-2 rounded-full bg-cyan-500"></span>
+                        <span>Pasar Mobil Bekas</span>
                     </button>
                 </div>
 
@@ -703,7 +758,7 @@
             sessionKey: "doraemon_doors_authenticated_v1"
         };
 
-        // Module Configurations (4 Integrated Platforms)
+        // Module Configurations (5 Integrated Platforms)
         const APP_CONFIG = {
             defect: {
                 id: 'defect',
@@ -732,6 +787,13 @@
                 endpoint: 'doors-core.internal/market-price-motor',
                 url: 'https://motor-price-id.streamlit.app/?embed=true&embed_options=show_colored_line',
                 tabClass: 'bg-amber-600 text-white shadow-md shadow-amber-600/30'
+            },
+            carprice: {
+                id: 'carprice',
+                name: 'Market Price Mobil Bekas Indonesia',
+                endpoint: 'doors-core.internal/market-price-car',
+                url: 'https://carpriceid.streamlit.app/?embed=true&embed_options=show_colored_line',
+                tabClass: 'bg-cyan-600 text-white shadow-md shadow-cyan-600/30'
             }
         };
 
@@ -890,7 +952,7 @@
             currentActiveApp = appKey;
             
             // Update Tab styles
-            ['defect', 'nego', 'gadai', 'motorprice'].forEach(key => {
+            ['defect', 'nego', 'gadai', 'motorprice', 'carprice'].forEach(key => {
                 const tab = document.getElementById(`tab-${key}`);
                 if (!tab) return;
                 if (key === appKey) {

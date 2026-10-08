@@ -137,6 +137,7 @@ Model dievaluasi secara bertingkat mulai dari *Null Model* hingga *Full Enhanced
 | **H6** | Besaran pinjaman pokok awal berhubungan dengan NPL. | pinjaman_juta (per kenaikan 1 juta Rp) | 1.3613e-86 | **1.434** ([1.383, 1.486]) | **DITERIMA (Signifikan)** |
 | **H7** | ltv_max berhubungan dengan NPL. | LTV_MAX | 7.5542e-25 | **0.097** ([0.063, 0.152]) | **DITERIMA (Signifikan)** |
 | **H8** | zona_ltv berhubungan dengan NPL. | zona_ltv_std | 1.0000e-04 | **0.68** ([0.64, 0.72]) | **DITERIMA (Signifikan, tapi inferior dibanding LTV_MAX)** |
+| **H9** | Terdapat pengaruh spasial / daerah (wilayah dan cabang) terhadap tingkat risiko NPL. | wilayah_group / cabang | 9.2344e-60 | **2.276** ([1.92, 2.70]) | **DITERIMA (Sangat Signifikan)** |
 
 ---
 
