@@ -1636,8 +1636,8 @@ elif menu == "Matriks Kebijakan Cabang":
     with tab2:
         df_policy_wil = pd.DataFrame([
             {"Klaster Wilayah": "Klaster 1: Prime (Low Risk)", "Wilayah / Kota": "Tangerang (TGR), Tangerang Kota (TNG), Depok (DPK), Cengkareng (CKG), Cibinong (CBI)", "NPL Rata-rata": "4,12% - 5,19%", "Odds Ratio": "1,00 - 1,28", "Kebijakan Plafon LTV": "Maksimal 45% - 50% OTR (Standar Penuh / Bonus +5%)", "Prosedur Verifikasi": "Verifikasi standar loket normal."},
-            {"Klaster 2: Core Baseline", "Wilayah / Kota": "Bekasi (BKS), Cikarang (CKR), Soreang (SOR), Karawang (KWG), Serang (SRG), Cianjur (CJR)", "NPL Rata-rata": "5,69% - 7,22%", "Odds Ratio": "1,45 - 1,86", "Kebijakan Plafon LTV": "Standar 45% OTR (STNK Sendiri) / 35% (STNK Orang Lain)", "Prosedur Verifikasi": "Verifikasi fisik nomor rangka/mesin & kontak darurat wajib aktif."},
-            {"Klaster 3: High Risk Zone", "Wilayah / Kota": "Garut (GRT), Bandung (BDG), Subang (SNG), Sukabumi (SBM)", "NPL Rata-rata": "8,88% - 9,17%", "Odds Ratio": "2,15 - 2,28", "Kebijakan Plafon LTV": "Maksimal 35% - 40% OTR (-5% s/d -10% Pruning)", "Prosedur Verifikasi": "Wajib verifikasi domisili penjamin serumah & early reminder collection DPD 7-14 hari."}
+            {"Klaster Wilayah": "Klaster 2: Core Baseline", "Wilayah / Kota": "Bekasi (BKS), Cikarang (CKR), Soreang (SOR), Karawang (KWG), Serang (SRG), Cianjur (CJR)", "NPL Rata-rata": "5,69% - 7,22%", "Odds Ratio": "1,45 - 1,86", "Kebijakan Plafon LTV": "Standar 45% OTR (STNK Sendiri) / 35% (STNK Orang Lain)", "Prosedur Verifikasi": "Verifikasi fisik nomor rangka/mesin & kontak darurat wajib aktif."},
+            {"Klaster Wilayah": "Klaster 3: High Risk Zone", "Wilayah / Kota": "Garut (GRT), Bandung (BDG), Subang (SNG), Sukabumi (SBM)", "NPL Rata-rata": "8,88% - 9,17%", "Odds Ratio": "2,15 - 2,28", "Kebijakan Plafon LTV": "Maksimal 35% - 40% OTR (-5% s/d -10% Pruning)", "Prosedur Verifikasi": "Wajib verifikasi domisili penjamin serumah & early reminder collection DPD 7-14 hari."}
         ])
         st.dataframe(df_policy_wil, use_container_width=True)
 
