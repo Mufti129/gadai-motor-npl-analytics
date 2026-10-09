@@ -1534,33 +1534,82 @@ elif menu == "Ekonometrika Diagnostics":
     st.markdown("""
     <div class="hero-appbar">
         <div class="hero-title">Ekonometrika & Model Diagnostics</div>
-        <div class="hero-subtitle">Evaluasi Goodness-of-Fit Model 0 s/d Model 4, VIF, dan Pengujian 8 Hipotesis Riset</div>
+        <div class="hero-subtitle">Evaluasi Goodness-of-Fit Model 0 s/d Model 4 (NPL 30 & 90 Hari), VIF, dan Pengujian 9 Hipotesis Riset Formal</div>
     </div>
     """, unsafe_allow_html=True)
 
     st.markdown('<div class="modern-card">', unsafe_allow_html=True)
-    st.subheader("1. Tabel Perbandingan Model Ekonometrika")
-    model_df = pd.DataFrame([
-        {"Model": "Model 0 (Null Model)", "Param (k)": 1, "Log-Likelihood": -35057.93, "AIC": 70117.86, "BIC": 70127.71, "Pseudo R²": "0,00%", "ROC-AUC": "0,5000", "PR-AUC": "0,0691", "Brier Score": "0,06433"},
-        {"Model": "Model 1 (Core Risk)", "Param (k)": 8, "Log-Likelihood": -34507.86, "AIC": 69031.72, "BIC": 69110.49, "Pseudo R²": "1,57%", "ROC-AUC": "0,6002", "PR-AUC": "0,0923", "Brier Score": "0,06385"},
-        {"Model": "Model 2 (Core + LTV_MAX)", "Param (k)": 9, "Log-Likelihood": -34456.81, "AIC": 68931.62, "BIC": 69020.23, "Pseudo R²": "1,71%", "ROC-AUC": "0,6039", "PR-AUC": "0,0924", "Brier Score": "0,06383"},
-        {"Model": "Model 3 (Core + Zona LTV)", "Param (k)": 10, "Log-Likelihood": -34469.49, "AIC": 68958.99, "BIC": 69057.45, "Pseudo R²": "1,68%", "ROC-AUC": "0,6027", "PR-AUC": "0,0926", "Brier Score": "0,06381"},
-        {"Model": "Model 4 (Full Enhanced)", "Param (k)": 10, "Log-Likelihood": -33377.58, "AIC": 66775.15, "BIC": 66873.61, "Pseudo R²": "4,79%", "ROC-AUC": "0,6702", "PR-AUC": "0,1124", "Brier Score": "0,06291"}
+    tab_m1, tab_m2, tab_m3 = st.tabs([
+        "Perbandingan Model (30 vs 90 Hari)",
+        "Pengujian Formal 9 Hipotesis (H1 - H9)",
+        "Disparitas Risiko Spasial per Wilayah (H9)"
     ])
-    st.dataframe(model_df, use_container_width=True)
 
-    st.subheader("2. Hasil Pengujian Formal 8 Hipotesis Riset")
-    hyp_df = pd.DataFrame([
-        {"ID": "H1", "Hipotesis": "Hubungan kepemilikan STNK dan NPL", "Odds Ratio": "1,710", "Status": "DITERIMA", "Interpretasi": "STNK orang lain menaikkan odds macet +71% (p < 0.0001)"},
-        {"ID": "H2", "Hipotesis": "Hubungan jenis pekerjaan dan NPL", "Odds Ratio": "3,460", "Status": "DITERIMA", "Interpretasi": "Pengangguran berisiko 3.46x dibanding Karyawan Swasta"},
-        {"ID": "H3", "Hipotesis": "Hubungan merk kendaraan dan NPL", "Odds Ratio": "1,050", "Status": "DITERIMA", "Interpretasi": "Yamaha memiliki odds macet 5% lebih tinggi dibanding Honda"},
-        {"ID": "H4", "Hipotesis": "Hubungan usia kendaraan dan NPL", "Odds Ratio": "1,093", "Status": "DITERIMA", "Interpretasi": "Tiap 1 tahun usia motor menambah odds macet +9.3%"},
-        {"ID": "H5", "Hipotesis": "Hubungan status pajak dan NPL", "Odds Ratio": "1,118", "Status": "DITERIMA", "Interpretasi": "Pajak aktif berkorelasi dengan plafon pinjaman lebih besar"},
-        {"ID": "H6", "Hipotesis": "Hubungan nominal pinjaman pokok dan NPL", "Odds Ratio": "1,434", "Status": "DITERIMA", "Interpretasi": "Tiap kenaikan Rp 1 juta pinjaman menaikkan odds macet +43.4%"},
-        {"ID": "H7", "Hipotesis": "Signifikansi fitur LTV_MAX", "Odds Ratio": "0,097", "Status": "DITERIMA", "Interpretasi": "LTV_MAX kontinu memperbaiki AIC secara signifikan"},
-        {"ID": "H8", "Hipotesis": "Signifikansi klasifikasi Zona LTV", "Odds Ratio": "0,680", "Status": "DITERIMA", "Interpretasi": "Zona LTV terbukti signifikan namun inferior dibanding LTV_MAX"}
-    ])
-    st.dataframe(hyp_df, use_container_width=True)
+    with tab_m1:
+        st.subheader("1. Tabel Komparasi Model Ekonometrika (NPL > 30 Hari vs NPL > 90 Hari)")
+        c_m1, c_m2 = st.columns(2)
+        with c_m1:
+            st.markdown("**Target: NPL > 30 Hari (Standar Operasional Gadai)**")
+            model_30_df = pd.DataFrame([
+                {"Model": "Model 0 (Null)", "Param (k)": 1, "AIC": 70117.86, "Pseudo R²": "0,00%", "ROC-AUC": "0,5000", "PR-AUC": "0,0691"},
+                {"Model": "Model 1 (Core)", "Param (k)": 8, "AIC": 69031.72, "Pseudo R²": "1,57%", "ROC-AUC": "0,6002", "PR-AUC": "0,0923"},
+                {"Model": "Model 2 (+ LTV_MAX)", "Param (k)": 9, "AIC": 68931.62, "Pseudo R²": "1,71%", "ROC-AUC": "0,6039", "PR-AUC": "0,0924"},
+                {"Model": "Model 3 (+ Zona LTV)", "Param (k)": 10, "AIC": 68958.99, "Pseudo R²": "1,68%", "ROC-AUC": "0,6027", "PR-AUC": "0,0926"},
+                {"Model": "Model 4 (Champion)", "Param (k)": 10, "AIC": 66775.15, "Pseudo R²": "4,79%", "ROC-AUC": "0,6702", "PR-AUC": "0,1124"}
+            ])
+            st.dataframe(model_30_df, use_container_width=True)
+
+        with c_m2:
+            st.markdown("**Target: NPL > 90 Hari (Standar Kolektibilitas OJK / Bad Debt)**")
+            model_90_df = pd.DataFrame([
+                {"Model": "Model 0 (Null)", "Param (k)": 1, "AIC": 59897.20, "Pseudo R²": "0,00%", "ROC-AUC": "0,5000", "PR-AUC": "0,0556"},
+                {"Model": "Model 1 (Core)", "Param (k)": 8, "AIC": 58900.13, "Pseudo R²": "1,69%", "ROC-AUC": "0,6055", "PR-AUC": "0,0756"},
+                {"Model": "Model 2 (+ LTV_MAX)", "Param (k)": 9, "AIC": 58814.73, "Pseudo R²": "1,83%", "ROC-AUC": "0,6093", "PR-AUC": "0,0761"},
+                {"Model": "Model 3 (+ Zona LTV)", "Param (k)": 10, "AIC": 58831.00, "Pseudo R²": "1,81%", "ROC-AUC": "0,6088", "PR-AUC": "0,0756"},
+                {"Model": "Model 4 (Champion)", "Param (k)": 10, "AIC": 56956.88, "Pseudo R²": "4,94%", "ROC-AUC": "0,6767", "PR-AUC": "0,0939"}
+            ])
+            st.dataframe(model_90_df, use_container_width=True)
+
+    with tab_m2:
+        st.subheader("2. Hasil Pengujian Formal 9 Hipotesis Riset (H1 s/d H9)")
+        hyp_df = pd.DataFrame([
+            {"ID": "H1", "Hipotesis": "Hubungan kepemilikan STNK dan NPL", "Odds Ratio": "1,710", "Status": "DITERIMA (Signifikan)", "Interpretasi": "STNK orang lain menaikkan odds macet +71% (p < 0.0001)"},
+            {"ID": "H2", "Hipotesis": "Hubungan jenis pekerjaan dan NPL", "Odds Ratio": "3,460", "Status": "DITERIMA (Signifikan)", "Interpretasi": "Pengangguran berisiko 3.46x dibanding Karyawan Swasta"},
+            {"ID": "H3", "Hipotesis": "Hubungan merk kendaraan dan NPL", "Odds Ratio": "1,050", "Status": "DITERIMA (Signifikan)", "Interpretasi": "Yamaha memiliki odds macet 5% lebih tinggi dibanding Honda"},
+            {"ID": "H4", "Hipotesis": "Hubungan usia kendaraan dan NPL", "Odds Ratio": "1,093", "Status": "DITERIMA (Signifikan)", "Interpretasi": "Tiap 1 tahun usia motor menambah odds macet +9.3%"},
+            {"ID": "H5", "Hipotesis": "Hubungan status pajak dan NPL", "Odds Ratio": "1,118", "Status": "DITERIMA (Signifikan)", "Interpretasi": "Pajak aktif berkorelasi dengan plafon pinjaman lebih besar"},
+            {"ID": "H6", "Hipotesis": "Hubungan nominal pinjaman pokok dan NPL", "Odds Ratio": "1,434", "Status": "DITERIMA (Signifikan)", "Interpretasi": "Tiap kenaikan Rp 1 juta pinjaman menaikkan odds macet +43.4%"},
+            {"ID": "H7", "Hipotesis": "Signifikansi fitur LTV_MAX", "Odds Ratio": "0,097", "Status": "DITERIMA (Signifikan)", "Interpretasi": "LTV_MAX kontinu memperbaiki AIC secara signifikan (p < 0.0001)"},
+            {"ID": "H8", "Hipotesis": "Signifikansi klasifikasi Zona LTV", "Odds Ratio": "0,680", "Status": "DITERIMA (Signifikan)", "Interpretasi": "Zona LTV signifikan namun inferior dibanding LTV_MAX"},
+            {"ID": "H9", "Hipotesis": "Pengaruh spasial / daerah (wilayah/cabang) terhadap NPL", "Odds Ratio": "2,276", "Status": "DITERIMA (Sangat Signifikan)", "Interpretasi": "Daerah berpengaruh sangat signifikan (LR Test p = 9.23e-60, AIC turun 296,6 poin). Nasabah di Garut, Bandung, Subang memiliki risiko 2.2x dibanding Tangerang."}
+        ])
+        st.dataframe(hyp_df, use_container_width=True)
+
+    with tab_m3:
+        st.subheader("3. Disparitas Risiko & Klaster Spasial per Wilayah / Kota (Hipotesis H9)")
+        wilayah_csv = OUTPUT_DIR / "tables" / "tabel_analisis_wilayah_npl.csv"
+        if wilayah_csv.exists():
+            df_wil = pd.read_csv(wilayah_csv)
+            st.dataframe(df_wil, use_container_width=True)
+            
+            fig_wil = px.bar(
+                df_wil, x='Wilayah_Kode', y='NPL_30_Rate_Pct',
+                color='Risk_Tier',
+                color_discrete_map={
+                    'Klaster 1: Prime Low-Risk': '#10B981',
+                    'Klaster 2: Core Medium': '#F59E0B',
+                    'Klaster 3: High Risk Zone': '#DC2626'
+                },
+                text='NPL_30_Rate_Pct',
+                title="Tingkat NPL Portofolio per Wilayah Operasional"
+            )
+            fig_wil.update_traces(texttemplate='%{text:.2f}%', textposition='outside')
+            fig_wil.add_hline(y=5.0, line_dash="dash", line_color="#059669", annotation_text="Target Sehat OJK Max 5.0%")
+            fig_wil.update_layout(yaxis_title="Tingkat NPL >30 Hari (%)", template="plotly_white")
+            st.plotly_chart(fig_wil, use_container_width=True)
+        else:
+            st.info("File tabel analisis wilayah belum tersedia.")
+
     st.markdown('</div>', unsafe_allow_html=True)
 
 # ==============================================================================
@@ -1575,12 +1624,24 @@ elif menu == "Matriks Kebijakan Cabang":
     """, unsafe_allow_html=True)
 
     st.markdown('<div class="modern-card">', unsafe_allow_html=True)
-    tab1, tab2 = st.tabs(["Matriks Kebijakan 4 Klaster Pekerjaan", "Rule of Thumb Metrik Ahli"])
+    tab1, tab2, tab3 = st.tabs([
+        "Matriks Kebijakan 4 Klaster Pekerjaan",
+        "Matriks Kebijakan 3 Klaster Wilayah",
+        "Rule of Thumb Metrik Ahli"
+    ])
 
     with tab1:
         st.dataframe(pd.DataFrame(BRANCH_OPERATIONAL_POLICIES), use_container_width=True)
 
     with tab2:
+        df_policy_wil = pd.DataFrame([
+            {"Klaster Wilayah": "Klaster 1: Prime (Low Risk)", "Wilayah / Kota": "Tangerang (TGR), Tangerang Kota (TNG), Depok (DPK), Cengkareng (CKG), Cibinong (CBI)", "NPL Rata-rata": "4,12% - 5,19%", "Odds Ratio": "1,00 - 1,28", "Kebijakan Plafon LTV": "Maksimal 45% - 50% OTR (Standar Penuh / Bonus +5%)", "Prosedur Verifikasi": "Verifikasi standar loket normal."},
+            {"Klaster 2: Core Baseline", "Wilayah / Kota": "Bekasi (BKS), Cikarang (CKR), Soreang (SOR), Karawang (KWG), Serang (SRG), Cianjur (CJR)", "NPL Rata-rata": "5,69% - 7,22%", "Odds Ratio": "1,45 - 1,86", "Kebijakan Plafon LTV": "Standar 45% OTR (STNK Sendiri) / 35% (STNK Orang Lain)", "Prosedur Verifikasi": "Verifikasi fisik nomor rangka/mesin & kontak darurat wajib aktif."},
+            {"Klaster 3: High Risk Zone", "Wilayah / Kota": "Garut (GRT), Bandung (BDG), Subang (SNG), Sukabumi (SBM)", "NPL Rata-rata": "8,88% - 9,17%", "Odds Ratio": "2,15 - 2,28", "Kebijakan Plafon LTV": "Maksimal 35% - 40% OTR (-5% s/d -10% Pruning)", "Prosedur Verifikasi": "Wajib verifikasi domisili penjamin serumah & early reminder collection DPD 7-14 hari."}
+        ])
+        st.dataframe(df_policy_wil, use_container_width=True)
+
+    with tab3:
         st.dataframe(pd.DataFrame(EXPERT_RULES_OF_THUMB), use_container_width=True)
     st.markdown('</div>', unsafe_allow_html=True)
 
