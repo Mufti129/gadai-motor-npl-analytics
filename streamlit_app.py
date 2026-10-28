@@ -336,61 +336,91 @@ JOB_RISK_FACTORS = {
         'id': 'TIDAK_ISI', 'label': 'Tidak Diketahui / Standar', 'beta': 0.0, 'or': 1.000,
         'cluster': 'Klaster 2: Core Baseline', 'cluster_code': 'CORE', 'ltv_mod': 0.0,
         'policy': 'Skema Standar Cabang (LTV 45% Sendiri / 35% Orang Lain)',
-        'verifikasi': 'Prosedur loket standar, cek fisik nomor rangka/mesin.'
+        'verifikasi': 'Prosedur loket standar, cek fisik nomor rangka/mesin.',
+        'n_transaksi': 114636, 'n_nasabah_unik': 72446, 'pct_populasi': 82.18,
+        'npl_empiris_pct': 7.04, 'cluster_n_transaksi': 133080, 'cluster_n_nasabah_unik': 86573,
+        'cluster_pct': 95.40, 'cluster_npl_pct': 6.88
     },
     'KARYAWAN_SWASTA': {
         'id': 'KARYAWAN_SWASTA', 'label': 'Karyawan Swasta', 'beta': 0.0, 'or': 1.000,
         'cluster': 'Klaster 2: Core Baseline', 'cluster_code': 'CORE', 'ltv_mod': 0.0,
         'policy': 'Skema Standar Cabang (Baseline Portofolio)',
-        'verifikasi': 'Cek ID Card / slip gaji atau mutasi rekening jika tersedia.'
+        'verifikasi': 'Cek ID Card / slip gaji atau mutasi rekening jika tersedia.',
+        'n_transaksi': 11007, 'n_nasabah_unik': 8315, 'pct_populasi': 44.28,
+        'npl_empiris_pct': 5.79, 'cluster_n_transaksi': 133080, 'cluster_n_nasabah_unik': 86573,
+        'cluster_pct': 74.20, 'cluster_npl_pct': 6.88
     },
     'PNS': {
         'id': 'PNS', 'label': 'PNS / ASN / Pegawai BUMN', 'beta': -0.147041, 'or': 0.863,
         'cluster': 'Klaster 1: Prime / Preferred', 'cluster_code': 'PRIME', 'ltv_mod': 0.05,
         'policy': 'Bonus LTV +5% (Maksimal 50%) & Fast-Track Approval',
-        'verifikasi': 'Fast-Track: Lampirkan SK/Kartu Pegawai/Slip Gaji, tanpa survey fisik domisili.'
+        'verifikasi': 'Fast-Track: Lampirkan SK/Kartu Pegawai/Slip Gaji, tanpa survey fisik domisili.',
+        'n_transaksi': 390, 'n_nasabah_unik': 261, 'pct_populasi': 1.57,
+        'npl_empiris_pct': 5.13, 'cluster_n_transaksi': 787, 'cluster_n_nasabah_unik': 548,
+        'cluster_pct': 3.17, 'cluster_npl_pct': 4.32
     },
     'GURU': {
         'id': 'GURU', 'label': 'Guru / Dosen', 'beta': -0.428912, 'or': 0.651,
         'cluster': 'Klaster 1: Prime / Preferred', 'cluster_code': 'PRIME', 'ltv_mod': 0.05,
         'policy': 'Bonus LTV +5% (Maksimal 50%) & Fast-Track Approval (Profil Paling Aman)',
-        'verifikasi': 'Fast-Track: Verifikasi kartu tanda guru/dosen/NUPTK aktif.'
+        'verifikasi': 'Fast-Track: Verifikasi kartu tanda guru/dosen/NUPTK aktif.',
+        'n_transaksi': 397, 'n_nasabah_unik': 287, 'pct_populasi': 1.60,
+        'npl_empiris_pct': 3.53, 'cluster_n_transaksi': 787, 'cluster_n_nasabah_unik': 548,
+        'cluster_pct': 3.17, 'cluster_npl_pct': 4.32
     },
     'IRT': {
         'id': 'IRT', 'label': 'Ibu Rumah Tangga (IRT)', 'beta': 0.002206, 'or': 1.002,
         'cluster': 'Klaster 2: Core Baseline', 'cluster_code': 'CORE', 'ltv_mod': 0.0,
         'policy': 'Skema Standar (Verifikasi Sumber Nafkah Belanja Keluarga)',
-        'verifikasi': 'Konfirmasi nomor kontak suami / kepala keluarga serumah.'
+        'verifikasi': 'Konfirmasi nomor kontak suami / kepala keluarga serumah.',
+        'n_transaksi': 5149, 'n_nasabah_unik': 4092, 'pct_populasi': 20.71,
+        'npl_empiris_pct': 5.96, 'cluster_n_transaksi': 133080, 'cluster_n_nasabah_unik': 86573,
+        'cluster_pct': 74.20, 'cluster_npl_pct': 6.88
     },
     'BURUH': {
         'id': 'BURUH', 'label': 'Buruh Pabrik / Bangunan', 'beta': 0.017158, 'or': 1.017,
         'cluster': 'Klaster 2: Core Baseline', 'cluster_code': 'CORE', 'ltv_mod': 0.0,
         'policy': 'Skema Standar (Upah Rutin Mingguan/Bulanan)',
-        'verifikasi': 'Konfirmasi tempat kerja buruh/pabrik.'
+        'verifikasi': 'Konfirmasi tempat kerja buruh/pabrik.',
+        'n_transaksi': 1477, 'n_nasabah_unik': 1138, 'pct_populasi': 5.94,
+        'npl_empiris_pct': 6.16, 'cluster_n_transaksi': 133080, 'cluster_n_nasabah_unik': 86573,
+        'cluster_pct': 74.20, 'cluster_npl_pct': 6.88
     },
     'PEDAGANG': {
         'id': 'PEDAGANG', 'label': 'Pedagang Toko / Kios / Pasar', 'beta': 0.333499, 'or': 1.396,
         'cluster': 'Klaster 3: Arus Kas Volatil', 'cluster_code': 'VOLATILE', 'ltv_mod': -0.05,
         'policy': 'Pengetatan LTV -5% (Maksimal 40%) & Wajib Cek Nota Usaha',
-        'verifikasi': 'Lampirkan foto kios/lapak dagang atau bukti nota transaksi 1 minggu terakhir.'
+        'verifikasi': 'Lampirkan foto kios/lapak dagang atau bukti nota transaksi 1 minggu terakhir.',
+        'n_transaksi': 174, 'n_nasabah_unik': 136, 'pct_populasi': 0.70,
+        'npl_empiris_pct': 8.62, 'cluster_n_transaksi': 250, 'cluster_n_nasabah_unik': 197,
+        'cluster_pct': 1.01, 'cluster_npl_pct': 10.00
     },
     'WIRASWASTA': {
         'id': 'WIRASWASTA', 'label': 'Wiraswasta / Pengusaha', 'beta': 0.889340, 'or': 2.434,
         'cluster': 'Klaster 3: Arus Kas Volatil', 'cluster_code': 'VOLATILE', 'ltv_mod': -0.05,
         'policy': 'Pengetatan LTV -5% (Maksimal 40%) & Verifikasi Fisik Tempat Usaha',
-        'verifikasi': 'Wajib dokumentasi tempat usaha fisik untuk mitigasi risiko volatilitas omzet modal kerja.'
+        'verifikasi': 'Wajib dokumentasi tempat usaha fisik untuk mitigasi risiko volatilitas omzet modal kerja.',
+        'n_transaksi': 76, 'n_nasabah_unik': 61, 'pct_populasi': 0.31,
+        'npl_empiris_pct': 13.16, 'cluster_n_transaksi': 250, 'cluster_n_nasabah_unik': 197,
+        'cluster_pct': 1.01, 'cluster_npl_pct': 10.00
     },
     'PELAJAR': {
         'id': 'PELAJAR', 'label': 'Pelajar / Mahasiswa', 'beta': 0.313070, 'or': 1.368,
         'cluster': 'Klaster 4: Rentan / Moral Hazard', 'cluster_code': 'VULNERABLE', 'ltv_mod': -0.05,
         'policy': 'Plafon Dibatasi Maksimal Rp 2.500.000 & STNK Wajib A/N Sendiri',
-        'verifikasi': 'Wajib Kartu Tanda Mahasiswa (KTM) & nomor HP orang tua/wali aktif.'
+        'verifikasi': 'Wajib Kartu Tanda Mahasiswa (KTM) & nomor HP orang tua/wali aktif.',
+        'n_transaksi': 4385, 'n_nasabah_unik': 3432, 'pct_populasi': 17.64,
+        'npl_empiris_pct': 7.91, 'cluster_n_transaksi': 5376, 'cluster_n_nasabah_unik': 4184,
+        'cluster_pct': 21.63, 'cluster_npl_pct': 7.92
     },
     'BELUM_BEKERJA': {
         'id': 'BELUM_BEKERJA', 'label': 'Belum / Tidak Bekerja (Pengangguran)', 'beta': 0.317378, 'or': 1.374,
         'cluster': 'Klaster 4: Rentan / Moral Hazard', 'cluster_code': 'VULNERABLE', 'ltv_mod': -0.10,
         'policy': 'Plafon Cap Maks Rp 2.500.000 (Pinjaman > Rp 2.5 Jt Wajib Approval Kepala Cabang)',
-        'verifikasi': 'Wajib ada penjamin keluarga serumah yang bekerja & survey domisili debitur.'
+        'verifikasi': 'Wajib ada penjamin keluarga serumah yang bekerja & survey domisili debitur.',
+        'n_transaksi': 991, 'n_nasabah_unik': 752, 'pct_populasi': 3.99,
+        'npl_empiris_pct': 7.97, 'cluster_n_transaksi': 5376, 'cluster_n_nasabah_unik': 4184,
+        'cluster_pct': 21.63, 'cluster_npl_pct': 7.92
     }
 }
 
@@ -457,6 +487,10 @@ BRANCH_OPERATIONAL_POLICIES = [
     {
         'Klaster': 'Klaster 1: Prime / Preferred',
         'Target Profesi': 'Guru, Dosen, PNS, ASN, Pegawai BUMN',
+        'Jumlah Kontrak': '787 transaksi (0,56%)',
+        'Nasabah Unik': '548 debitur (KTP)',
+        'Debitur Macet (NPL)': '34 macet (NPL >30h: 4,32% | >90h: 2,80%)',
+        'Rincian Profesi': 'Guru: 397 (50,4%) | PNS/ASN/BUMN: 390 (49,6%)',
         'Risiko Empiris': 'NPL 3,53% - 5,13% | OR: 0,65 - 0,86 (Risk Reducer -35%)',
         'Maksimal LTV': '50% OTR (+5% Bonus LTV)',
         'Plafon Maksimal': 'Rp 10.000.000 (Sesuai taksiran OTR)',
@@ -466,6 +500,10 @@ BRANCH_OPERATIONAL_POLICIES = [
     {
         'Klaster': 'Klaster 2: Core Baseline',
         'Target Profesi': 'Karyawan Swasta, Ibu Rumah Tangga (IRT), Buruh, Tidak Mengisi',
+        'Jumlah Kontrak': '133.080 transaksi (95,40%)',
+        'Nasabah Unik': '86.573 debitur (KTP)',
+        'Debitur Macet (NPL)': '9.155 macet (NPL >30h: 6,88% | >90h: 5,53%)',
+        'Rincian Profesi': 'Tidak Isi: 114.636 | Swasta: 11.007 | IRT: 5.149 | Buruh: 1.477 | Lainnya: 811',
         'Risiko Empiris': 'NPL 5,79% - 6,16% | OR: ~1,00 (Netral Baseline)',
         'Maksimal LTV': '45% (STNK Sendiri) / 35% (STNK Orang Lain / Pajak Mati)',
         'Plafon Maksimal': 'Rp 7.500.000',
@@ -475,6 +513,10 @@ BRANCH_OPERATIONAL_POLICIES = [
     {
         'Klaster': 'Klaster 3: Arus Kas Volatil',
         'Target Profesi': 'Pedagang Toko/Kios/Pasar, Wiraswasta, Pengusaha Mikro',
+        'Jumlah Kontrak': '250 transaksi (0,18%)',
+        'Nasabah Unik': '197 debitur (KTP)',
+        'Debitur Macet (NPL)': '25 macet (NPL >30h: 10,00% | >90h: 7,60%)',
+        'Rincian Profesi': 'Pedagang Pasar/Kios: 174 (69,6%) | Wiraswasta: 76 (30,4%)',
         'Risiko Empiris': 'NPL 8,62% - 13,16% | OR: 1,40 - 2,43 (High Variance)',
         'Maksimal LTV': '40% (STNK Sendiri) / 30% (STNK Orang Lain) [-5% LTV]',
         'Plafon Maksimal': 'Rp 6.000.000 (Kecuali omzet terbukti kuat)',
@@ -484,6 +526,10 @@ BRANCH_OPERATIONAL_POLICIES = [
     {
         'Klaster': 'Klaster 4: Rentan & Moral Hazard',
         'Target Profesi': 'Belum/Tidak Bekerja (Pengangguran), Pelajar, Mahasiswa',
+        'Jumlah Kontrak': '5.376 transaksi (3,85%)',
+        'Nasabah Unik': '4.184 debitur (KTP)',
+        'Debitur Macet (NPL)': '426 macet (NPL >30h: 7,92% | >90h: 6,60%)',
+        'Rincian Profesi': 'Pelajar/Mahasiswa: 4.385 (81,6%) | Belum/Tidak Bekerja: 991 (18,4%)',
         'Risiko Empiris': 'NPL 7,91% - 7,97% | OR: 1,37 (Tanpa Penghasilan Tetap)',
         'Maksimal LTV': 'Maksimal 30% OTR | Plafon Cap Rp 2.500.000',
         'Plafon Maksimal': 'Strict Cap: Rp 2.500.000',
@@ -1631,7 +1677,64 @@ elif menu == "Matriks Kebijakan Cabang":
     ])
 
     with tab1:
+        st.subheader("Matriks Kebijakan Operasional Berdasarkan 4 Klaster Risiko Profesi")
+        
+        # 4 Pro Metric Cards for the 4 clusters
+        c_k1, c_k2, c_k3, c_k4 = st.columns(4)
+        with c_k1:
+            st.markdown("""
+            <div class="pro-metric-card" style="border-color: #A7F3D0;">
+                <div class="pro-metric-label">Klaster 1: Prime</div>
+                <div class="pro-metric-val" style="color: #059669;">787 Nasabah</div>
+                <div class="pro-metric-sub">0,56% Portofolio (548 Unik)</div>
+                <div style="font-size: 0.78rem; font-weight: 700; color: #059669; margin-top: 6px;">NPL >30h: 4,32% | >90h: 2,80%</div>
+            </div>
+            """, unsafe_allow_html=True)
+        with c_k2:
+            st.markdown("""
+            <div class="pro-metric-card" style="border-color: #BFDBFE;">
+                <div class="pro-metric-label">Klaster 2: Core Baseline</div>
+                <div class="pro-metric-val" style="color: #2563EB;">133.080 Nasabah</div>
+                <div class="pro-metric-sub">95,40% Portofolio (86.573 Unik)</div>
+                <div style="font-size: 0.78rem; font-weight: 700; color: #2563EB; margin-top: 6px;">NPL >30h: 6,88% | >90h: 5,53%</div>
+            </div>
+            """, unsafe_allow_html=True)
+        with c_k3:
+            st.markdown("""
+            <div class="pro-metric-card" style="border-color: #FDE68A;">
+                <div class="pro-metric-label">Klaster 3: Arus Kas Volatil</div>
+                <div class="pro-metric-val" style="color: #D97706;">250 Nasabah</div>
+                <div class="pro-metric-sub">0,18% Portofolio (197 Unik)</div>
+                <div style="font-size: 0.78rem; font-weight: 700; color: #D97706; margin-top: 6px;">NPL >30h: 10,00% | >90h: 7,60%</div>
+            </div>
+            """, unsafe_allow_html=True)
+        with c_k4:
+            st.markdown("""
+            <div class="pro-metric-card" style="border-color: #FECDD3;">
+                <div class="pro-metric-label">Klaster 4: Rentan / Moral Hazard</div>
+                <div class="pro-metric-val" style="color: #DC2626;">5.376 Nasabah</div>
+                <div class="pro-metric-sub">3,85% Portofolio (4.184 Unik)</div>
+                <div style="font-size: 0.78rem; font-weight: 700; color: #DC2626; margin-top: 6px;">NPL >30h: 7,92% | >90h: 6,60%</div>
+            </div>
+            """, unsafe_allow_html=True)
+
         st.dataframe(pd.DataFrame(BRANCH_OPERATIONAL_POLICIES), use_container_width=True)
+
+        with st.expander("🔍 Lihat Rincian Lengkap Nasabah & NPL per Sub-Profesi (11 Kategori)"):
+            df_profesi_detail = pd.DataFrame([
+                {"Klaster": "Klaster 1: Prime", "Profesi": "Guru / Dosen", "Jumlah Kontrak": 397, "Nasabah Unik": 287, "% Klaster": "50,4%", "% Portofolio": "0,28%", "NPL > 30 Hari": "14 (3,53%)", "NPL > 90 Hari": "8 (2,02%)", "Rekomendasi Plafon": "Bonus LTV +5% (Maks 50% OTR)"},
+                {"Klaster": "Klaster 1: Prime", "Profesi": "PNS / ASN / Pegawai BUMN", "Jumlah Kontrak": 390, "Nasabah Unik": 261, "% Klaster": "49,6%", "% Portofolio": "0,28%", "NPL > 30 Hari": "20 (5,13%)", "NPL > 90 Hari": "14 (3,59%)", "Rekomendasi Plafon": "Bonus LTV +5% (Maks 50% OTR)"},
+                {"Klaster": "Klaster 2: Core", "Profesi": "Karyawan Swasta", "Jumlah Kontrak": 11007, "Nasabah Unik": 8315, "% Klaster": "8,3%", "% Portofolio": "7,89%", "NPL > 30 Hari": "637 (5,79%)", "NPL > 90 Hari": "491 (4,46%)", "Rekomendasi Plafon": "Standar 45% (Sendiri) / 35% (Orang Lain)"},
+                {"Klaster": "Klaster 2: Core", "Profesi": "Ibu Rumah Tangga (IRT)", "Jumlah Kontrak": 5149, "Nasabah Unik": 4092, "% Klaster": "3,9%", "% Portofolio": "3,69%", "NPL > 30 Hari": "307 (5,96%)", "NPL > 90 Hari": "223 (4,33%)", "Rekomendasi Plafon": "Standar 45% (Sendiri) / 35% (Orang Lain)"},
+                {"Klaster": "Klaster 2: Core", "Profesi": "Buruh Pabrik / Bangunan", "Jumlah Kontrak": 1477, "Nasabah Unik": 1138, "% Klaster": "1,1%", "% Portofolio": "1,06%", "NPL > 30 Hari": "91 (6,16%)", "NPL > 90 Hari": "75 (5,08%)", "Rekomendasi Plafon": "Standar 45% (Sendiri) / 35% (Orang Lain)"},
+                {"Klaster": "Klaster 2: Core", "Profesi": "Tidak Mengisi / Standar Loket", "Jumlah Kontrak": 114636, "Nasabah Unik": 72446, "% Klaster": "86,1%", "% Portofolio": "82,18%", "NPL > 30 Hari": "8.073 (7,04%)", "NPL > 90 Hari": "6.535 (5,70%)", "Rekomendasi Plafon": "Standar 45% (Sendiri) / 35% (Orang Lain)"},
+                {"Klaster": "Klaster 2: Core", "Profesi": "Lainnya", "Jumlah Kontrak": 811, "Nasabah Unik": 582, "% Klaster": "0,6%", "% Portofolio": "0,58%", "NPL > 30 Hari": "47 (5,80%)", "NPL > 90 Hari": "36 (4,44%)", "Rekomendasi Plafon": "Standar 45% (Sendiri) / 35% (Orang Lain)"},
+                {"Klaster": "Klaster 3: Volatil", "Profesi": "Pedagang Pasar / Kios / Warung", "Jumlah Kontrak": 174, "Nasabah Unik": 136, "% Klaster": "69,6%", "% Portofolio": "0,12%", "NPL > 30 Hari": "15 (8,62%)", "NPL > 90 Hari": "11 (6,32%)", "Rekomendasi Plafon": "Pemangkasan LTV -5% (Maks 40% OTR)"},
+                {"Klaster": "Klaster 3: Volatil", "Profesi": "Wiraswasta / Pengusaha Mikro", "Jumlah Kontrak": 76, "Nasabah Unik": 61, "% Klaster": "30,4%", "% Portofolio": "0,05%", "NPL > 30 Hari": "10 (13,16%)", "NPL > 90 Hari": "8 (10,53%)", "Rekomendasi Plafon": "Pemangkasan LTV -5% (Maks 40% OTR)"},
+                {"Klaster": "Klaster 4: Rentan", "Profesi": "Pelajar / Mahasiswa", "Jumlah Kontrak": 4385, "Nasabah Unik": 3432, "% Klaster": "81,6%", "% Portofolio": "3,14%", "NPL > 30 Hari": "347 (7,91%)", "NPL > 90 Hari": "290 (6,61%)", "Rekomendasi Plafon": "Plafon Maks Rp 2.500.000 & STNK Wajib Sendiri"},
+                {"Klaster": "Klaster 4: Rentan", "Profesi": "Belum / Tidak Bekerja", "Jumlah Kontrak": 991, "Nasabah Unik": 752, "% Klaster": "18,4%", "% Portofolio": "0,71%", "NPL > 30 Hari": "79 (7,97%)", "NPL > 90 Hari": "65 (6,56%)", "Rekomendasi Plafon": "Plafon Maks Rp 2.500.000 & Wajib Penjamin Serumah"}
+            ])
+            st.dataframe(df_profesi_detail, use_container_width=True)
 
     with tab2:
         df_policy_wil = pd.DataFrame([

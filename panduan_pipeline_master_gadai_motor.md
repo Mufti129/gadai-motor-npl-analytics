@@ -272,12 +272,12 @@ Tampilan antarmuka utama CLI:
 | **Semua Kondisi** | *Repeat Borrower* | Memiliki rekam jejak lunas | **+5,0% Tambahan Plafon** | Insentif loyalitas nasabah dengan rekam jejak lancar. |
 
 ### B. Matriks Kebijakan Operasional Berbasis 4 Klaster Profesi Debitur
-| Klaster Profesi | Target Profesi | Profil Risiko Empiris | Maksimum Plafon LTV | Plafon Nominal Maksimum | SOP Verifikasi Lapangan Cabang | Kewenangan Approval Cabang |
-| :--- | :--- | :--- | :---: | :---: | :--- | :--- |
-| **Klaster 1: Prime** | Guru, Dosen, PNS, ASN, BUMN | NPL 3,53%–5,13% (OR: 0,65–0,86) | **Maksimal 50% OTR** (+5% Bonus) | Rp 10.000.000 | Fast-Track: ID Card pegawai aktif / Slip Gaji. Bebas survei. | Petugas Penaksir / Kepala Unit Cabang |
-| **Klaster 2: Core Baseline** | Swasta, IRT, Buruh, Tidak Mengisi | NPL 5,79%–6,16% (OR: ~1,00) | **Standar 45% OTR** (35% STNK Lain) | Rp 7.500.000 | Verifikasi Standar: Cek fisik rangka/mesin, KTP, kontak darurat. | Kepala Unit / Asisten Kepala Cabang |
-| **Klaster 3: Volatile** | Pedagang Kios/Pasar, Wiraswasta | NPL 8,62%–13,16% (OR: 1,40–2,43) | **Maksimal 40% OTR** (-5% Pruning) | Rp 6.000.000 | Verifikasi Usaha Fisik: Foto tempat usaha / buku kas 1 minggu. | Rekomendasi Lapangan & Paraf Kepala Cabang |
-| **Klaster 4: Vulnerable** | Mahasiswa, Pelajar, Belum Bekerja | NPL 7,91%–7,97% (OR: 1,37) | **Maksimal 30% OTR** | **Strict Cap: Rp 2.500.000** | Verifikasi Penjamin Serumah. **TOLAK jika STNK bukan a/n sendiri.** | Wajib Komite Kredit / Kepala Cabang Penuh |
+| Klaster Profesi | Target Profesi | Populasi Nasabah (% Portofolio) | Profil Risiko Empiris | Maksimum Plafon LTV | Plafon Nominal Maksimum | SOP Verifikasi Lapangan Cabang | Kewenangan Approval Cabang |
+| :--- | :--- | :---: | :--- | :---: | :---: | :--- | :--- |
+| **Klaster 1: Prime** | Guru, Dosen, PNS, ASN, BUMN | **787 kontrak** (548 unik / 0,56%) | NPL 3,53%–5,13% (OR: 0,65–0,86) | **Maksimal 50% OTR** (+5% Bonus) | Rp 10.000.000 | Fast-Track: ID Card pegawai aktif / Slip Gaji. Bebas survei. | Petugas Penaksir / Kepala Unit Cabang |
+| **Klaster 2: Core Baseline** | Swasta, IRT, Buruh, Tidak Mengisi | **133.080 kontrak** (86.573 unik / 95,40%) | NPL 5,79%–6,16% (OR: ~1,00) | **Standar 45% OTR** (35% STNK Lain) | Rp 7.500.000 | Verifikasi Standar: Cek fisik rangka/mesin, KTP, kontak darurat. | Kepala Unit / Asisten Kepala Cabang |
+| **Klaster 3: Volatile** | Pedagang Kios/Pasar, Wiraswasta | **250 kontrak** (197 unik / 0,18%) | NPL 8,62%–13,16% (OR: 1,40–2,43) | **Maksimal 40% OTR** (-5% Pruning) | Rp 6.000.000 | Verifikasi Usaha Fisik: Foto tempat usaha / buku kas 1 minggu. | Rekomendasi Lapangan & Paraf Kepala Cabang |
+| **Klaster 4: Vulnerable** | Mahasiswa, Pelajar, Belum Bekerja | **5.376 kontrak** (4.184 unik / 3,85%) | NPL 7,91%–7,97% (OR: 1,37) | **Maksimal 30% OTR** | **Strict Cap: Rp 2.500.000** | Verifikasi Penjamin Serumah. **TOLAK jika STNK bukan a/n sendiri.** | Wajib Komite Kredit / Kepala Cabang Penuh |
 
 ### C. Pedoman Rule of Thumb Ahli untuk 7 Metrik Evaluasi Ekonometrika
 1. **Log-Likelihood ($\ln L$)**: Fisher (1922) & Wilks (1938) — Evaluasi formal via Wilks LR Test $\text{LR} = 2(\ln L_1 - \ln L_0) \sim \chi^2$. Model 4 kita memiliki $\text{LR} = 3.360,71$ ($p < 10^{-300}$), sangat superior.

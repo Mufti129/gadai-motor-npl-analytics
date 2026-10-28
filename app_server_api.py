@@ -110,7 +110,15 @@ JOB_RISK_FACTORS = {
         'ltv_mod': 0.0,
         'color': 'slate',
         'policy': 'Skema Standar Cabang (LTV 45% Sendiri / 35% Orang Lain)',
-        'verifikasi': 'Prosedur loket standar, cek fisik no rangka/mesin.'
+        'verifikasi': 'Prosedur loket standar, cek fisik no rangka/mesin.',
+        'n_transaksi': 114636,
+        'n_nasabah_unik': 72446,
+        'pct_populasi': 82.18,
+        'npl_empiris_pct': 7.04,
+        'cluster_n_transaksi': 133080,
+        'cluster_n_nasabah_unik': 86573,
+        'cluster_pct': 95.40,
+        'cluster_npl_pct': 6.88
     },
     'KARYAWAN_SWASTA': {
         'id': 'KARYAWAN_SWASTA',
@@ -122,7 +130,15 @@ JOB_RISK_FACTORS = {
         'ltv_mod': 0.0,
         'color': 'blue',
         'policy': 'Skema Standar Cabang (Baseline Portofolio)',
-        'verifikasi': 'Cek ID Card / slip gaji atau mutasi rekening jika tersedia.'
+        'verifikasi': 'Cek ID Card / slip gaji atau mutasi rekening jika tersedia.',
+        'n_transaksi': 11007,
+        'n_nasabah_unik': 8315,
+        'pct_populasi': 44.28,
+        'npl_empiris_pct': 5.79,
+        'cluster_n_transaksi': 133080,
+        'cluster_n_nasabah_unik': 86573,
+        'cluster_pct': 74.20,
+        'cluster_npl_pct': 6.88
     },
     'PNS': {
         'id': 'PNS',
@@ -134,7 +150,15 @@ JOB_RISK_FACTORS = {
         'ltv_mod': 0.05,
         'color': 'emerald',
         'policy': 'Bonus LTV +5% (Maksimal 50%) & Fast-Track Approval',
-        'verifikasi': 'Fast-Track: Lampirkan SK/Kartu Pegawai/Slip Gaji, tanpa survey fisik domisili.'
+        'verifikasi': 'Fast-Track: Lampirkan SK/Kartu Pegawai/Slip Gaji, tanpa survey fisik domisili.',
+        'n_transaksi': 390,
+        'n_nasabah_unik': 261,
+        'pct_populasi': 1.57,
+        'npl_empiris_pct': 5.13,
+        'cluster_n_transaksi': 787,
+        'cluster_n_nasabah_unik': 548,
+        'cluster_pct': 3.17,
+        'cluster_npl_pct': 4.32
     },
     'GURU': {
         'id': 'GURU',
@@ -146,7 +170,15 @@ JOB_RISK_FACTORS = {
         'ltv_mod': 0.05,
         'color': 'emerald',
         'policy': 'Bonus LTV +5% (Maksimal 50%) & Fast-Track Approval (Profil Paling Aman)',
-        'verifikasi': 'Fast-Track: Verifikasi kartu tanda guru/dosen/NUPTK aktif.'
+        'verifikasi': 'Fast-Track: Verifikasi kartu tanda guru/dosen/NUPTK aktif.',
+        'n_transaksi': 397,
+        'n_nasabah_unik': 287,
+        'pct_populasi': 1.60,
+        'npl_empiris_pct': 3.53,
+        'cluster_n_transaksi': 787,
+        'cluster_n_nasabah_unik': 548,
+        'cluster_pct': 3.17,
+        'cluster_npl_pct': 4.32
     },
     'IRT': {
         'id': 'IRT',
@@ -158,7 +190,15 @@ JOB_RISK_FACTORS = {
         'ltv_mod': 0.0,
         'color': 'slate',
         'policy': 'Skema Standar (Verifikasi Sumber Nafkah Belanja Keluarga)',
-        'verifikasi': 'Konfirmasi nomor kontak suami / kepala keluarga serumah.'
+        'verifikasi': 'Konfirmasi nomor kontak suami / kepala keluarga serumah.',
+        'n_transaksi': 5149,
+        'n_nasabah_unik': 4092,
+        'pct_populasi': 20.71,
+        'npl_empiris_pct': 5.96,
+        'cluster_n_transaksi': 133080,
+        'cluster_n_nasabah_unik': 86573,
+        'cluster_pct': 74.20,
+        'cluster_npl_pct': 6.88
     },
     'BURUH': {
         'id': 'BURUH',
@@ -170,7 +210,15 @@ JOB_RISK_FACTORS = {
         'ltv_mod': 0.0,
         'color': 'slate',
         'policy': 'Skema Standar (Upah Rutin Mingguan/Bulanan)',
-        'verifikasi': 'Konfirmasi tempat kerja buruh/pabrik.'
+        'verifikasi': 'Konfirmasi tempat kerja buruh/pabrik.',
+        'n_transaksi': 1477,
+        'n_nasabah_unik': 1138,
+        'pct_populasi': 5.94,
+        'npl_empiris_pct': 6.16,
+        'cluster_n_transaksi': 133080,
+        'cluster_n_nasabah_unik': 86573,
+        'cluster_pct': 74.20,
+        'cluster_npl_pct': 6.88
     },
     'PEDAGANG': {
         'id': 'PEDAGANG',
@@ -182,7 +230,15 @@ JOB_RISK_FACTORS = {
         'ltv_mod': -0.05,
         'color': 'amber',
         'policy': 'Pengetatan LTV -5% (Maksimal 40%) & Wajib Cek Nota Usaha',
-        'verifikasi': 'Lampirkan foto kios/lapak dagang atau bukti nota transaksi 1 minggu terakhir.'
+        'verifikasi': 'Lampirkan foto kios/lapak dagang atau bukti nota transaksi 1 minggu terakhir.',
+        'n_transaksi': 174,
+        'n_nasabah_unik': 136,
+        'pct_populasi': 0.70,
+        'npl_empiris_pct': 8.62,
+        'cluster_n_transaksi': 250,
+        'cluster_n_nasabah_unik': 197,
+        'cluster_pct': 1.01,
+        'cluster_npl_pct': 10.00
     },
     'WIRASWASTA': {
         'id': 'WIRASWASTA',
@@ -194,7 +250,15 @@ JOB_RISK_FACTORS = {
         'ltv_mod': -0.05,
         'color': 'amber',
         'policy': 'Pengetatan LTV -5% (Maksimal 40%) & Verifikasi Fisik Tempat Usaha',
-        'verifikasi': 'Wajib dokumentasi tempat usaha fisik untuk mitigasi risiko volatilitas omzet modal kerja.'
+        'verifikasi': 'Wajib dokumentasi tempat usaha fisik untuk mitigasi risiko volatilitas omzet modal kerja.',
+        'n_transaksi': 76,
+        'n_nasabah_unik': 61,
+        'pct_populasi': 0.31,
+        'npl_empiris_pct': 13.16,
+        'cluster_n_transaksi': 250,
+        'cluster_n_nasabah_unik': 197,
+        'cluster_pct': 1.01,
+        'cluster_npl_pct': 10.00
     },
     'PELAJAR': {
         'id': 'PELAJAR',
@@ -206,7 +270,15 @@ JOB_RISK_FACTORS = {
         'ltv_mod': -0.05,
         'color': 'rose',
         'policy': 'Plafon Dibatasi Maksimal Rp 2.500.000 & STNK Wajib A/N Sendiri',
-        'verifikasi': 'Wajib Kartu Tanda Mahasiswa (KTM) & nomor HP orang tua/wali aktif.'
+        'verifikasi': 'Wajib Kartu Tanda Mahasiswa (KTM) & nomor HP orang tua/wali aktif.',
+        'n_transaksi': 4385,
+        'n_nasabah_unik': 3432,
+        'pct_populasi': 17.64,
+        'npl_empiris_pct': 7.91,
+        'cluster_n_transaksi': 5376,
+        'cluster_n_nasabah_unik': 4184,
+        'cluster_pct': 21.63,
+        'cluster_npl_pct': 7.92
     },
     'BELUM_BEKERJA': {
         'id': 'BELUM_BEKERJA',
@@ -218,7 +290,15 @@ JOB_RISK_FACTORS = {
         'ltv_mod': -0.10,
         'color': 'rose',
         'policy': 'Plafon Cap Maks Rp 2.500.000 (Pinjaman > Rp 2.5 Jt Wajib Approval Kepala Cabang)',
-        'verifikasi': 'Wajib ada penjamin keluarga serumah yang bekerja & survey domisili debitur.'
+        'verifikasi': 'Wajib ada penjamin keluarga serumah yang bekerja & survey domisili debitur.',
+        'n_transaksi': 991,
+        'n_nasabah_unik': 752,
+        'pct_populasi': 3.99,
+        'npl_empiris_pct': 7.97,
+        'cluster_n_transaksi': 5376,
+        'cluster_n_nasabah_unik': 4184,
+        'cluster_pct': 21.63,
+        'cluster_npl_pct': 7.92
     }
 }
 
@@ -301,7 +381,11 @@ BRANCH_OPERATIONAL_POLICIES = [
         'badge_color': 'bg-emerald-100 text-emerald-800 border-emerald-300',
         'icon': 'fa-solid fa-award',
         'target_occupations': 'Guru, Dosen, PNS, ASN, Pegawai BUMN',
-        'empirical_risk': 'NPL 3,53% - 5,13% | Odds Ratio: 0,65 - 0,86 (Risk Reducer -35%)',
+        'total_nasabah_fmt': '787 Nasabah (548 Debitur Unik | 3,17% Porsi)',
+        'n_transaksi': 787,
+        'n_nasabah_unik': 548,
+        'porsi_pct': 3.17,
+        'empirical_risk': 'NPL 3,53% - 5,13% (Rata-rata 4,32%) | Odds Ratio: 0,65 - 0,86 (Risk Reducer -35%)',
         'max_ltv': 'Maksimal 50% OTR (+5% Bonus LTV di atas standar)',
         'max_loan': 'Rp 10.000.000 (Sesuai taksiran OTR)',
         'verification_standard': 'Jalur Cepat (Fast-Track Approval). Cukup lampirkan ID Card pegawai aktif / SK / Slip Gaji. Tidak diwajibkan survey domisili fisik.',
@@ -313,7 +397,11 @@ BRANCH_OPERATIONAL_POLICIES = [
         'badge_color': 'bg-blue-100 text-blue-800 border-blue-300',
         'icon': 'fa-solid fa-building-user',
         'target_occupations': 'Karyawan Swasta, Ibu Rumah Tangga (IRT), Buruh, Tidak Mengisi',
-        'empirical_risk': 'NPL 5,79% - 6,16% | Odds Ratio: ~1,00 (Netral Baseline Portofolio)',
+        'total_nasabah_fmt': '18.444 Teridentifikasi (14.127 Debitur) | 133.080 Total Portofolio (95,4%)',
+        'n_transaksi': 18444,
+        'n_nasabah_unik': 14127,
+        'porsi_pct': 74.20,
+        'empirical_risk': 'NPL 5,79% - 6,16% (Core Berprofesi) | Odds Ratio: ~1,00 (Netral Baseline Portofolio)',
         'max_ltv': 'Standar Kebijakan: 45% (STNK Sendiri) atau 35% (STNK Orang Lain / Pajak Mati)',
         'max_loan': 'Rp 7.500.000 (Sesuai batas aman LTV standar)',
         'verification_standard': 'Prosedur Verifikasi Standar Loket. Wajib cek fisik nomor rangka dan nomor mesin, verifikasi KTP, dan konfirmasi 1 kontak darurat serumah.',
@@ -325,7 +413,11 @@ BRANCH_OPERATIONAL_POLICIES = [
         'badge_color': 'bg-amber-100 text-amber-800 border-amber-300',
         'icon': 'fa-solid fa-shop',
         'target_occupations': 'Pedagang Toko/Kios/Pasar, Wiraswasta, Pengusaha Mikro',
-        'empirical_risk': 'NPL 8,62% - 13,16% | Odds Ratio: 1,40 - 2,43 (High Variance Risk)',
+        'total_nasabah_fmt': '250 Nasabah (197 Debitur Unik | 1,01% Porsi)',
+        'n_transaksi': 250,
+        'n_nasabah_unik': 197,
+        'porsi_pct': 1.01,
+        'empirical_risk': 'NPL 8,62% - 13,16% (Rata-rata 10,00%) | Odds Ratio: 1,40 - 2,43 (High Variance Risk)',
         'max_ltv': 'Maksimal 40% (STNK Sendiri) atau 30% (STNK Orang Lain) [-5% LTV Pruning]',
         'max_loan': 'Rp 6.000.000 (Kecuali dengan bukti perputaran omzet kuat)',
         'verification_standard': 'Verifikasi Usaha Fisik. Petugas wajib mendokumentasikan foto tempat usaha/kios/lapak dagang atau bukti nota transaksi/buku kas sederhana 1 minggu terakhir.',
@@ -337,7 +429,11 @@ BRANCH_OPERATIONAL_POLICIES = [
         'badge_color': 'bg-rose-100 text-rose-800 border-rose-300',
         'icon': 'fa-solid fa-triangle-exclamation',
         'target_occupations': 'Belum / Tidak Bekerja (Pengangguran), Pelajar, Mahasiswa',
-        'empirical_risk': 'NPL 7,91% - 7,97% | Odds Ratio: 1,37 (Tanpa Pendapatan Tetap Mandiri)',
+        'total_nasabah_fmt': '5.376 Nasabah (4.184 Debitur Unik | 21,63% Porsi)',
+        'n_transaksi': 5376,
+        'n_nasabah_unik': 4184,
+        'porsi_pct': 21.63,
+        'empirical_risk': 'NPL 7,91% - 7,97% (Rata-rata 7,92%) | Odds Ratio: 1,37 (Tanpa Pendapatan Tetap Mandiri)',
         'max_ltv': 'Maksimal 30% OTR | Plafon Dibatasi Maksimal Rp 2.500.000',
         'max_loan': 'Batas Plafon Keras (Strict Cap): Rp 2.500.000',
         'verification_standard': 'Mitigasi Moral Hazard Ketat. STNK WAJIB atas nama sendiri (jika a/n orang lain -> Otomatis Ditolak). Wajib nomor HP orang tua/wali aktif.',
@@ -737,6 +833,14 @@ def hitung_skor_underwriting(
         'job_ltv_mod_pct': round(job_info['ltv_mod'] * 100.0, 1),
         'job_policy': job_info['policy'],
         'job_verifikasi': job_info['verifikasi'],
+        'job_n_transaksi': job_info.get('n_transaksi', 0),
+        'job_n_nasabah_unik': job_info.get('n_nasabah_unik', 0),
+        'job_pct_populasi': job_info.get('pct_populasi', 0.0),
+        'job_npl_empiris_pct': job_info.get('npl_empiris_pct', 0.0),
+        'cluster_n_transaksi': job_info.get('cluster_n_transaksi', 0),
+        'cluster_n_nasabah_unik': job_info.get('cluster_n_nasabah_unik', 0),
+        'cluster_pct': job_info.get('cluster_pct', 0.0),
+        'cluster_npl_pct': job_info.get('cluster_npl_pct', 0.0),
         'prob_npl_model2_pct': round(prob_m2_pct, 2),
         'prob_npl_model4_pct': round(prob_m4_pct, 2),
         'prob_final_pct': round(prob_final, 2),
@@ -1285,18 +1389,51 @@ HTML_TEMPLATE = """
                 </span>
               </div>
               <select id="input-pekerjaan" onchange="runSingleScore()" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3.5 py-2.5 text-xs font-semibold text-slate-800 focus:ring-2 focus:ring-blue-500 focus:bg-white transition">
-                <option value="TIDAK_ISI" selected>Tidak Diketahui / Standar (Neutral Base)</option>
-                <option value="KARYAWAN_SWASTA">Karyawan Swasta (Neutral Base)</option>
-                <option value="PNS">PNS / ASN / Pegawai BUMN (Risk Bonus: OR 0.86x)</option>
-                <option value="GURU">Guru / Dosen (Risk Bonus: OR 0.65x — Paling Aman)</option>
-                <option value="IRT">Ibu Rumah Tangga (IRT — Netral)</option>
-                <option value="BURUH">Buruh Pabrik / Bangunan (Netral)</option>
-                <option value="PEDAGANG">Pedagang Toko / Kios (Volatil: OR 1.40x)</option>
-                <option value="WIRASWASTA">Wiraswasta / Pengusaha (Volatil: OR 2.43x)</option>
-                <option value="PELAJAR">Pelajar / Mahasiswa (Rentan: OR 1.37x)</option>
-                <option value="BELUM_BEKERJA">Belum / Tidak Bekerja (Rentan: OR 1.37x)</option>
+                <optgroup label="Klaster 1: Prime / Preferred (N = 787 Nasabah | 548 Debitur Unik | NPL 4,32%)">
+                  <option value="GURU">Guru / Dosen — 397 Nasabah (287 Debitur) | Risk Bonus: OR 0.65x</option>
+                  <option value="PNS">PNS / ASN / Pegawai BUMN — 390 Nasabah (261 Debitur) | Risk Bonus: OR 0.86x</option>
+                </optgroup>
+                <optgroup label="Klaster 2: Core Baseline (N = 133.080 Total Portofolio | 18.444 Teridentifikasi)">
+                  <option value="TIDAK_ISI" selected>Tidak Diketahui / Standar — 114.636 Nasabah (72.446 Debitur) | Baseline</option>
+                  <option value="KARYAWAN_SWASTA">Karyawan Swasta — 11.007 Nasabah (8.315 Debitur) | Neutral Base</option>
+                  <option value="IRT">Ibu Rumah Tangga (IRT) — 5.149 Nasabah (4.092 Debitur) | Neutral Base</option>
+                  <option value="BURUH">Buruh Pabrik / Bangunan — 1.477 Nasabah (1.138 Debitur) | Netral</option>
+                </optgroup>
+                <optgroup label="Klaster 3: Arus Kas Volatil (N = 250 Nasabah | 197 Debitur Unik | NPL 10,00%)">
+                  <option value="PEDAGANG">Pedagang Toko / Kios — 174 Nasabah (136 Debitur) | Volatil: OR 1.40x</option>
+                  <option value="WIRASWASTA">Wiraswasta / Pengusaha — 76 Nasabah (61 Debitur) | Volatil: OR 2.43x</option>
+                </optgroup>
+                <optgroup label="Klaster 4: Rentan & Moral Hazard (N = 5.376 Nasabah | 4.184 Debitur Unik | NPL 7,92%)">
+                  <option value="PELAJAR">Pelajar / Mahasiswa — 4.385 Nasabah (3.432 Debitur) | Rentan: OR 1.37x</option>
+                  <option value="BELUM_BEKERJA">Belum / Tidak Bekerja — 991 Nasabah (752 Debitur) | Rentan: OR 1.37x</option>
+                </optgroup>
               </select>
-              <p class="text-[11px] text-slate-500 mt-1">Mengaplikasikan Delta Logit empiris (N=24.857) & penyesuaian LTV kebijakan cabang.</p>
+
+              <!-- KARTU INFORMASI KLASTER & JUMLAH NASABAH -->
+              <div id="job-cluster-info-card" class="mt-2.5 p-3 rounded-xl bg-slate-100/90 border border-slate-200 text-xs transition">
+                <div class="flex items-center justify-between">
+                  <span id="job-info-cluster-badge" class="font-extrabold text-[11px] px-2.5 py-0.5 rounded-full bg-blue-100 text-blue-800 border border-blue-200">
+                    Klaster 2: Core Baseline
+                  </span>
+                  <span id="job-info-npl" class="text-[11px] font-bold text-slate-700">
+                    <span class="font-normal text-slate-500">NPL Historis:</span> 7,04%
+                  </span>
+                </div>
+                <div class="mt-2 grid grid-cols-2 gap-2 text-[11px]">
+                  <div class="bg-white p-2 rounded-lg border border-slate-200">
+                    <span class="text-[10px] text-slate-400 font-bold block uppercase">Nasabah Profesi Ini</span>
+                    <span id="job-info-count" class="font-extrabold text-slate-800 text-xs block mt-0.5">114.636 Nasabah</span>
+                    <span id="job-info-sub" class="text-[10px] text-slate-500 block">72.446 Debitur Unik</span>
+                  </div>
+                  <div class="bg-white p-2 rounded-lg border border-slate-200">
+                    <span class="text-[10px] text-slate-400 font-bold block uppercase">Total Populasi Klaster</span>
+                    <span id="job-info-cluster-count" class="font-extrabold text-blue-900 text-xs block mt-0.5">133.080 Transaksi</span>
+                    <span id="job-info-cluster-sub" class="text-[10px] text-slate-500 block">86.573 Debitur Unik</span>
+                  </div>
+                </div>
+              </div>
+
+              <p class="text-[11px] text-slate-500 mt-1.5">Mengaplikasikan Delta Logit empiris (N=24.857) & penyesuaian LTV kebijakan cabang.</p>
             </div>
 
             <button onclick="runSingleScore()" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded-xl shadow-md transition flex items-center justify-center space-x-2">
@@ -1721,6 +1858,17 @@ HTML_TEMPLATE = """
               <div class="text-xs text-slate-600 mt-1 font-medium leading-relaxed bg-white p-2.5 rounded-xl border border-slate-200">
                 <span class="text-[11px] font-bold text-slate-500 uppercase block mb-0.5">Bukti Empiris Riset:</span>
                 {{ pol.empirical_risk }}
+              </div>
+
+              <!-- POPULASI & JUMLAH NASABAH KLASTER -->
+              <div class="p-2.5 bg-blue-50/80 rounded-xl border border-blue-200/80 my-2.5 flex items-center justify-between">
+                <div>
+                  <span class="text-[10px] text-blue-700 font-bold uppercase block">Populasi & Jumlah Nasabah:</span>
+                  <span class="text-xs font-black text-blue-950">{{ pol.total_nasabah_fmt }}</span>
+                </div>
+                <span class="text-[11px] font-extrabold px-2 py-0.5 rounded bg-blue-200/60 text-blue-900 border border-blue-300">
+                  {{ pol.porsi_pct }}% Sampel
+                </span>
               </div>
 
               <div class="grid grid-cols-2 gap-2 my-3 text-xs">
@@ -2256,6 +2404,46 @@ HTML_TEMPLATE = """
         } else {
           jobBadge.className = 'px-2.5 py-1 rounded-full text-[11px] font-extrabold bg-amber-100 text-amber-800 border border-amber-300';
         }
+      }
+
+      // Update Job Cluster & Customer Population Card
+      const jobInfoBadge = document.getElementById('job-info-cluster-badge');
+      if (jobInfoBadge && data.job_cluster) {
+        jobInfoBadge.innerText = data.job_cluster;
+        if (data.job_cluster_code === 'PRIME') {
+          jobInfoBadge.className = 'font-extrabold text-[11px] px-2.5 py-0.5 rounded-full bg-emerald-100 text-emerald-800 border border-emerald-300';
+        } else if (data.job_cluster_code === 'CORE') {
+          jobInfoBadge.className = 'font-extrabold text-[11px] px-2.5 py-0.5 rounded-full bg-blue-100 text-blue-800 border border-blue-200';
+        } else if (data.job_cluster_code === 'VOLATILE') {
+          jobInfoBadge.className = 'font-extrabold text-[11px] px-2.5 py-0.5 rounded-full bg-amber-100 text-amber-800 border border-amber-300';
+        } else {
+          jobInfoBadge.className = 'font-extrabold text-[11px] px-2.5 py-0.5 rounded-full bg-rose-100 text-rose-800 border border-rose-300';
+        }
+      }
+
+      const jobInfoNpl = document.getElementById('job-info-npl');
+      if (jobInfoNpl && data.job_npl_empiris_pct !== undefined) {
+        jobInfoNpl.innerHTML = `<span class="font-normal text-slate-500">NPL Historis:</span> <strong class="text-slate-800">${data.job_npl_empiris_pct.toFixed(2)}%</strong> <span class="text-slate-400 text-[10px]">(OR: ${data.job_odds_ratio.toFixed(2)}x)</span>`;
+      }
+
+      const jobInfoCount = document.getElementById('job-info-count');
+      if (jobInfoCount && data.job_n_transaksi !== undefined) {
+        jobInfoCount.innerText = `${data.job_n_transaksi.toLocaleString('id-ID')} Nasabah`;
+      }
+
+      const jobInfoSub = document.getElementById('job-info-sub');
+      if (jobInfoSub && data.job_n_nasabah_unik !== undefined) {
+        jobInfoSub.innerText = `${data.job_n_nasabah_unik.toLocaleString('id-ID')} Debitur Unik (${data.job_pct_populasi.toFixed(1)}%)`;
+      }
+
+      const jobInfoClusterCount = document.getElementById('job-info-cluster-count');
+      if (jobInfoClusterCount && data.cluster_n_transaksi !== undefined) {
+        jobInfoClusterCount.innerText = `${data.cluster_n_transaksi.toLocaleString('id-ID')} Pinjaman`;
+      }
+
+      const jobInfoClusterSub = document.getElementById('job-info-cluster-sub');
+      if (jobInfoClusterSub && data.cluster_n_nasabah_unik !== undefined) {
+        jobInfoClusterSub.innerText = `${data.cluster_n_nasabah_unik.toLocaleString('id-ID')} Debitur Unik (NPL Klaster: ${data.cluster_npl_pct.toFixed(2)}%)`;
       }
 
       // Probability
