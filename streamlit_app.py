@@ -1137,8 +1137,37 @@ elif menu == "Credit Scoring Engine":
         with c_r2:
             pajak_status = st.radio("Status Pajak STNK:", ["Pajak Aktif", "Pajak Tidak Aktif"])
 
-        job_options = {k: f"{v['label']} ({v['cluster']})" for k, v in JOB_RISK_FACTORS.items()}
-        job_key = st.selectbox("Profesi / Pekerjaan Debitur:", options=list(job_options.keys()), format_func=lambda x: job_options[x])
+        job_options = {
+            k: f"{v['label']} — {v['n_transaksi']:,} Nasabah ({v['cluster']})"
+            for k, v in JOB_RISK_FACTORS.items()
+        }
+        job_key = st.selectbox("Profesi / Pekerjaan Debitur (Opsional Overlay):", options=list(job_options.keys()), format_func=lambda x: job_options[x])
+
+        sel_job = JOB_RISK_FACTORS[job_key]
+        st.markdown(f"""
+        <div style="background: #F8FAFC; border: 1.5px solid #E2E8F0; border-radius: 12px; padding: 12px 14px; margin: 8px 0 14px 0;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                <span style="font-size: 0.75rem; font-weight: 800; color: #1E3A8A; background: #DBEAFE; padding: 2px 8px; border-radius: 6px;">
+                    {sel_job['cluster']}
+                </span>
+                <span style="font-size: 0.75rem; font-weight: 700; color: #334155;">
+                    NPL Historis: <strong>{sel_job['npl_empiris_pct']:.2f}%</strong> (OR: {sel_job['or']:.2f}x)
+                </span>
+            </div>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; font-size: 0.75rem;">
+                <div style="background: #FFFFFF; padding: 8px 10px; border-radius: 8px; border: 1px solid #CBD5E1;">
+                    <div style="font-size: 0.65rem; color: #64748B; font-weight: 700; text-transform: uppercase;">Nasabah Profesi Ini</div>
+                    <div style="font-weight: 800; color: #0F172A; font-size: 0.95rem;">{sel_job['n_transaksi']:,} Nasabah</div>
+                    <div style="color: #64748B; font-size: 0.7rem;">{sel_job['n_nasabah_unik']:,} debitur unik ({sel_job['pct_populasi']:.1f}%)</div>
+                </div>
+                <div style="background: #FFFFFF; padding: 8px 10px; border-radius: 8px; border: 1px solid #CBD5E1;">
+                    <div style="font-size: 0.65rem; color: #64748B; font-weight: 700; text-transform: uppercase;">Total Populasi Klaster</div>
+                    <div style="font-weight: 800; color: #1E3A8A; font-size: 0.95rem;">{sel_job['cluster_n_transaksi']:,} Pinjaman</div>
+                    <div style="color: #64748B; font-size: 0.7rem;">{sel_job['cluster_n_nasabah_unik']:,} debitur (NPL: {sel_job['cluster_npl_pct']:.2f}%)</div>
+                </div>
+            </div>
+        </div>
+        """, unsafe_allow_html=True)
         
         is_repeat = st.checkbox("Repeat Borrower (Nasabah Lama dengan Riwayat Lunas Sempurna)", value=False)
         st.markdown('</div>', unsafe_allow_html=True)
@@ -1276,8 +1305,12 @@ elif menu == "What-If Stress Testing":
         w_usia = st.slider("Usia Kendaraan (Tahun):", 0, 15, 3, key="w_usia")
         w_otr = st.number_input("Harga OTR Pasar (Rp):", min_value=2_000_000, max_value=50_000_000, value=15_000_000, step=1_000_000, key="w_otr")
         w_stnk = st.selectbox("Kepemilikan STNK:", ["A/N Sendiri", "A/N Orang Lain"], key="w_stnk")
-        w_pajak = st.selectbox("Status Pajak:", ["Pajak Aktif", "Pajak Tidak Aktif"], key="w_pajak")
-        w_job = st.selectbox("Profesi / Pekerjaan:", list(JOB_RISK_FACTORS.keys()), key="w_job")
+        w_job = st.selectbox(
+            "Profesi / Pekerjaan Debitur:",
+            list(JOB_RISK_FACTORS.keys()),
+            format_func=lambda x: f"{JOB_RISK_FACTORS[x]['label']} — {JOB_RISK_FACTORS[x]['n_transaksi']:,} Nasabah ({JOB_RISK_FACTORS[x]['cluster']})",
+            key="w_job"
+        )
         st.markdown('</div>', unsafe_allow_html=True)
 
     with col_w2:

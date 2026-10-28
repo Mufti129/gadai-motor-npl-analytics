@@ -163,7 +163,10 @@ JOB_RISK_FACTORS = {
         'cluster_code': 'CORE',
         'ltv_mod': 0.0,
         'policy': 'Skema Standar Cabang (LTV 45% Sendiri / 35% Orang Lain)',
-        'verifikasi': 'Prosedur loket standar, cek fisik no rangka/mesin.'
+        'verifikasi': 'Prosedur loket standar, cek fisik no rangka/mesin.',
+        'n_transaksi': 114636, 'n_nasabah_unik': 72446, 'pct_populasi': 82.18,
+        'npl_empiris_pct': 7.04, 'cluster_n_transaksi': 133080, 'cluster_n_nasabah_unik': 86573,
+        'cluster_pct': 95.40, 'cluster_npl_pct': 6.88
     },
     'KARYAWAN_SWASTA': {
         'id': 'KARYAWAN_SWASTA',
@@ -174,7 +177,10 @@ JOB_RISK_FACTORS = {
         'cluster_code': 'CORE',
         'ltv_mod': 0.0,
         'policy': 'Skema Standar Cabang (Baseline Portofolio)',
-        'verifikasi': 'Cek ID Card / slip gaji atau mutasi rekening jika tersedia.'
+        'verifikasi': 'Cek ID Card / slip gaji atau mutasi rekening jika tersedia.',
+        'n_transaksi': 11007, 'n_nasabah_unik': 8315, 'pct_populasi': 44.28,
+        'npl_empiris_pct': 5.79, 'cluster_n_transaksi': 133080, 'cluster_n_nasabah_unik': 86573,
+        'cluster_pct': 74.20, 'cluster_npl_pct': 6.88
     },
     'PNS': {
         'id': 'PNS',
@@ -185,7 +191,10 @@ JOB_RISK_FACTORS = {
         'cluster_code': 'PRIME',
         'ltv_mod': 0.05,
         'policy': 'Bonus LTV +5% (Maksimal 50%) & Fast-Track Approval',
-        'verifikasi': 'Fast-Track: Lampirkan SK/Kartu Pegawai/Slip Gaji, tanpa survey fisik domisili.'
+        'verifikasi': 'Fast-Track: Lampirkan SK/Kartu Pegawai/Slip Gaji, tanpa survey fisik domisili.',
+        'n_transaksi': 390, 'n_nasabah_unik': 261, 'pct_populasi': 1.57,
+        'npl_empiris_pct': 5.13, 'cluster_n_transaksi': 787, 'cluster_n_nasabah_unik': 548,
+        'cluster_pct': 3.17, 'cluster_npl_pct': 4.32
     },
     'GURU': {
         'id': 'GURU',
@@ -196,7 +205,10 @@ JOB_RISK_FACTORS = {
         'cluster_code': 'PRIME',
         'ltv_mod': 0.05,
         'policy': 'Bonus LTV +5% (Maksimal 50%) & Fast-Track Approval (Profil Paling Aman)',
-        'verifikasi': 'Fast-Track: Verifikasi kartu tanda guru/dosen/NUPTK aktif.'
+        'verifikasi': 'Fast-Track: Verifikasi kartu tanda guru/dosen/NUPTK aktif.',
+        'n_transaksi': 397, 'n_nasabah_unik': 287, 'pct_populasi': 1.60,
+        'npl_empiris_pct': 3.53, 'cluster_n_transaksi': 787, 'cluster_n_nasabah_unik': 548,
+        'cluster_pct': 3.17, 'cluster_npl_pct': 4.32
     },
     'IRT': {
         'id': 'IRT',
@@ -207,7 +219,10 @@ JOB_RISK_FACTORS = {
         'cluster_code': 'CORE',
         'ltv_mod': 0.0,
         'policy': 'Skema Standar (Verifikasi Sumber Nafkah Belanja Keluarga)',
-        'verifikasi': 'Konfirmasi nomor kontak suami / kepala keluarga serumah.'
+        'verifikasi': 'Konfirmasi nomor kontak suami / kepala keluarga serumah.',
+        'n_transaksi': 5149, 'n_nasabah_unik': 4092, 'pct_populasi': 20.71,
+        'npl_empiris_pct': 5.96, 'cluster_n_transaksi': 133080, 'cluster_n_nasabah_unik': 86573,
+        'cluster_pct': 74.20, 'cluster_npl_pct': 6.88
     },
     'BURUH': {
         'id': 'BURUH',
@@ -218,7 +233,10 @@ JOB_RISK_FACTORS = {
         'cluster_code': 'CORE',
         'ltv_mod': 0.0,
         'policy': 'Skema Standar (Upah Rutin Mingguan/Bulanan)',
-        'verifikasi': 'Konfirmasi tempat kerja buruh/pabrik.'
+        'verifikasi': 'Konfirmasi tempat kerja buruh/pabrik.',
+        'n_transaksi': 1477, 'n_nasabah_unik': 1138, 'pct_populasi': 5.94,
+        'npl_empiris_pct': 6.16, 'cluster_n_transaksi': 133080, 'cluster_n_nasabah_unik': 86573,
+        'cluster_pct': 74.20, 'cluster_npl_pct': 6.88
     },
     'PEDAGANG': {
         'id': 'PEDAGANG',
@@ -229,7 +247,10 @@ JOB_RISK_FACTORS = {
         'cluster_code': 'VOLATILE',
         'ltv_mod': -0.05,
         'policy': 'Pengetatan LTV -5% (Maksimal 40%) & Wajib Cek Nota Usaha',
-        'verifikasi': 'Lampirkan foto kios/lapak dagang atau bukti nota transaksi 1 minggu terakhir.'
+        'verifikasi': 'Lampirkan foto kios/lapak dagang atau bukti nota transaksi 1 minggu terakhir.',
+        'n_transaksi': 174, 'n_nasabah_unik': 136, 'pct_populasi': 0.70,
+        'npl_empiris_pct': 8.62, 'cluster_n_transaksi': 250, 'cluster_n_nasabah_unik': 197,
+        'cluster_pct': 1.01, 'cluster_npl_pct': 10.00
     },
     'WIRASWASTA': {
         'id': 'WIRASWASTA',
@@ -240,7 +261,10 @@ JOB_RISK_FACTORS = {
         'cluster_code': 'VOLATILE',
         'ltv_mod': -0.05,
         'policy': 'Pengetatan LTV -5% (Maksimal 40%) & Verifikasi Fisik Tempat Usaha',
-        'verifikasi': 'Wajib dokumentasi tempat usaha fisik untuk mitigasi risiko volatilitas omzet modal kerja.'
+        'verifikasi': 'Wajib dokumentasi tempat usaha fisik untuk mitigasi risiko volatilitas omzet modal kerja.',
+        'n_transaksi': 76, 'n_nasabah_unik': 61, 'pct_populasi': 0.31,
+        'npl_empiris_pct': 13.16, 'cluster_n_transaksi': 250, 'cluster_n_nasabah_unik': 197,
+        'cluster_pct': 1.01, 'cluster_npl_pct': 10.00
     },
     'PELAJAR': {
         'id': 'PELAJAR',
@@ -251,7 +275,10 @@ JOB_RISK_FACTORS = {
         'cluster_code': 'VULNERABLE',
         'ltv_mod': -0.05,
         'policy': 'Plafon Dibatasi Maksimal Rp 2.500.000 & STNK Wajib A/N Sendiri',
-        'verifikasi': 'Wajib Kartu Tanda Mahasiswa (KTM) & nomor HP orang tua/wali aktif.'
+        'verifikasi': 'Wajib Kartu Tanda Mahasiswa (KTM) & nomor HP orang tua/wali aktif.',
+        'n_transaksi': 4385, 'n_nasabah_unik': 3432, 'pct_populasi': 17.64,
+        'npl_empiris_pct': 7.91, 'cluster_n_transaksi': 5376, 'cluster_n_nasabah_unik': 4184,
+        'cluster_pct': 21.63, 'cluster_npl_pct': 7.92
     },
     'BELUM_BEKERJA': {
         'id': 'BELUM_BEKERJA',
@@ -262,7 +289,10 @@ JOB_RISK_FACTORS = {
         'cluster_code': 'VULNERABLE',
         'ltv_mod': -0.10,
         'policy': 'Plafon Cap Maks Rp 2.500.000 (Pinjaman > Rp 2.5 Jt Wajib Approval Kepala Cabang)',
-        'verifikasi': 'Wajib ada penjamin keluarga serumah yang bekerja & survey domisili debitur.'
+        'verifikasi': 'Wajib ada penjamin keluarga serumah yang bekerja & survey domisili debitur.',
+        'n_transaksi': 991, 'n_nasabah_unik': 752, 'pct_populasi': 3.99,
+        'npl_empiris_pct': 7.97, 'cluster_n_transaksi': 5376, 'cluster_n_nasabah_unik': 4184,
+        'cluster_pct': 21.63, 'cluster_npl_pct': 7.92
     }
 }
 
