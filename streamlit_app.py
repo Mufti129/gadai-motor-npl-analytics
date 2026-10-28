@@ -1789,25 +1789,325 @@ elif menu == "Matriks Kebijakan Cabang":
 elif menu == "Galeri Publikasi Riset":
     st.markdown("""
     <div class="hero-appbar">
-        <div class="hero-title">Galeri Visualisasi Publikasi Riset 300 DPI</div>
-        <div class="hero-subtitle">Grafik ekonometrika resmi hasil estimasi data 139.493 debitur</div>
+        <div class="hero-title">Galeri Visualisasi & Publikasi Riset Ekonometrika 300 DPI</div>
+        <div class="hero-subtitle">Grafik saintifik & lembar laporan eksekutif resmi hasil estimasi data 139.493 debitur PT Pusat Gadai Indonesia (PGI)</div>
+        <div class="hero-tags">
+            <span class="hero-tag-pill">6 Grafik Riset 300 DPI</span>
+            <span class="hero-tag-pill">11 Lembar Laporan Eksekutif</span>
+            <span class="hero-tag-pill">N=139.493 Transaksi</span>
+            <span class="hero-tag-pill">Download Center Ready</span>
+        </div>
     </div>
     """, unsafe_allow_html=True)
 
-    figures = [
-        ("Gambar 1: Distribusi Risiko STNK & Merk", "output/figures/gambar_1_distribusi_risiko_stnk_merk.png"),
-        ("Gambar 2: Kurva Sensitivitas Plafon & LTV", "output/figures/gambar_2_kurva_sensitivitas_plafon_ltv.png"),
-        ("Gambar 3: Heatmap Matriks Risiko Bivariat", "output/figures/gambar_3_heatmap_matriks_risiko.png"),
-        ("Gambar 4: Evaluasi ROC & PR-AUC Model", "output/figures/gambar_4_evaluasi_roc_pr_auc.png"),
-        ("Gambar 5: Forest Plot Odds Ratio Ekonometrika", "output/figures/gambar_5_forest_plot_odds_ratio.png"),
-        ("Gambar 6: Kalibrasi Probabilitas Brier Score", "output/figures/gambar_6_kalibrasi_probabilitas.png")
-    ]
+    tab_grafik, tab_laporan, tab_sintesis = st.tabs([
+        "6 Grafik Ekonometrika Utama (300 DPI)",
+        "Pratinjau Dokumen Laporan Eksekutif (11 Halaman)",
+        "Sintesis Temuan Riset & Rekomendasi Bisnis"
+    ])
 
-    for title, path_str in figures:
-        p = BASE_DIR / path_str
-        if p.exists():
+    with tab_grafik:
+        st.markdown('<div class="modern-card">', unsafe_allow_html=True)
+        st.subheader("Arsip Grafik Ekonometrika Kualitas Publikasi (300 DPI)")
+        st.markdown("""
+        Grafik-grafik di bawah ini merupakan visualisasi saintifik standar *peer-review* internasional yang dihasilkan dari model ekonometrika 
+        dan analisis regresi logistik multivariat terhadap **139.493 kontrak pinjaman**. File gambar beresolusi tinggi (300 DPI) dapat diunduh 
+        langsung untuk keperluan presentasi direksi atau lampiran dokumen kepatuhan OJK.
+        """)
+        st.markdown('</div>', unsafe_allow_html=True)
+
+        FIGURES_METADATA = [
+            {
+                "id": "fig1",
+                "nomor": "Gambar 1",
+                "judul": "Distribusi Target NPL Portofolio (139.493 Debitur)",
+                "file": "output/figures/fig1_npl_distribution.png",
+                "badge": "Imbalance Kelas Portofolio",
+                "badge_color": "#1E3A8A",
+                "tujuan": "Mengidentifikasi proporsi riil kejadian gagal bayar (NPL) vs kredit lancar pada seluruh portofolio gadai motor retail.",
+                "temuan": "Tingkat NPL riil portofolio berada pada angka <strong>6,91%</strong> (9.640 kasus macet DPD > 30 hari) berbanding 93,09% non-NPL (129.853 kasus lancar/lunas). Rasio ketidakseimbangan kelas (class imbalance) adalah 13,47 : 1.",
+                "kebijakan": "Model ekonometrika menerapkan teknik pembobotan logit berimbang (balanced weighting) dan kalibrasi kurva PR-AUC agar estimasi probabilitas risiko tidak bias ke arah mayoritas lancar.",
+                "metrik": "N = 139.493 | Kasus Macet: 9.640 | Kasus Lancar: 129.853 | Prevalensi NPL: 6,91%"
+            },
+            {
+                "id": "fig2",
+                "nomor": "Gambar 2",
+                "judul": "Tingkat NPL per Kategori Risiko (Merk, STNK, Pajak, Wilayah)",
+                "file": "output/figures/fig2_npl_rate_by_categories.png",
+                "badge": "Analisis Bivariat Multidimensi",
+                "badge_color": "#D97706",
+                "tujuan": "Memetakan disparitas risiko NPL pada 4 dimensi operasional utama: Kepemilikan STNK, Status Pajak, Merk Kendaraan, dan Wilayah Cabang.",
+                "temuan": "STNK Atas Nama Orang Lain mencatat NPL <strong>8,56%</strong> vs A/N Sendiri 4,94% (+73% kenaikan risiko relatif). Pajak Mati mencatat NPL <strong>7,20%</strong> vs Pajak Aktif 6,70%. Merk non-Jepang/Kawasaki (8,63%) lebih rentan macet dibanding Honda (6,79%) & Yamaha (6,95%). Wilayah Garut (9,17%) & Bandung (9,00%) mencatatkan risiko tertinggi.",
+                "kebijakan": "STNK orang lain ditetapkan sebagai pemicu moral hazard utama. Plafon LTV dipangkas otomatis -10% jika STNK atas nama pihak ketiga.",
+                "metrik": "Uji Chi-Square: p < 0,0001 (Signifikan pada taraf alpha 1%) | Cramer's V: 0,082"
+            },
+            {
+                "id": "fig3",
+                "nomor": "Gambar 3",
+                "judul": "Kurva Empiris Usia Kendaraan vs Probabilitas NPL",
+                "file": "output/figures/fig3_vehicle_age_vs_npl.png",
+                "badge": "Sensitivitas Usia Agunan",
+                "badge_color": "#059669",
+                "tujuan": "Menguji hubungan laju depresiasi mekanis dan nilai pasar kendaraan terhadap probabilitas debitur menelantarkan kewajiban angsuran.",
+                "temuan": "Probabilitas NPL meningkat secara monoton seiring bertambahnya usia motor: motor baru 0-3 tahun memiliki NPL <strong>5,91%</strong>, usia 4-7 tahun <strong>6,65%</strong>, dan usia ≥ 8 tahun melonjak ke <strong>7,72% - 9,50%</strong>.",
+                "kebijakan": "Motor dengan usia ≥ 7 tahun dibatasi LTV-nya maksimal 35% OTR dan wajib verifikasi kondisi fisik mesin untuk memitigasi kerugian lelang.",
+                "metrik": "Koefisien Logit Usia: β = +0,0535 | Odds Ratio: 1,055x per tahun | Wald Stat: 84,2 (p < 1e-19)"
+            },
+            {
+                "id": "fig4",
+                "nomor": "Gambar 4",
+                "judul": "Dekomposisi Simpson's Paradox (Rasio LTV vs Kepemilikan STNK)",
+                "file": "output/figures/fig4_simpsons_paradox_ltv_stnk.png",
+                "badge": "Ekonometrika Lanjutan & Anomali Data",
+                "badge_color": "#7C3AED",
+                "tujuan": "Mengungkap anomali Simpson's Paradox di mana data bivariat naif memperlihatkan korelasi semu yang berlawanan dengan realitas multivariat.",
+                "temuan": "Secara bivariat agregat, pinjaman LTV tinggi (≥ 50%) tampak memiliki NPL lebih rendah karena terkonsentrasi pada repeat borrower loyal dengan STNK A/N Sendiri yang disetujui selektif oleh kepala cabang. Ketika diisolasi pada kelompok STNK Orang Lain, kenaikan LTV secara konsisten melipatgandakan risiko NPL.",
+                "kebijakan": "Cabang dilarang mengambil keputusan underwriting berbasis rasio tunggal tanpa interaksi STNK dan riwayat debitur.",
+                "metrik": "Likelihood Ratio Test: LR = 3.360,71 (p < 1e-300) | Interaksi STNK x LTV: Signifikan (p < 0,001)"
+            },
+            {
+                "id": "fig5",
+                "nomor": "Gambar 5",
+                "judul": "Perbandingan Kurva ROC & Discriminatory Power (Model 1 s/d 4)",
+                "file": "output/figures/fig5_roc_curves_comparison.png",
+                "badge": "Evaluasi Kinerja Model Prediktif",
+                "badge_color": "#2563EB",
+                "tujuan": "Mengukur daya pemilahan calon debitur berisiko tinggi vs rendah antara Model 1 (Core), Model 2 (Baseline Underwriting), dan Model 4 (Champion Fixed Effect).",
+                "temuan": "Model 4 mengungguli secara mutlak dengan ROC-AUC <strong>0,6702</strong> (+10,68 poin persentase di atas Model 2: 0,5634 dan Model 1: 0,5620) berkat integrasi fitur repeat borrower yang menggeser kurva ROC ke kiri atas secara signifikan.",
+                "kebijakan": "Model 4 resmi diadopsi sebagai algoritma utama Smart Credit Scoring Engine untuk penetapan suku bunga dan limit plafon kredit otomatis.",
+                "metrik": "Model 4 ROC-AUC: 0,6702 | DeLong Test vs Model 2: Z = 42,18 (p < 0,0001) | Gini Index: 0,3404"
+            },
+            {
+                "id": "fig6",
+                "nomor": "Gambar 6",
+                "judul": "Kurva Kalibrasi Probabilitas Default & Brier Score",
+                "file": "output/figures/fig6_calibration_curves.png",
+                "badge": "Reliabilitas Kalibrasi Probabilistik",
+                "badge_color": "#0D9488",
+                "tujuan": "Memverifikasi apakah nilai probabilitas prediksi model benar-benar terkalibrasi secara realistis terhadap frekuensi default aktual di lapangan.",
+                "temuan": "Kurva kalibrasi Model 4 menempel erat pada garis diagonal ideal 45 derajat. Brier Score Model 4 mencapai <strong>0,06291</strong> (lebih rendah dari benchmark naif 0,06433 dan Model 2 0,06383, terbukti superior p < 0,0001).",
+                "kebijakan": "Tingkat probabilitas default yang dihasilkan sistem dapat dipercaya secara matematis untuk dasar penentuan Cadangan Kerugian Penurunan Nilai (CKPN).",
+                "metrik": "Brier Score: 0,06291 | Benchmark Null: 0,06433 | Hosmer-Lemeshow p-value > 0,05"
+            }
+        ]
+
+        # Mode Tampilan
+        view_mode = st.radio(
+            "Pilih Mode Tampilan Galeri:",
+            ["Tampilkan Semua 6 Grafik (Grid Detail)", "Pilih Spesifik per Grafik"],
+            horizontal=True,
+            key="fig_view_mode"
+        )
+
+        if view_mode == "Pilih Spesifik per Grafik":
+            fig_options = {f["id"]: f"{f['nomor']}: {f['judul']}" for f in FIGURES_METADATA}
+            selected_fig_id = st.selectbox("Pilih Gambar Riset:", options=list(fig_options.keys()), format_func=lambda x: fig_options[x], key="select_fig_id")
+            active_figures = [f for f in FIGURES_METADATA if f["id"] == selected_fig_id]
+        else:
+            active_figures = FIGURES_METADATA
+
+        for fig in active_figures:
             st.markdown('<div class="modern-card">', unsafe_allow_html=True)
-            st.subheader(title)
-            st.image(str(p), use_column_width=True)
+            col_hdr1, col_hdr2 = st.columns([3, 1])
+            with col_hdr1:
+                st.markdown(f"""
+                <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 6px;">
+                    <span style="font-size: 0.8rem; font-weight: 800; background: {fig['badge_color']}; color: #FFFFFF; padding: 3px 10px; border-radius: 6px;">
+                        {fig['nomor']}
+                    </span>
+                    <span style="font-size: 0.75rem; font-weight: 700; color: #475569; background: #F1F5F9; padding: 3px 8px; border-radius: 6px; border: 1px solid #E2E8F0;">
+                        {fig['badge']}
+                    </span>
+                </div>
+                <h3 style="margin: 0; color: #0F172A; font-size: 1.25rem; font-weight: 800;">{fig['judul']}</h3>
+                """, unsafe_allow_html=True)
+            
+            p = BASE_DIR / fig["file"]
+            if not p.exists():
+                p = Path(fig["file"])
+
+            with col_hdr2:
+                if p.exists():
+                    with open(p, "rb") as f_img:
+                        img_bytes = f_img.read()
+                    st.download_button(
+                        label=f"Unduh {fig['nomor']} (300 DPI)",
+                        data=img_bytes,
+                        file_name=Path(fig["file"]).name,
+                        mime="image/png",
+                        key=f"dl_{fig['id']}",
+                        use_container_width=True
+                    )
+
+            if p.exists():
+                st.image(str(p), use_container_width=True)
+            else:
+                st.warning(f"File gambar `{fig['file']}` tidak ditemukan di repositori.")
+
+            # Rincian Temuan & Implikasi
+            st.markdown(f"""
+            <div style="background: #F8FAFC; border: 1.5px solid #E2E8F0; border-radius: 12px; padding: 16px; margin-top: 14px;">
+                <div style="margin-bottom: 10px;">
+                    <span style="font-size: 0.75rem; font-weight: 800; text-transform: uppercase; color: #1E3A8A; letter-spacing: 0.05em;">Tujuan Analisis</span>
+                    <div style="font-size: 0.88rem; color: #334155; margin-top: 2px;">{fig['tujuan']}</div>
+                </div>
+                <div style="margin-bottom: 10px;">
+                    <span style="font-size: 0.75rem; font-weight: 800; text-transform: uppercase; color: #059669; letter-spacing: 0.05em;">Temuan Empiris Data (N=139.493)</span>
+                    <div style="font-size: 0.88rem; color: #0F172A; margin-top: 2px; line-height: 1.5;">{fig['temuan']}</div>
+                </div>
+                <div style="margin-bottom: 10px;">
+                    <span style="font-size: 0.75rem; font-weight: 800; text-transform: uppercase; color: #D97706; letter-spacing: 0.05em;">Implikasi Kebijakan Operasional Cabang</span>
+                    <div style="font-size: 0.88rem; color: #334155; margin-top: 2px; line-height: 1.5;">{fig['kebijakan']}</div>
+                </div>
+                <div style="border-top: 1px dashed #CBD5E1; padding-top: 8px; margin-top: 8px;">
+                    <span style="font-size: 0.72rem; font-family: monospace; color: #64748B; font-weight: 600;">Metrik Statistik: {fig['metrik']}</span>
+                </div>
+            </div>
+            """, unsafe_allow_html=True)
+
             st.markdown('</div>', unsafe_allow_html=True)
+            st.markdown('<div style="height: 16px;"></div>', unsafe_allow_html=True)
+
+    with tab_laporan:
+        st.markdown('<div class="modern-card">', unsafe_allow_html=True)
+        st.subheader("Pratinjau Lembar Dokumen Laporan Eksekutif (11 Halaman Cetak)")
+        st.markdown("""
+        Dokumen resmi **Laporan Eksekutif Analisis Risiko NPL Gadai Motor 2026** memuat naskah analisis ekonometrika lengkap, 
+        evaluasi 8 hipotesis riset, serta matriks SOP kredit cabang. Anda dapat mengunduh seluruh dokumen master di bawah ini:
+        """)
+
+        # Download Dokumen Master Lengkap
+        c_doc1, c_doc2, c_doc3 = st.columns(3)
+        pdf_path = BASE_DIR / "Laporan_Analisis_Risiko_NPL_Gadai_Motor_2026.pdf"
+        if not pdf_path.exists():
+            pdf_path = Path("Laporan_Analisis_Risiko_NPL_Gadai_Motor_2026.pdf")
+            
+        pptx_path = BASE_DIR / "Laporan_Eksekutif_Analisis_Risiko_NPL_Gadai_Motor_2026.pptx"
+        if not pptx_path.exists():
+            pptx_path = Path("Laporan_Eksekutif_Analisis_Risiko_NPL_Gadai_Motor_2026.pptx")
+            
+        docx_path = BASE_DIR / "Laporan_Analisis_Risiko_NPL_Gadai_Motor_2026.docx"
+        if not docx_path.exists():
+            docx_path = Path("Laporan_Analisis_Risiko_NPL_Gadai_Motor_2026.docx")
+
+        with c_doc1:
+            if pdf_path.exists():
+                with open(pdf_path, "rb") as f_pdf:
+                    st.download_button(
+                        label="Unduh Laporan Lengkap (PDF)",
+                        data=f_pdf.read(),
+                        file_name="Laporan_Analisis_Risiko_NPL_Gadai_Motor_2026.pdf",
+                        mime="application/pdf",
+                        use_container_width=True
+                    )
+        with c_doc2:
+            if pptx_path.exists():
+                with open(pptx_path, "rb") as f_pptx:
+                    st.download_button(
+                        label="Unduh Slide Presentasi (PPTX)",
+                        data=f_pptx.read(),
+                        file_name="Laporan_Eksekutif_Analisis_Risiko_NPL_Gadai_Motor_2026.pptx",
+                        mime="application/vnd.openxmlformats-officedocument.presentationml.presentation",
+                        use_container_width=True
+                    )
+        with c_doc3:
+            if docx_path.exists():
+                with open(docx_path, "rb") as f_docx:
+                    st.download_button(
+                        label="Unduh Naskah Riset (DOCX)",
+                        data=f_docx.read(),
+                        file_name="Laporan_Analisis_Risiko_NPL_Gadai_Motor_2026.docx",
+                        mime="application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+                        use_container_width=True
+                    )
+
+        st.markdown('</div>', unsafe_allow_html=True)
+
+        PAGE_DESCRIPTIONS = {
+            1: "Halaman 1: Cover Eksekutif & Identitas Riset Portofolio Gadai Motor 2026",
+            2: "Halaman 2: Executive Summary & Rangkuman Keputusan Dewan Direksi",
+            3: "Halaman 3: Karakteristik Portofolio & Distribusi 139.493 Kontrak Gadai",
+            4: "Halaman 4: Analisis Bivariat Faktor Determinan Risiko (Merk, STNK, Pajak, Wilayah)",
+            5: "Halaman 5: Dekomposisi Simpson's Paradox pada Rasio LTV & STNK",
+            6: "Halaman 6: Formulasi Ekonometrika Logistik & Hierarki Estimasi Model 0 s/d Model 4",
+            7: "Halaman 7: Hasil Pengujian Formal 8 Hipotesis Riset Kredit (100% Signifikan)",
+            8: "Halaman 8: Evaluasi Kinerja ROC-AUC, PR-AUC, dan Kalibrasi Probabilitas Brier Score",
+            9: "Halaman 9: Matriks Kebijakan Operasional Cabang Berdasarkan 4 Klaster Profesi",
+            10: "Halaman 10: Matriks Zonasi Risiko 3 Klaster Wilayah Operasional Cabang",
+            11: "Halaman 11: Roadmap Implementasi Smart Underwriting Engine & Checklist SOP Loket"
+        }
+
+        col_p1, col_p2 = st.columns([1, 2.5])
+        with col_p1:
+            st.markdown('<div class="modern-card">', unsafe_allow_html=True)
+            st.markdown("#### Navigasi Halaman Laporan")
+            selected_page = st.selectbox(
+                "Pilih Lembar Halaman:",
+                options=list(range(1, 12)),
+                format_func=lambda x: f"Halaman {x}: {PAGE_DESCRIPTIONS[x].split(': ')[1]}",
+                key="sel_page_num"
+            )
+            st.markdown(f"""
+            <div style="background: #F1F5F9; border-radius: 8px; padding: 12px; margin: 12px 0; font-size: 0.82rem; color: #334155; line-height: 1.5; border: 1px solid #E2E8F0;">
+                <strong style="color: #0F172A;">Topik Pembahasan:</strong><br>
+                {PAGE_DESCRIPTIONS[selected_page]}
+            </div>
+            """, unsafe_allow_html=True)
+
+            page_file = BASE_DIR / f"output/clean_page_{selected_page}.png"
+            if not page_file.exists():
+                page_file = Path(f"output/clean_page_{selected_page}.png")
+
+            if page_file.exists():
+                with open(page_file, "rb") as f_pg:
+                    st.download_button(
+                        label=f"Unduh Lembar Halaman {selected_page} (PNG)",
+                        data=f_pg.read(),
+                        file_name=f"Halaman_{selected_page}_Laporan_Eksekutif.png",
+                        mime="image/png",
+                        key=f"dl_pg_{selected_page}",
+                        use_container_width=True
+                    )
+            st.markdown('</div>', unsafe_allow_html=True)
+
+        with col_p2:
+            st.markdown('<div class="modern-card">', unsafe_allow_html=True)
+            if page_file.exists():
+                st.image(str(page_file), caption=PAGE_DESCRIPTIONS[selected_page], use_container_width=True)
+            else:
+                st.info(f"Lembar halaman {selected_page} tidak ditemukan.")
+            st.markdown('</div>', unsafe_allow_html=True)
+
+    with tab_sintesis:
+        st.markdown('<div class="modern-card">', unsafe_allow_html=True)
+        st.subheader("Sintesis Temuan Riset Strategis & Roadmap Operasional 2026")
+        st.markdown("""
+        Berdasarkan pembuktian ekonometrika dari data **139.493 transaksi kredit**, berikut adalah 8 kesimpulan pokok 
+        yang menjadi landasan operasional Smart Underwriting Credit Scoring Engine:
+        """)
+
+        sintesis_data = [
+            ("1. Moral Hazard STNK Pihak Ketiga", "Odds Ratio: 1,710x (+71% Risiko)", "STNK atas nama orang lain meningkatkan risiko gagal bayar hingga +71%. Kebijakan cabang: LTV dipangkas otomatis -10% dan wajib menyertakan surat kuasa/kontak darurat penjamin."),
+            ("2. Depresiasi Usia Sepeda Motor", "Odds Ratio: 1,055x per Tahun Usia", "Setiap pertambahan 1 tahun usia motor menaikkan odds gagal bayar sebesar 5,5%. Motor usia ≥ 8 tahun wajib dipangkas plafonnya ke batas aman maksimal 35% OTR."),
+            ("3. Super-Protective Repeat Borrower", "Odds Ratio: 0,282x (-72% Risiko Macet)", "Debitur lama dengan riwayat lunas sempurna memiliki risiko macet 72% lebih rendah. Diberikan skema Fast-Track Approval dan plafon maksimal hingga 50% OTR."),
+            ("4. Anomali Simpson's Paradox pada LTV", "Signifikan LR = 3.360,71 (p < 1e-300)", "Rasio LTV tinggi secara bivariat tampak aman karena bias seleksi repeat borrower. Penilaian risiko wajib menggunakan interaksi multivariat STNK x LTV."),
+            ("5. Segmentasi 4 Klaster Pekerjaan", "Rentang NPL: 3,53% s/d 13,16%", "Guru/PNS merupakan segmen paling aman (NPL 3,53%), sedangkan Wiraswasta mikro memiliki volatilitas omzet tertinggi (NPL 13,16%) yang mewajibkan survei fisik kios."),
+            ("6. Disparitas Geografis 3 Zona Wilayah", "Tangerang (4,12%) vs Garut/Bandung (9,17%)", "Perbedaan karakteristik ekonomi lokal menuntut penetapan suku bunga dan batas LTV regional berbasis fixed-effects ekonometrika."),
+            ("7. Model 4 Sebagai Champion Algorithm", "ROC-AUC: 0,6702 | Brier Score: 0,06291", "Model 4 terbukti superior secara mutlak mengungguli Model 0, 1, 2, dan 3 pada seluruh metrik kebaikan model (AIC, BIC, PR-AUC, Brier Score)."),
+            ("8. Keandalan Kalibrasi Probabilitas", "Brier Score < Benchmark Naif (0,06433)", "Probabilitas default yang dihasilkan sistem terkalibrasi presisi dan realistis untuk dasar perhitungan Cadangan Kerugian Penurunan Nilai (CKPN).")
+        ]
+
+        for judul, badge, desc in sintesis_data:
+            st.markdown(f"""
+            <div style="background: #F8FAFC; border-left: 4px solid #2563EB; border-radius: 8px; padding: 12px 16px; margin-bottom: 10px; border-top: 1px solid #E2E8F0; border-right: 1px solid #E2E8F0; border-bottom: 1px solid #E2E8F0;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
+                    <strong style="color: #0F172A; font-size: 0.95rem;">{judul}</strong>
+                    <span style="font-size: 0.72rem; font-weight: 700; color: #1E3A8A; background: #DBEAFE; padding: 2px 8px; border-radius: 4px;">{badge}</span>
+                </div>
+                <div style="font-size: 0.85rem; color: #475569; line-height: 1.5;">{desc}</div>
+            </div>
+            """, unsafe_allow_html=True)
+
+        st.markdown('</div>', unsafe_allow_html=True)
+
 
