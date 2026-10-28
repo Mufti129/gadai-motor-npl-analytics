@@ -1138,32 +1138,34 @@ elif menu == "Credit Scoring Engine":
             pajak_status = st.radio("Status Pajak STNK:", ["Pajak Aktif", "Pajak Tidak Aktif"])
 
         job_options = {
-            k: f"{v['label']} — {v['n_transaksi']:,} Nasabah ({v['cluster']})"
+            k: f"{v['label']} — {v['n_transaksi']:,} Nasabah | NPL: {v['npl_empiris_pct']:.2f}% ({v['cluster']})"
             for k, v in JOB_RISK_FACTORS.items()
         }
         job_key = st.selectbox("Profesi / Pekerjaan Debitur (Opsional Overlay):", options=list(job_options.keys()), format_func=lambda x: job_options[x])
 
         sel_job = JOB_RISK_FACTORS[job_key]
+        npl_color = "#DC2626" if sel_job['npl_empiris_pct'] > 5.0 else "#059669"
+        cluster_npl_color = "#DC2626" if sel_job['cluster_npl_pct'] > 5.0 else "#059669"
         st.markdown(f"""
         <div style="background: #F8FAFC; border: 1.5px solid #E2E8F0; border-radius: 12px; padding: 12px 14px; margin: 8px 0 14px 0;">
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
                 <span style="font-size: 0.75rem; font-weight: 800; color: #1E3A8A; background: #DBEAFE; padding: 2px 8px; border-radius: 6px;">
                     {sel_job['cluster']}
                 </span>
-                <span style="font-size: 0.75rem; font-weight: 700; color: #334155;">
+                <span style="font-size: 0.75rem; font-weight: 700; color: {npl_color};">
                     NPL Historis: <strong>{sel_job['npl_empiris_pct']:.2f}%</strong> (OR: {sel_job['or']:.2f}x)
                 </span>
             </div>
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; font-size: 0.75rem;">
                 <div style="background: #FFFFFF; padding: 8px 10px; border-radius: 8px; border: 1px solid #CBD5E1;">
-                    <div style="font-size: 0.65rem; color: #64748B; font-weight: 700; text-transform: uppercase;">Nasabah Profesi Ini</div>
+                    <div style="font-size: 0.65rem; color: #64748B; font-weight: 700; text-transform: uppercase;">Nasabah & NPL Profesi</div>
                     <div style="font-weight: 800; color: #0F172A; font-size: 0.95rem;">{sel_job['n_transaksi']:,} Nasabah</div>
-                    <div style="color: #64748B; font-size: 0.7rem;">{sel_job['n_nasabah_unik']:,} debitur unik ({sel_job['pct_populasi']:.1f}%)</div>
+                    <div style="color: {npl_color}; font-size: 0.72rem; font-weight: 700;">NPL: {sel_job['npl_empiris_pct']:.2f}% ({sel_job['n_nasabah_unik']:,} debitur)</div>
                 </div>
                 <div style="background: #FFFFFF; padding: 8px 10px; border-radius: 8px; border: 1px solid #CBD5E1;">
-                    <div style="font-size: 0.65rem; color: #64748B; font-weight: 700; text-transform: uppercase;">Total Populasi Klaster</div>
+                    <div style="font-size: 0.65rem; color: #64748B; font-weight: 700; text-transform: uppercase;">Populasi & NPL Klaster</div>
                     <div style="font-weight: 800; color: #1E3A8A; font-size: 0.95rem;">{sel_job['cluster_n_transaksi']:,} Pinjaman</div>
-                    <div style="color: #64748B; font-size: 0.7rem;">{sel_job['cluster_n_nasabah_unik']:,} debitur (NPL: {sel_job['cluster_npl_pct']:.2f}%)</div>
+                    <div style="color: {cluster_npl_color}; font-size: 0.72rem; font-weight: 700;">NPL Klaster: {sel_job['cluster_npl_pct']:.2f}% ({sel_job['cluster_n_nasabah_unik']:,} debitur)</div>
                 </div>
             </div>
         </div>
@@ -1308,7 +1310,7 @@ elif menu == "What-If Stress Testing":
         w_job = st.selectbox(
             "Profesi / Pekerjaan Debitur:",
             list(JOB_RISK_FACTORS.keys()),
-            format_func=lambda x: f"{JOB_RISK_FACTORS[x]['label']} — {JOB_RISK_FACTORS[x]['n_transaksi']:,} Nasabah ({JOB_RISK_FACTORS[x]['cluster']})",
+            format_func=lambda x: f"{JOB_RISK_FACTORS[x]['label']} — {JOB_RISK_FACTORS[x]['n_transaksi']:,} Nasabah | NPL: {JOB_RISK_FACTORS[x]['npl_empiris_pct']:.2f}% ({JOB_RISK_FACTORS[x]['cluster']})",
             key="w_job"
         )
         st.markdown('</div>', unsafe_allow_html=True)

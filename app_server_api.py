@@ -1389,46 +1389,46 @@ HTML_TEMPLATE = """
                 </span>
               </div>
               <select id="input-pekerjaan" onchange="runSingleScore()" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3.5 py-2.5 text-xs font-semibold text-slate-800 focus:ring-2 focus:ring-blue-500 focus:bg-white transition">
-                <optgroup label="Klaster 1: Prime / Preferred (N = 787 Nasabah | 548 Debitur Unik | NPL 4,32%)">
-                  <option value="GURU">Guru / Dosen — 397 Nasabah (287 Debitur) | Risk Bonus: OR 0.65x</option>
-                  <option value="PNS">PNS / ASN / Pegawai BUMN — 390 Nasabah (261 Debitur) | Risk Bonus: OR 0.86x</option>
+                <optgroup label="Klaster 1: Prime / Preferred (N = 787 Nasabah | NPL 4,32%)">
+                  <option value="GURU">Guru / Dosen — 397 Nasabah | NPL: 3,53% | OR 0.65x (Paling Aman)</option>
+                  <option value="PNS">PNS / ASN / Pegawai BUMN — 390 Nasabah | NPL: 5,13% | OR 0.86x</option>
                 </optgroup>
-                <optgroup label="Klaster 2: Core Baseline (N = 133.080 Total Portofolio | 18.444 Teridentifikasi)">
-                  <option value="TIDAK_ISI" selected>Tidak Diketahui / Standar — 114.636 Nasabah (72.446 Debitur) | Baseline</option>
-                  <option value="KARYAWAN_SWASTA">Karyawan Swasta — 11.007 Nasabah (8.315 Debitur) | Neutral Base</option>
-                  <option value="IRT">Ibu Rumah Tangga (IRT) — 5.149 Nasabah (4.092 Debitur) | Neutral Base</option>
-                  <option value="BURUH">Buruh Pabrik / Bangunan — 1.477 Nasabah (1.138 Debitur) | Netral</option>
+                <optgroup label="Klaster 2: Core Baseline (N = 133.080 Total Portofolio | NPL 6,88%)">
+                  <option value="TIDAK_ISI" selected>Tidak Diketahui / Standar — 114.636 Nasabah | NPL: 7,04% | Baseline</option>
+                  <option value="KARYAWAN_SWASTA">Karyawan Swasta — 11.007 Nasabah | NPL: 5,79% | Neutral Base</option>
+                  <option value="IRT">Ibu Rumah Tangga (IRT) — 5.149 Nasabah | NPL: 5,96% | Neutral Base</option>
+                  <option value="BURUH">Buruh Pabrik / Bangunan — 1.477 Nasabah | NPL: 6,16% | Netral</option>
                 </optgroup>
-                <optgroup label="Klaster 3: Arus Kas Volatil (N = 250 Nasabah | 197 Debitur Unik | NPL 10,00%)">
-                  <option value="PEDAGANG">Pedagang Toko / Kios — 174 Nasabah (136 Debitur) | Volatil: OR 1.40x</option>
-                  <option value="WIRASWASTA">Wiraswasta / Pengusaha — 76 Nasabah (61 Debitur) | Volatil: OR 2.43x</option>
+                <optgroup label="Klaster 3: Arus Kas Volatil (N = 250 Nasabah | NPL 10,00%)">
+                  <option value="PEDAGANG">Pedagang Toko / Kios — 174 Nasabah | NPL: 8,62% | Volatil: OR 1.40x</option>
+                  <option value="WIRASWASTA">Wiraswasta / Pengusaha — 76 Nasabah | NPL: 13,16% | Volatil: OR 2.43x</option>
                 </optgroup>
-                <optgroup label="Klaster 4: Rentan & Moral Hazard (N = 5.376 Nasabah | 4.184 Debitur Unik | NPL 7,92%)">
-                  <option value="PELAJAR">Pelajar / Mahasiswa — 4.385 Nasabah (3.432 Debitur) | Rentan: OR 1.37x</option>
-                  <option value="BELUM_BEKERJA">Belum / Tidak Bekerja — 991 Nasabah (752 Debitur) | Rentan: OR 1.37x</option>
+                <optgroup label="Klaster 4: Rentan & Moral Hazard (N = 5.376 Nasabah | NPL 7,92%)">
+                  <option value="PELAJAR">Pelajar / Mahasiswa — 4.385 Nasabah | NPL: 7,91% | Rentan: OR 1.37x</option>
+                  <option value="BELUM_BEKERJA">Belum / Tidak Bekerja — 991 Nasabah | NPL: 7,97% | Rentan: OR 1.37x</option>
                 </optgroup>
               </select>
 
-              <!-- KARTU INFORMASI KLASTER & JUMLAH NASABAH -->
+              <!-- KARTU INFORMASI KLASTER & JUMLAH NASABAH & NPL -->
               <div id="job-cluster-info-card" class="mt-2.5 p-3 rounded-xl bg-slate-100/90 border border-slate-200 text-xs transition">
                 <div class="flex items-center justify-between">
                   <span id="job-info-cluster-badge" class="font-extrabold text-[11px] px-2.5 py-0.5 rounded-full bg-blue-100 text-blue-800 border border-blue-200">
                     Klaster 2: Core Baseline
                   </span>
                   <span id="job-info-npl" class="text-[11px] font-bold text-slate-700">
-                    <span class="font-normal text-slate-500">NPL Historis:</span> 7,04%
+                    <span class="font-normal text-slate-500">NPL Historis:</span> <strong class="text-rose-600 font-extrabold">7,04%</strong> <span class="text-slate-400 text-[10px]">(OR: 1.00x)</span>
                   </span>
                 </div>
                 <div class="mt-2 grid grid-cols-2 gap-2 text-[11px]">
                   <div class="bg-white p-2 rounded-lg border border-slate-200">
-                    <span class="text-[10px] text-slate-400 font-bold block uppercase">Nasabah Profesi Ini</span>
+                    <span class="text-[10px] text-slate-400 font-bold block uppercase">Nasabah & NPL Profesi</span>
                     <span id="job-info-count" class="font-extrabold text-slate-800 text-xs block mt-0.5">114.636 Nasabah</span>
-                    <span id="job-info-sub" class="text-[10px] text-slate-500 block">72.446 Debitur Unik</span>
+                    <span id="job-info-sub" class="text-[10px] font-bold text-rose-600 block">NPL: 7,04% (72.446 Debitur)</span>
                   </div>
                   <div class="bg-white p-2 rounded-lg border border-slate-200">
-                    <span class="text-[10px] text-slate-400 font-bold block uppercase">Total Populasi Klaster</span>
+                    <span class="text-[10px] text-slate-400 font-bold block uppercase">Populasi & NPL Klaster</span>
                     <span id="job-info-cluster-count" class="font-extrabold text-blue-900 text-xs block mt-0.5">133.080 Transaksi</span>
-                    <span id="job-info-cluster-sub" class="text-[10px] text-slate-500 block">86.573 Debitur Unik</span>
+                    <span id="job-info-cluster-sub" class="text-[10px] font-bold text-slate-600 block">NPL Klaster: 6,88% (86.573 Debitur)</span>
                   </div>
                 </div>
               </div>
@@ -2423,7 +2423,8 @@ HTML_TEMPLATE = """
 
       const jobInfoNpl = document.getElementById('job-info-npl');
       if (jobInfoNpl && data.job_npl_empiris_pct !== undefined) {
-        jobInfoNpl.innerHTML = `<span class="font-normal text-slate-500">NPL Historis:</span> <strong class="text-slate-800">${data.job_npl_empiris_pct.toFixed(2)}%</strong> <span class="text-slate-400 text-[10px]">(OR: ${data.job_odds_ratio.toFixed(2)}x)</span>`;
+        const nplColor = data.job_npl_empiris_pct > 5.0 ? 'text-rose-600' : 'text-emerald-700';
+        jobInfoNpl.innerHTML = `<span class="font-normal text-slate-500">NPL Historis:</span> <strong class="${nplColor} font-black">${data.job_npl_empiris_pct.toFixed(2)}%</strong> <span class="text-slate-400 text-[10px]">(OR: ${data.job_odds_ratio.toFixed(2)}x)</span>`;
       }
 
       const jobInfoCount = document.getElementById('job-info-count');
@@ -2433,7 +2434,8 @@ HTML_TEMPLATE = """
 
       const jobInfoSub = document.getElementById('job-info-sub');
       if (jobInfoSub && data.job_n_nasabah_unik !== undefined) {
-        jobInfoSub.innerText = `${data.job_n_nasabah_unik.toLocaleString('id-ID')} Debitur Unik (${data.job_pct_populasi.toFixed(1)}%)`;
+        const nplColor = data.job_npl_empiris_pct > 5.0 ? 'text-rose-600' : 'text-emerald-700';
+        jobInfoSub.innerHTML = `<span class="${nplColor} font-bold">NPL: ${data.job_npl_empiris_pct.toFixed(2)}%</span> <span class="text-slate-500">(${data.job_n_nasabah_unik.toLocaleString('id-ID')} Debitur)</span>`;
       }
 
       const jobInfoClusterCount = document.getElementById('job-info-cluster-count');
@@ -2443,7 +2445,8 @@ HTML_TEMPLATE = """
 
       const jobInfoClusterSub = document.getElementById('job-info-cluster-sub');
       if (jobInfoClusterSub && data.cluster_n_nasabah_unik !== undefined) {
-        jobInfoClusterSub.innerText = `${data.cluster_n_nasabah_unik.toLocaleString('id-ID')} Debitur Unik (NPL Klaster: ${data.cluster_npl_pct.toFixed(2)}%)`;
+        const clusterNplColor = data.cluster_npl_pct > 5.0 ? 'text-rose-600' : 'text-emerald-700';
+        jobInfoClusterSub.innerHTML = `<span class="${clusterNplColor} font-bold">NPL Klaster: ${data.cluster_npl_pct.toFixed(2)}%</span> <span class="text-slate-500">(${data.cluster_n_nasabah_unik.toLocaleString('id-ID')} Debitur)</span>`;
       }
 
       // Probability
