@@ -40,6 +40,7 @@ import time
 import socket
 import pickle
 import datetime
+import sqlite3
 from pathlib import Path
 from typing import Dict, Any, List, Optional
 
@@ -73,6 +74,9 @@ if not REF_BPS_PATH.exists():
     if _fallback_ref.exists():
         REF_BPS_PATH = _fallback_ref
 
+# Database CRM Nasabah Internal PGI (208.955 Data Nasabah Riil Terdaftar)
+CRM_SQLITE_PATH = REFERENCE_DIR / "nik_crm_database.sqlite"
+
 # Muat Artifact Model ML (HistGradientBoosting + FICO Scaler, 337k sampel)
 ML_MODEL_ARTIFACT = None
 if ML_MODEL_PATH.exists():
@@ -92,6 +96,66 @@ if REF_BPS_PATH.exists():
         print(f"[*] Master Data BPS Loaded: {len(REF_BPS_DICT)} entitas kabupaten/kota regional.")
     except Exception as e:
         print(f"[!] Warning: Gagal memuat data sosio-ekonomi BPS: {e}")
+
+# Fungsi Pencarian Otomatis Database CRM Internal Berdasarkan NIK
+def lookup_crm_nik(nik: str) -> Dict[str, Any]:
+    """
+    Mengecek database internal PGI apakah NIK calon debitur terdaftar sebagai nasabah lama.
+    Jika ditemukan: mengembalikan riwayat transaksi riil.
+    Jika belum ada: mengembalikan status 'Nasabah Baru' (0 transaksi).
+    """
+    nik_str = str(nik).strip()
+    if not CRM_SQLITE_PATH.exists() or len(nik_str) != 16 or not nik_str.isdigit():
+        return {
+            "found": False,
+            "nik": nik_str,
+            "nama": "Calon Nasabah Baru",
+            "status_nasabah": "Nasabah Baru (Belum Terdaftar)",
+            "jml_transaksi": 0,
+            "lunas_tepat": 0,
+            "macet": 0,
+            "perpanjang": 0
+        }
+    try:
+        conn = sqlite3.connect(CRM_SQLITE_PATH)
+        cur = conn.cursor()
+        cur.execute('SELECT nama, jml_tx, lunas_tepat, macet, perpanjang FROM crm_customers WHERE nik = ?', (nik_str,))
+        row = cur.fetchone()
+        conn.close()
+        if row:
+            return {
+                "found": True,
+                "nik": nik_str,
+                "nama": row[0],
+                "status_nasabah": f"Nasabah Terdaftar ({row[1]}x Transaksi)",
+                "jml_transaksi": int(row[1]),
+                "lunas_tepat": int(row[2]),
+                "macet": int(row[3]),
+                "perpanjang": int(row[4])
+            }
+        else:
+            return {
+                "found": False,
+                "nik": nik_str,
+                "nama": "Calon Nasabah Baru",
+                "status_nasabah": "Nasabah Baru (Belum Terdaftar)",
+                "jml_transaksi": 0,
+                "lunas_tepat": 0,
+                "macet": 0,
+                "perpanjang": 0
+            }
+    except Exception as e:
+        print(f"[!] Error saat CRM lookup: {e}")
+        return {
+            "found": False,
+            "nik": nik_str,
+            "nama": "Calon Nasabah Baru",
+            "status_nasabah": "Nasabah Baru",
+            "jml_transaksi": 0,
+            "lunas_tepat": 0,
+            "macet": 0,
+            "perpanjang": 0
+        }
 
 # Parameter Ambang Batas Kebijakan Underwriting Korporasi (Target < 5.0%)
 CONFIG_UNDERWRITING = {
@@ -1523,6 +1587,18 @@ def api_policy_matrix():
         "catatan_direksi": "Batas LTV aman dirancang berdasarkan dekomposisi empiris Simpson's Paradox pada Gambar 4 untuk melindungi modal kerja korporasi."
     })
 
+@app.route('/api/simulator/crm-lookup', methods=['GET'])
+def api_simulator_crm_lookup():
+    """
+    Endpoint pencarian otomatis database CRM internal PGI (208.955 nasabah).
+    Mengecek apakah NIK sudah pernah bertransaksi.
+    Jika ada: auto-fill histori transaksi.
+    Jika tidak ada: otomatis dianggap sebagai Nasabah Baru (0 transaksi).
+    """
+    nik = request.args.get('nik', '').strip()
+    result = lookup_crm_nik(nik)
+    return jsonify(result)
+
 @app.route('/api/simulator/predict', methods=['POST'])
 def api_simulator_predict():
     """
@@ -1542,19 +1618,21 @@ def api_simulator_presets():
         "presets": {
             "loyal_good": {
                 "label": "Nasabah Loyal (Emas, Riwayat Sempurna)",
-                "nik": "1202094307880001",
+                "nik": "3216065204020024",
+                "nama": "ANISA MAGHFIRA",
                 "agunan": "Emas",
                 "tenor": 30,
                 "taksiran": 5000000,
                 "pinjaman": 2500000,
-                "jml_transaksi": 6,
-                "lunas_tepat": 6,
+                "jml_transaksi": 8,
+                "lunas_tepat": 8,
                 "macet": 0,
-                "perpanjang": 1
+                "perpanjang": 2
             },
             "new_gadget": {
                 "label": "Nasabah Baru (HP, LTV Konservatif)",
                 "nik": "3171035312000006",
+                "nama": "Calon Nasabah Baru",
                 "agunan": "Elektronik",
                 "tenor": 30,
                 "taksiran": 3500000,
@@ -1566,7 +1644,8 @@ def api_simulator_presets():
             },
             "high_risk": {
                 "label": "Nasabah Berisiko (Pernah Macet & LTV 92%)",
-                "nik": "3204154701060005",
+                "nik": "1101160803900001",
+                "nama": "FARZAN",
                 "agunan": "Elektronik",
                 "tenor": 30,
                 "taksiran": 2500000,
@@ -1574,19 +1653,20 @@ def api_simulator_presets():
                 "jml_transaksi": 3,
                 "lunas_tepat": 1,
                 "macet": 2,
-                "perpanjang": 4
+                "perpanjang": 2
             },
             "bpkb_heavy": {
                 "label": "BPKB Motor (Beban > UMK)",
-                "nik": "3328152806960006",
+                "nik": "1116070303970002",
+                "nama": "IRFAN ANTONI",
                 "agunan": "BPKB Motor",
                 "tenor": 30,
                 "taksiran": 7000000,
                 "pinjaman": 5500000,
-                "jml_transaksi": 2,
-                "lunas_tepat": 2,
+                "jml_transaksi": 5,
+                "lunas_tepat": 5,
                 "macet": 0,
-                "perpanjang": 3
+                "perpanjang": 4
             }
         }
     })
@@ -2725,7 +2805,11 @@ HTML_TEMPLATE = """
                 <input type="text" id="sim_inp_nik" maxlength="16" value="3216065204020024" oninput="onSimNikChange()" class="w-full px-3 py-2 text-sm font-mono tracking-wider border rounded-xl focus:ring-2 focus:ring-blue-600 focus:outline-none border-slate-300 text-slate-900">
                 <span id="sim_nik_badge" class="absolute right-2 top-2 text-[10px] bg-emerald-100 text-emerald-700 px-2 py-0.5 rounded font-bold">16 Digit Valid</span>
               </div>
-              <p class="text-[11px] text-slate-400 mt-1">Sistem otomatis membaca data demografi & BPS dari kode NIK.</p>
+              <div id="sim_crm_status_pill" class="text-[11px] font-semibold mt-1.5 flex items-center text-emerald-800 bg-emerald-50 px-2.5 py-1 rounded-lg border border-emerald-300 shadow-sm transition-all">
+                <i class="fa-solid fa-circle-check mr-1.5 text-emerald-600"></i>
+                <span id="sim_crm_status_text"><b>Terdaftar di Database PGI:</b> ANISA MAGHFIRA (8x Transaksi)</span>
+              </div>
+              <p class="text-[10px] text-slate-400 mt-1">Sistem otomatis mencari histori nasabah & BPS makro dari kode NIK.</p>
             </div>
 
             <div class="grid grid-cols-2 gap-3">
@@ -3655,18 +3739,103 @@ HTML_TEMPLATE = """
 
     let simDebounceTimer = null;
     let simAbortController = null;
+    let simCrmLookupTimer = null;
 
-    function onSimNikChange() {
+    async function lookupCrmDatabaseByNik(nik) {
+      const pill = document.getElementById('sim_crm_status_pill');
+      const textSpan = document.getElementById('sim_crm_status_text');
+      if (!nik || nik.length !== 16 || !/^[0-9]+$/.test(nik)) {
+        if (pill && textSpan) {
+          pill.className = 'text-[11px] font-semibold mt-1.5 flex items-center text-slate-500 bg-slate-50 px-2.5 py-1 rounded-lg border border-slate-200 shadow-sm transition-all';
+          textSpan.innerHTML = '<i class="fa-solid fa-circle-info text-slate-400 mr-1.5"></i>Ketik 16 digit NIK untuk verifikasi database internal PGI...';
+        }
+        return;
+      }
+
+      // Tampilkan indikator loading lookup CRM
+      if (pill && textSpan) {
+        pill.className = 'text-[11px] font-semibold mt-1.5 flex items-center text-amber-800 bg-amber-50 px-2.5 py-1 rounded-lg border border-amber-200 shadow-sm transition-all';
+        textSpan.innerHTML = `<i class="fa-solid fa-spinner fa-spin text-amber-600 mr-1.5"></i>Mencari NIK ${nik} di database CRM internal PGI...`;
+      }
+
+      try {
+        const resp = await fetch(`/api/simulator/crm-lookup?nik=${encodeURIComponent(nik)}`);
+        if (!resp.ok) throw new Error('HTTP error ' + resp.status);
+        const data = await resp.json();
+
+        // Pastikan input NIK saat ini masih sama dengan request yang dikirim
+        const currentNik = (document.getElementById('sim_inp_nik').value || '').trim();
+        if (currentNik !== nik) return;
+
+        const jmlTx = Number(data.jml_transaksi) || 0;
+        const lunasTepat = Number(data.lunas_tepat) || 0;
+        const macet = Number(data.macet) || 0;
+        const perpanjang = Number(data.perpanjang) || 0;
+
+        // Auto-fill input fields riwayat internal CRM
+        document.getElementById('sim_inp_jml_tx').value = jmlTx;
+        document.getElementById('sim_inp_lunas_tepat').value = lunasTepat;
+        document.getElementById('sim_inp_macet').value = macet;
+        document.getElementById('sim_inp_perpanjang').value = perpanjang;
+
+        updateRasioLancarBadge(jmlTx, lunasTepat, macet);
+
+        if (data.found) {
+          // NIK terdaftar di database internal CRM PGI
+          if (pill && textSpan) {
+            pill.className = 'text-[11px] font-semibold mt-1.5 flex items-center text-emerald-800 bg-emerald-50 px-2.5 py-1 rounded-lg border border-emerald-300 shadow-sm transition-all';
+            textSpan.innerHTML = `<i class="fa-solid fa-circle-check text-emerald-600 mr-1.5"></i><b>Terdaftar di Database PGI:</b> ${data.nama} (${jmlTx}x Transaksi riil)`;
+          }
+
+          if (macet > 0) {
+            highlightActiveHistPreset('macet');
+          } else if (jmlTx >= 5) {
+            highlightActiveHistPreset('loyal');
+          } else if (perpanjang >= 3) {
+            highlightActiveHistPreset('perpanjang');
+          } else {
+            highlightActiveHistPreset('lancar');
+          }
+        } else {
+          // NIK belum terdaftar -> otomatis sebagai Calon Nasabah Baru
+          if (pill && textSpan) {
+            pill.className = 'text-[11px] font-semibold mt-1.5 flex items-center text-blue-800 bg-blue-50 px-2.5 py-1 rounded-lg border border-blue-300 shadow-sm transition-all';
+            textSpan.innerHTML = `<i class="fa-solid fa-user-plus text-blue-600 mr-1.5"></i><b>Calon Nasabah Baru:</b> NIK belum terdaftar di database PGI (Otomatis 0x Transaksi)`;
+          }
+          highlightActiveHistPreset('baru');
+        }
+
+        // Kalkulasi skor kredit dengan data riwayat terbaru
+        calculateSimulatorScore(true);
+      } catch (err) {
+        console.warn('Gagal lookup CRM database:', err);
+        calculateSimulatorScore(true);
+      }
+    }
+
+    function onSimNikChange(triggerCrmLookup = true) {
       const nik = (document.getElementById('sim_inp_nik').value || '').trim();
       const badge = document.getElementById('sim_nik_badge');
       if (nik.length === 16 && /^[0-9]+$/.test(nik)) {
         badge.className = 'absolute right-2 top-2 text-[10px] bg-emerald-100 text-emerald-700 px-2 py-0.5 rounded font-bold';
         badge.textContent = '16 Digit Valid';
+        if (triggerCrmLookup) {
+          clearTimeout(simCrmLookupTimer);
+          simCrmLookupTimer = setTimeout(() => {
+            lookupCrmDatabaseByNik(nik);
+          }, 200);
+        }
       } else {
         badge.className = 'absolute right-2 top-2 text-[10px] bg-rose-100 text-rose-700 px-2 py-0.5 rounded font-bold';
         badge.textContent = nik.length + '/16 Digit';
+        const pill = document.getElementById('sim_crm_status_pill');
+        const textSpan = document.getElementById('sim_crm_status_text');
+        if (pill && textSpan) {
+          pill.className = 'text-[11px] font-semibold mt-1.5 flex items-center text-slate-500 bg-slate-50 px-2.5 py-1 rounded-lg border border-slate-200 shadow-sm transition-all';
+          textSpan.innerHTML = '<i class="fa-solid fa-circle-info text-slate-400 mr-1.5"></i>Ketik 16 digit NIK untuk verifikasi database internal PGI...';
+        }
+        calculateSimulatorScore(true);
       }
-      calculateSimulatorScore(true);
     }
 
     function updateRasioLancarBadge(jmlTx, lunas, macet) {
@@ -3702,35 +3871,42 @@ HTML_TEMPLATE = """
     }
 
     function setSimHistoryPreset(type) {
+      if (type === 'auto_nik') {
+        const nik = (document.getElementById('sim_inp_nik').value || '').trim();
+        lookupCrmDatabaseByNik(nik);
+        return;
+      }
+
       let jmlTx = 0, lunas = 0, macet = 0, perp = 0;
+      let labelMode = '';
       if (type === 'baru') {
         jmlTx = 0; lunas = 0; macet = 0; perp = 0;
+        labelMode = 'Simulasi Skenario: Nasabah Baru (0x Transaksi)';
       } else if (type === 'lancar') {
         jmlTx = 5; lunas = 5; macet = 0; perp = 1;
+        labelMode = 'Simulasi Skenario: Profil Lancar (5x Tx, 100% Lunas)';
       } else if (type === 'loyal') {
         jmlTx = 8; lunas = 8; macet = 0; perp = 2;
+        labelMode = 'Simulasi Skenario: Profil Loyal (8x Tx, 0x Macet)';
       } else if (type === 'perpanjang') {
         jmlTx = 6; lunas = 6; macet = 0; perp = 4;
+        labelMode = 'Simulasi Skenario: Sering Perpanjang (6x Tx, 4x Rollover)';
       } else if (type === 'macet') {
         jmlTx = 3; lunas = 1; macet = 2; perp = 3;
-      } else if (type === 'auto_nik') {
-        const nik = (document.getElementById('sim_inp_nik').value || '').trim();
-        const lastDigits = parseInt(nik.slice(-3)) || 24;
-        if (lastDigits % 5 === 0) {
-          jmlTx = 4; lunas = 2; macet = 2; perp = 3;
-        } else if (lastDigits % 3 === 0) {
-          jmlTx = 7; lunas = 7; macet = 0; perp = 4;
-        } else if (lastDigits % 2 === 0) {
-          jmlTx = 8; lunas = 8; macet = 0; perp = 2;
-        } else {
-          jmlTx = 0; lunas = 0; macet = 0; perp = 0;
-        }
+        labelMode = 'Simulasi Skenario: Pernah Macet (3x Tx, 2x Macet/Lelang)';
       }
 
       document.getElementById('sim_inp_jml_tx').value = jmlTx;
       document.getElementById('sim_inp_lunas_tepat').value = lunas;
       document.getElementById('sim_inp_macet').value = macet;
       document.getElementById('sim_inp_perpanjang').value = perp;
+
+      const pill = document.getElementById('sim_crm_status_pill');
+      const textSpan = document.getElementById('sim_crm_status_text');
+      if (pill && textSpan && labelMode) {
+        pill.className = 'text-[11px] font-semibold mt-1.5 flex items-center text-purple-800 bg-purple-50 px-2.5 py-1 rounded-lg border border-purple-200 shadow-sm transition-all';
+        textSpan.innerHTML = `<i class="fa-solid fa-sliders text-purple-600 mr-1.5"></i><b>${labelMode}</b> (Klik '⚡ Auto dari NIK' untuk data riil database)`;
+      }
 
       highlightActiveHistPreset(type);
       updateRasioLancarBadge(jmlTx, lunas, macet);
@@ -3772,6 +3948,13 @@ HTML_TEMPLATE = """
         document.getElementById('sim_inp_perpanjang').value = perp;
       }
 
+      const pill = document.getElementById('sim_crm_status_pill');
+      const textSpan = document.getElementById('sim_crm_status_text');
+      if (pill && textSpan) {
+        pill.className = 'text-[11px] font-semibold mt-1.5 flex items-center text-purple-800 bg-purple-50 px-2.5 py-1 rounded-lg border border-purple-200 shadow-sm transition-all';
+        textSpan.innerHTML = '<i class="fa-solid fa-sliders text-purple-600 mr-1.5"></i><b>Simulasi Penyesuaian Manual Aktif</b> (Klik \'⚡ Auto dari NIK\' untuk data riil database)';
+      }
+
       highlightActiveHistPreset(null);
       updateRasioLancarBadge(jmlTx, lunas, macet);
       calculateSimulatorScore(true);
@@ -3781,6 +3964,14 @@ HTML_TEMPLATE = """
       let jmlTx = parseInt(document.getElementById('sim_inp_jml_tx').value) || 0;
       let lunas = parseInt(document.getElementById('sim_inp_lunas_tepat').value) || 0;
       let macet = parseInt(document.getElementById('sim_inp_macet').value) || 0;
+
+      const pill = document.getElementById('sim_crm_status_pill');
+      const textSpan = document.getElementById('sim_crm_status_text');
+      if (pill && textSpan) {
+        pill.className = 'text-[11px] font-semibold mt-1.5 flex items-center text-purple-800 bg-purple-50 px-2.5 py-1 rounded-lg border border-purple-200 shadow-sm transition-all';
+        textSpan.innerHTML = '<i class="fa-solid fa-sliders text-purple-600 mr-1.5"></i><b>Simulasi Penyesuaian Manual Aktif</b> (Klik \'⚡ Auto dari NIK\' untuk data riil database)';
+      }
+
       highlightActiveHistPreset(null);
       updateRasioLancarBadge(jmlTx, lunas, macet);
       calculateSimulatorScore(true);
@@ -4040,54 +4231,34 @@ HTML_TEMPLATE = """
 
     function loadSimPreset(key) {
       if (key === 'loyal_good') {
-        document.getElementById('sim_inp_nik').value = '1202094307880001';
+        document.getElementById('sim_inp_nik').value = '3216065204020024';
         document.getElementById('sim_inp_agunan').value = 'Emas';
         document.getElementById('sim_inp_taksiran').value = '5000000';
         document.getElementById('sim_inp_pinjaman').value = '2500000';
-        document.getElementById('sim_inp_jml_tx').value = '6';
-        document.getElementById('sim_inp_lunas_tepat').value = '6';
-        document.getElementById('sim_inp_macet').value = '0';
-        document.getElementById('sim_inp_perpanjang').value = '1';
       } else if (key === 'new_gadget') {
         document.getElementById('sim_inp_nik').value = '3171035312000006';
         document.getElementById('sim_inp_agunan').value = 'Elektronik';
         document.getElementById('sim_inp_taksiran').value = '3500000';
         document.getElementById('sim_inp_pinjaman').value = '2000000';
-        document.getElementById('sim_inp_jml_tx').value = '0';
-        document.getElementById('sim_inp_lunas_tepat').value = '0';
-        document.getElementById('sim_inp_macet').value = '0';
-        document.getElementById('sim_inp_perpanjang').value = '0';
       } else if (key === 'high_risk') {
-        document.getElementById('sim_inp_nik').value = '3204154701060005';
+        document.getElementById('sim_inp_nik').value = '1101160803900001';
         document.getElementById('sim_inp_agunan').value = 'Elektronik';
         document.getElementById('sim_inp_taksiran').value = '2500000';
         document.getElementById('sim_inp_pinjaman').value = '2300000';
-        document.getElementById('sim_inp_jml_tx').value = '3';
-        document.getElementById('sim_inp_lunas_tepat').value = '1';
-        document.getElementById('sim_inp_macet').value = '2';
-        document.getElementById('sim_inp_perpanjang').value = '4';
       } else if (key === 'bpkb_heavy') {
-        document.getElementById('sim_inp_nik').value = '3328152806960006';
+        document.getElementById('sim_inp_nik').value = '1116070303970002';
         document.getElementById('sim_inp_agunan').value = 'BPKB Motor';
         document.getElementById('sim_inp_taksiran').value = '7000000';
         document.getElementById('sim_inp_pinjaman').value = '5500000';
-        document.getElementById('sim_inp_jml_tx').value = '2';
-        document.getElementById('sim_inp_lunas_tepat').value = '2';
-        document.getElementById('sim_inp_macet').value = '0';
-        document.getElementById('sim_inp_perpanjang').value = '3';
-        highlightActiveHistPreset('perpanjang');
       }
-      if (key === 'loyal_good') highlightActiveHistPreset('loyal');
-      else if (key === 'new_gadget') highlightActiveHistPreset('baru');
-      else if (key === 'high_risk') highlightActiveHistPreset('macet');
-      onSimNikChange();
+      onSimNikChange(true);
     }
 
     // Inisialisasi awal saat load
     window.addEventListener('DOMContentLoaded', () => {
       runSingleScore();
       loadSampleBatchData();
-      calculateSimulatorScore(true);
+      onSimNikChange(true);
     });
   </script>
 </body>
