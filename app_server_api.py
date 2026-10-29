@@ -2813,7 +2813,7 @@ HTML_TEMPLATE = """
           </div>
 
           <!-- Form Section 3: Histori Internal PGI (Core Banking) -->
-          <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-3">
+          <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-3.5">
             <div class="flex items-center justify-between border-b pb-2">
               <h2 class="font-bold text-slate-900 text-sm flex items-center gap-2">
                 <span class="w-6 h-6 rounded-full bg-amber-600 text-white flex items-center justify-center text-xs">3</span>
@@ -2822,22 +2822,90 @@ HTML_TEMPLATE = """
               <span class="text-[10px] bg-amber-50 text-amber-700 px-2 py-0.5 rounded font-semibold border border-amber-100">Simulasi CRM Internal</span>
             </div>
 
-            <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 text-xs">
-              <div>
-                <label class="block text-[10px] text-slate-500 mb-0.5">Jml Transaksi Lalu</label>
-                <input type="number" id="sim_inp_jml_tx" value="8" min="0" oninput="calculateSimulatorScore()" class="w-full p-1.5 border rounded-lg text-center font-bold text-slate-800">
+            <!-- Quick Profile History Selector (1-Klik Tanpa Ketik Manual) -->
+            <div>
+              <div class="flex items-center justify-between mb-1.5">
+                <label class="text-[11px] font-bold text-slate-700 flex items-center">
+                  <i class="fa-solid fa-bolt text-amber-500 mr-1.5"></i> Pilih Cepat Profil Riwayat (1-Klik):
+                </label>
+                <span class="text-[10px] text-slate-400">Pilih salah satu skenario</span>
               </div>
-              <div>
-                <label class="block text-[10px] text-slate-500 mb-0.5">Lunas Tepat Waktu</label>
-                <input type="number" id="sim_inp_lunas_tepat" value="8" min="0" oninput="calculateSimulatorScore()" class="w-full p-1.5 border rounded-lg text-center font-bold text-emerald-600">
+              <div class="grid grid-cols-2 sm:grid-cols-3 gap-1.5 text-xs">
+                <button type="button" onclick="setSimHistoryPreset('baru')" id="btn_hist_baru" class="hist-preset-btn p-2 rounded-xl border text-left transition bg-slate-50 hover:bg-slate-100 text-slate-700 border-slate-200 hover:border-slate-400">
+                  <div class="font-bold text-slate-800 flex items-center"><span class="mr-1">🌱</span> Nasabah Baru</div>
+                  <div class="text-[10px] text-slate-500">0x Tx (Pertama Kali)</div>
+                </button>
+                <button type="button" onclick="setSimHistoryPreset('lancar')" id="btn_hist_lancar" class="hist-preset-btn p-2 rounded-xl border text-left transition bg-emerald-50 hover:bg-emerald-100 text-emerald-800 border-emerald-200 hover:border-emerald-400">
+                  <div class="font-bold text-emerald-800 flex items-center"><span class="mr-1">⭐</span> Lancar / Baik</div>
+                  <div class="text-[10px] text-emerald-600">5x Tx, 100% Lunas</div>
+                </button>
+                <button type="button" onclick="setSimHistoryPreset('loyal')" id="btn_hist_loyal" class="hist-preset-btn p-2 rounded-xl border text-left transition bg-blue-50 hover:bg-blue-100 text-blue-800 border-blue-200 hover:border-blue-400">
+                  <div class="font-bold text-blue-800 flex items-center"><span class="mr-1">👑</span> Loyal / Super</div>
+                  <div class="text-[10px] text-blue-600">8x Tx, 0x Macet</div>
+                </button>
+                <button type="button" onclick="setSimHistoryPreset('perpanjang')" id="btn_hist_perpanjang" class="hist-preset-btn p-2 rounded-xl border text-left transition bg-amber-50 hover:bg-amber-100 text-amber-800 border-amber-200 hover:border-amber-400">
+                  <div class="font-bold text-amber-800 flex items-center"><span class="mr-1">🔄</span> Sering Perpanjang</div>
+                  <div class="text-[10px] text-amber-600">6x Tx, 4x Perpanjang</div>
+                </button>
+                <button type="button" onclick="setSimHistoryPreset('macet')" id="btn_hist_macet" class="hist-preset-btn p-2 rounded-xl border text-left transition bg-rose-50 hover:bg-rose-100 text-rose-800 border-rose-200 hover:border-rose-400">
+                  <div class="font-bold text-rose-800 flex items-center"><span class="mr-1">⚠️</span> Pernah Macet</div>
+                  <div class="text-[10px] text-rose-600">3x Tx, 2x Macet/Lelang</div>
+                </button>
+                <button type="button" onclick="setSimHistoryPreset('auto_nik')" id="btn_hist_auto_nik" class="hist-preset-btn p-2 rounded-xl border text-left transition bg-indigo-50 hover:bg-indigo-100 text-indigo-800 border-indigo-200 hover:border-indigo-400">
+                  <div class="font-bold text-indigo-800 flex items-center"><span class="mr-1">⚡</span> Auto dari NIK</div>
+                  <div class="text-[10px] text-indigo-600">Sinkron Core Banking</div>
+                </button>
               </div>
-              <div>
-                <label class="block text-[10px] text-slate-500 mb-0.5">Pernah Macet/Lelang</label>
-                <input type="number" id="sim_inp_macet" value="0" min="0" oninput="calculateSimulatorScore()" class="w-full p-1.5 border rounded-lg text-center font-bold text-rose-600">
+            </div>
+
+            <!-- Stepper Counters (Tombol +/- Instan) -->
+            <div>
+              <div class="flex items-center justify-between mb-1.5">
+                <label class="text-[11px] font-bold text-slate-700">Rincian Angka (Gunakan Tombol +/- atau Ketik):</label>
+                <span id="sim_txt_rasio_lancar" class="text-[10px] font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">100% Lancar</span>
               </div>
-              <div>
-                <label class="block text-[10px] text-slate-500 mb-0.5">Jml Perpanjangan</label>
-                <input type="number" id="sim_inp_perpanjang" value="2" min="0" oninput="calculateSimulatorScore()" class="w-full p-1.5 border rounded-lg text-center font-bold text-amber-600">
+              <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 text-xs">
+                
+                <!-- Counter 1: Jml Transaksi -->
+                <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200 flex flex-col justify-between">
+                  <div class="text-[10px] font-semibold text-slate-600 mb-1 text-center">Jml Transaksi Lalu</div>
+                  <div class="flex items-center justify-between bg-white rounded-lg border border-slate-200 p-1 shadow-sm">
+                    <button type="button" onclick="stepSimHistory('jml_tx', -1)" class="w-6 h-6 rounded bg-slate-100 hover:bg-slate-200 text-slate-700 font-black flex items-center justify-center transition">−</button>
+                    <input type="number" id="sim_inp_jml_tx" value="8" min="0" oninput="onSimInputManual()" class="w-10 text-center font-black text-sm bg-transparent border-0 focus:ring-0 p-0 text-slate-900">
+                    <button type="button" onclick="stepSimHistory('jml_tx', 1)" class="w-6 h-6 rounded bg-slate-100 hover:bg-slate-200 text-slate-700 font-black flex items-center justify-center transition">+</button>
+                  </div>
+                </div>
+
+                <!-- Counter 2: Lunas Tepat Waktu -->
+                <div class="bg-emerald-50/50 p-2.5 rounded-xl border border-emerald-200 flex flex-col justify-between">
+                  <div class="text-[10px] font-semibold text-emerald-700 mb-1 text-center">Lunas Tepat Waktu</div>
+                  <div class="flex items-center justify-between bg-white rounded-lg border border-emerald-200 p-1 shadow-sm">
+                    <button type="button" onclick="stepSimHistory('lunas_tepat', -1)" class="w-6 h-6 rounded bg-emerald-100 hover:bg-emerald-200 text-emerald-800 font-black flex items-center justify-center transition">−</button>
+                    <input type="number" id="sim_inp_lunas_tepat" value="8" min="0" oninput="onSimInputManual()" class="w-10 text-center font-black text-sm bg-transparent border-0 focus:ring-0 p-0 text-emerald-600">
+                    <button type="button" onclick="stepSimHistory('lunas_tepat', 1)" class="w-6 h-6 rounded bg-emerald-100 hover:bg-emerald-200 text-emerald-800 font-black flex items-center justify-center transition">+</button>
+                  </div>
+                </div>
+
+                <!-- Counter 3: Pernah Macet -->
+                <div class="bg-rose-50/50 p-2.5 rounded-xl border border-rose-200 flex flex-col justify-between">
+                  <div class="text-[10px] font-semibold text-rose-700 mb-1 text-center">Pernah Macet/Lelang</div>
+                  <div class="flex items-center justify-between bg-white rounded-lg border border-rose-200 p-1 shadow-sm">
+                    <button type="button" onclick="stepSimHistory('macet', -1)" class="w-6 h-6 rounded bg-rose-100 hover:bg-rose-200 text-rose-800 font-black flex items-center justify-center transition">−</button>
+                    <input type="number" id="sim_inp_macet" value="0" min="0" oninput="onSimInputManual()" class="w-10 text-center font-black text-sm bg-transparent border-0 focus:ring-0 p-0 text-rose-600">
+                    <button type="button" onclick="stepSimHistory('macet', 1)" class="w-6 h-6 rounded bg-rose-100 hover:bg-rose-200 text-rose-800 font-black flex items-center justify-center transition">+</button>
+                  </div>
+                </div>
+
+                <!-- Counter 4: Jml Perpanjangan -->
+                <div class="bg-amber-50/50 p-2.5 rounded-xl border border-amber-200 flex flex-col justify-between">
+                  <div class="text-[10px] font-semibold text-amber-700 mb-1 text-center">Jml Perpanjangan</div>
+                  <div class="flex items-center justify-between bg-white rounded-lg border border-amber-200 p-1 shadow-sm">
+                    <button type="button" onclick="stepSimHistory('perpanjang', -1)" class="w-6 h-6 rounded bg-amber-100 hover:bg-amber-200 text-amber-800 font-black flex items-center justify-center transition">−</button>
+                    <input type="number" id="sim_inp_perpanjang" value="2" min="0" oninput="onSimInputManual()" class="w-10 text-center font-black text-sm bg-transparent border-0 focus:ring-0 p-0 text-amber-600">
+                    <button type="button" onclick="stepSimHistory('perpanjang', 1)" class="w-6 h-6 rounded bg-amber-100 hover:bg-amber-200 text-amber-800 font-black flex items-center justify-center transition">+</button>
+                  </div>
+                </div>
+
               </div>
             </div>
 
@@ -3601,6 +3669,123 @@ HTML_TEMPLATE = """
       calculateSimulatorScore(true);
     }
 
+    function updateRasioLancarBadge(jmlTx, lunas, macet) {
+      const badge = document.getElementById('sim_txt_rasio_lancar');
+      if (!badge) return;
+      if (jmlTx <= 0) {
+        badge.textContent = '🌱 Nasabah Baru (0x Tx)';
+        badge.className = 'text-[10px] font-bold text-slate-600 bg-slate-100 px-2 py-0.5 rounded border border-slate-200';
+      } else {
+        const pctLancar = Math.round((lunas / Math.max(1, jmlTx)) * 100);
+        const pctMacet = Math.round((macet / Math.max(1, jmlTx)) * 100);
+        if (macet > 0) {
+          badge.textContent = `⚠️ ${pctMacet}% Macet / Lelang`;
+          badge.className = 'text-[10px] font-bold text-rose-700 bg-rose-50 px-2 py-0.5 rounded border border-rose-200';
+        } else if (pctLancar >= 99) {
+          badge.textContent = `✓ 100% Lunas Lancar (${jmlTx}x Tx)`;
+          badge.className = 'text-[10px] font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200';
+        } else {
+          badge.textContent = `${pctLancar}% Lancar (${jmlTx}x Tx)`;
+          badge.className = 'text-[10px] font-bold text-blue-700 bg-blue-50 px-2 py-0.5 rounded border border-blue-200';
+        }
+      }
+    }
+
+    function highlightActiveHistPreset(activeType) {
+      document.querySelectorAll('.hist-preset-btn').forEach(btn => {
+        btn.classList.remove('ring-2', 'ring-blue-600', 'ring-offset-1', 'shadow-sm');
+      });
+      if (activeType) {
+        const btn = document.getElementById('btn_hist_' + activeType);
+        if (btn) btn.classList.add('ring-2', 'ring-blue-600', 'ring-offset-1', 'shadow-sm');
+      }
+    }
+
+    function setSimHistoryPreset(type) {
+      let jmlTx = 0, lunas = 0, macet = 0, perp = 0;
+      if (type === 'baru') {
+        jmlTx = 0; lunas = 0; macet = 0; perp = 0;
+      } else if (type === 'lancar') {
+        jmlTx = 5; lunas = 5; macet = 0; perp = 1;
+      } else if (type === 'loyal') {
+        jmlTx = 8; lunas = 8; macet = 0; perp = 2;
+      } else if (type === 'perpanjang') {
+        jmlTx = 6; lunas = 6; macet = 0; perp = 4;
+      } else if (type === 'macet') {
+        jmlTx = 3; lunas = 1; macet = 2; perp = 3;
+      } else if (type === 'auto_nik') {
+        const nik = (document.getElementById('sim_inp_nik').value || '').trim();
+        const lastDigits = parseInt(nik.slice(-3)) || 24;
+        if (lastDigits % 5 === 0) {
+          jmlTx = 4; lunas = 2; macet = 2; perp = 3;
+        } else if (lastDigits % 3 === 0) {
+          jmlTx = 7; lunas = 7; macet = 0; perp = 4;
+        } else if (lastDigits % 2 === 0) {
+          jmlTx = 8; lunas = 8; macet = 0; perp = 2;
+        } else {
+          jmlTx = 0; lunas = 0; macet = 0; perp = 0;
+        }
+      }
+
+      document.getElementById('sim_inp_jml_tx').value = jmlTx;
+      document.getElementById('sim_inp_lunas_tepat').value = lunas;
+      document.getElementById('sim_inp_macet').value = macet;
+      document.getElementById('sim_inp_perpanjang').value = perp;
+
+      highlightActiveHistPreset(type);
+      updateRasioLancarBadge(jmlTx, lunas, macet);
+      calculateSimulatorScore(true);
+    }
+
+    function stepSimHistory(field, delta) {
+      let jmlTx = parseInt(document.getElementById('sim_inp_jml_tx').value) || 0;
+      let lunas = parseInt(document.getElementById('sim_inp_lunas_tepat').value) || 0;
+      let macet = parseInt(document.getElementById('sim_inp_macet').value) || 0;
+      let perp = parseInt(document.getElementById('sim_inp_perpanjang').value) || 0;
+
+      if (field === 'jml_tx') {
+        jmlTx = Math.max(0, jmlTx + delta);
+        document.getElementById('sim_inp_jml_tx').value = jmlTx;
+        if (macet === 0) {
+          lunas = jmlTx;
+          document.getElementById('sim_inp_lunas_tepat').value = lunas;
+        } else if (lunas + macet > jmlTx) {
+          lunas = Math.max(0, jmlTx - macet);
+          document.getElementById('sim_inp_lunas_tepat').value = lunas;
+        }
+      } else if (field === 'lunas_tepat') {
+        lunas = Math.max(0, lunas + delta);
+        if (lunas + macet > jmlTx) {
+          jmlTx = lunas + macet;
+          document.getElementById('sim_inp_jml_tx').value = jmlTx;
+        }
+        document.getElementById('sim_inp_lunas_tepat').value = lunas;
+      } else if (field === 'macet') {
+        macet = Math.max(0, macet + delta);
+        if (lunas + macet > jmlTx) {
+          jmlTx = lunas + macet;
+          document.getElementById('sim_inp_jml_tx').value = jmlTx;
+        }
+        document.getElementById('sim_inp_macet').value = macet;
+      } else if (field === 'perpanjang') {
+        perp = Math.max(0, perp + delta);
+        document.getElementById('sim_inp_perpanjang').value = perp;
+      }
+
+      highlightActiveHistPreset(null);
+      updateRasioLancarBadge(jmlTx, lunas, macet);
+      calculateSimulatorScore(true);
+    }
+
+    function onSimInputManual() {
+      let jmlTx = parseInt(document.getElementById('sim_inp_jml_tx').value) || 0;
+      let lunas = parseInt(document.getElementById('sim_inp_lunas_tepat').value) || 0;
+      let macet = parseInt(document.getElementById('sim_inp_macet').value) || 0;
+      highlightActiveHistPreset(null);
+      updateRasioLancarBadge(jmlTx, lunas, macet);
+      calculateSimulatorScore(true);
+    }
+
     function calculateSimulatorScore(callServer = true) {
       const nik = (document.getElementById('sim_inp_nik').value || '').trim();
       const agunan = document.getElementById('sim_inp_agunan').value;
@@ -3611,6 +3796,8 @@ HTML_TEMPLATE = """
       const lunasTepat = parseInt(document.getElementById('sim_inp_lunas_tepat').value) || 0;
       const macet = parseInt(document.getElementById('sim_inp_macet').value) || 0;
       const perpanjang = parseInt(document.getElementById('sim_inp_perpanjang').value) || 0;
+
+      updateRasioLancarBadge(jmlTx, lunasTepat, macet);
 
       // 1. Hitung LTV
       const ltv = Math.round((pinjaman / taksiran) * 1000) / 10;
@@ -3888,7 +4075,11 @@ HTML_TEMPLATE = """
         document.getElementById('sim_inp_lunas_tepat').value = '2';
         document.getElementById('sim_inp_macet').value = '0';
         document.getElementById('sim_inp_perpanjang').value = '3';
+        highlightActiveHistPreset('perpanjang');
       }
+      if (key === 'loyal_good') highlightActiveHistPreset('loyal');
+      else if (key === 'new_gadget') highlightActiveHistPreset('baru');
+      else if (key === 'high_risk') highlightActiveHistPreset('macet');
       onSimNikChange();
     }
 
