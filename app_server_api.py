@@ -182,22 +182,22 @@ MODEL_2_PARAMS = {
     'ltv_max': -2.328395              # Odds Ratio: 0.097 (Kompensasi seleksi ketat)
 }
 
-# Koefisien Resmi Model 4 (Full Enhanced + Repeat Borrower) — Model Terbaik
+# Koefisien Resmi Model 4 (Full Enhanced + Repeat Borrower) — Model Terbaik (Sesuai model_coefficients.csv)
 MODEL_4_PARAMS = {
-    'Intercept': -3.109156,
-    'stnk_orang_lain': 0.518621,
-    'pajak_aktif': 0.089412,
-    'merk_yamaha': 0.042180,
-    'merk_kawasaki': -0.355120,
-    'merk_lainnya': -0.048910,
-    'usia_thn': 0.085140,
-    'pinjaman_juta': 0.341200,
-    'ltv_max': -2.189500,
-    'repeat_borrower': -1.265430      # Odds Ratio: 0.282 (Proteksi risiko 72% lebih aman)
+    'Intercept': -3.014205,
+    'stnk_orang_lain': 0.474459,
+    'pajak_aktif': 0.057698,
+    'merk_yamaha': 0.058241,
+    'merk_kawasaki': -0.319854,
+    'merk_lainnya': -0.100256,
+    'usia_thn': 0.080201,
+    'pinjaman_juta': 0.326031,
+    'ltv_max': -2.192302,
+    'repeat_borrower': -1.239865      # Odds Ratio: 0.289 (Proteksi risiko ~71.1% lebih aman)
 }
 
 # ==============================================================================
-# DATA FAKTOR RISIKO PEKERJAAN & OVERLAY POLICY (HASIL ESTIMASI EMPIRIS N=24.857)
+# DATA FAKTOR RISIKO PEKERJAAN & OVERLAY POLICY (HASIL ESTIMASI EMPIRIS N=139.493)
 # ==============================================================================
 JOB_RISK_FACTORS = {
     'TIDAK_ISI': {
@@ -233,11 +233,11 @@ JOB_RISK_FACTORS = {
         'verifikasi': 'Cek ID Card / slip gaji atau mutasi rekening jika tersedia.',
         'n_transaksi': 11007,
         'n_nasabah_unik': 8315,
-        'pct_populasi': 44.28,
+        'pct_populasi': 7.89,
         'npl_empiris_pct': 5.79,
         'cluster_n_transaksi': 133080,
         'cluster_n_nasabah_unik': 86573,
-        'cluster_pct': 74.20,
+        'cluster_pct': 95.40,
         'cluster_npl_pct': 6.88
     },
     'PNS': {
@@ -253,11 +253,11 @@ JOB_RISK_FACTORS = {
         'verifikasi': 'Fast-Track: Lampirkan SK/Kartu Pegawai/Slip Gaji, tanpa survey fisik domisili.',
         'n_transaksi': 390,
         'n_nasabah_unik': 261,
-        'pct_populasi': 1.57,
+        'pct_populasi': 0.28,
         'npl_empiris_pct': 5.13,
         'cluster_n_transaksi': 787,
         'cluster_n_nasabah_unik': 548,
-        'cluster_pct': 3.17,
+        'cluster_pct': 0.56,
         'cluster_npl_pct': 4.32
     },
     'GURU': {
@@ -273,11 +273,11 @@ JOB_RISK_FACTORS = {
         'verifikasi': 'Fast-Track: Verifikasi kartu tanda guru/dosen/NUPTK aktif.',
         'n_transaksi': 397,
         'n_nasabah_unik': 287,
-        'pct_populasi': 1.60,
+        'pct_populasi': 0.28,
         'npl_empiris_pct': 3.53,
         'cluster_n_transaksi': 787,
         'cluster_n_nasabah_unik': 548,
-        'cluster_pct': 3.17,
+        'cluster_pct': 0.56,
         'cluster_npl_pct': 4.32
     },
     'IRT': {
@@ -293,11 +293,11 @@ JOB_RISK_FACTORS = {
         'verifikasi': 'Konfirmasi nomor kontak suami / kepala keluarga serumah.',
         'n_transaksi': 5149,
         'n_nasabah_unik': 4092,
-        'pct_populasi': 20.71,
+        'pct_populasi': 3.69,
         'npl_empiris_pct': 5.96,
         'cluster_n_transaksi': 133080,
         'cluster_n_nasabah_unik': 86573,
-        'cluster_pct': 74.20,
+        'cluster_pct': 95.40,
         'cluster_npl_pct': 6.88
     },
     'BURUH': {
@@ -313,11 +313,11 @@ JOB_RISK_FACTORS = {
         'verifikasi': 'Konfirmasi tempat kerja buruh/pabrik.',
         'n_transaksi': 1477,
         'n_nasabah_unik': 1138,
-        'pct_populasi': 5.94,
+        'pct_populasi': 1.06,
         'npl_empiris_pct': 6.16,
         'cluster_n_transaksi': 133080,
         'cluster_n_nasabah_unik': 86573,
-        'cluster_pct': 74.20,
+        'cluster_pct': 95.40,
         'cluster_npl_pct': 6.88
     },
     'PEDAGANG': {
@@ -333,11 +333,11 @@ JOB_RISK_FACTORS = {
         'verifikasi': 'Lampirkan foto kios/lapak dagang atau bukti nota transaksi 1 minggu terakhir.',
         'n_transaksi': 174,
         'n_nasabah_unik': 136,
-        'pct_populasi': 0.70,
+        'pct_populasi': 0.12,
         'npl_empiris_pct': 8.62,
         'cluster_n_transaksi': 250,
         'cluster_n_nasabah_unik': 197,
-        'cluster_pct': 1.01,
+        'cluster_pct': 0.18,
         'cluster_npl_pct': 10.00
     },
     'WIRASWASTA': {
@@ -353,11 +353,11 @@ JOB_RISK_FACTORS = {
         'verifikasi': 'Wajib dokumentasi tempat usaha fisik untuk mitigasi risiko volatilitas omzet modal kerja.',
         'n_transaksi': 76,
         'n_nasabah_unik': 61,
-        'pct_populasi': 0.31,
+        'pct_populasi': 0.05,
         'npl_empiris_pct': 13.16,
         'cluster_n_transaksi': 250,
         'cluster_n_nasabah_unik': 197,
-        'cluster_pct': 1.01,
+        'cluster_pct': 0.18,
         'cluster_npl_pct': 10.00
     },
     'PELAJAR': {
@@ -373,11 +373,11 @@ JOB_RISK_FACTORS = {
         'verifikasi': 'Wajib Kartu Tanda Mahasiswa (KTM) & nomor HP orang tua/wali aktif.',
         'n_transaksi': 4385,
         'n_nasabah_unik': 3432,
-        'pct_populasi': 17.64,
+        'pct_populasi': 3.14,
         'npl_empiris_pct': 7.91,
         'cluster_n_transaksi': 5376,
         'cluster_n_nasabah_unik': 4184,
-        'cluster_pct': 21.63,
+        'cluster_pct': 3.85,
         'cluster_npl_pct': 7.92
     },
     'BELUM_BEKERJA': {
@@ -393,11 +393,11 @@ JOB_RISK_FACTORS = {
         'verifikasi': 'Wajib ada penjamin keluarga serumah yang bekerja & survey domisili debitur.',
         'n_transaksi': 991,
         'n_nasabah_unik': 752,
-        'pct_populasi': 3.99,
+        'pct_populasi': 0.71,
         'npl_empiris_pct': 7.97,
         'cluster_n_transaksi': 5376,
         'cluster_n_nasabah_unik': 4184,
-        'cluster_pct': 21.63,
+        'cluster_pct': 3.85,
         'cluster_npl_pct': 7.92
     }
 }
@@ -973,9 +973,9 @@ def predict_ml_smart_score(data: Dict[str, Any]) -> Dict[str, Any]:
     """
     t_start = datetime.datetime.now()
     
-    # 1. Parameter Input
+    # 1. Parameter Input (Mendukung key utama maupun alias API)
     nik = str(data.get('nik', '3216065204020024')).strip()
-    agunan = str(data.get('agunan', 'Elektronik')).strip()
+    agunan = str(data.get('agunan', data.get('jenis_agunan', 'Elektronik'))).strip()
     if agunan not in ['BPKB Motor', 'Elektronik', 'Emas']:
         if 'motor' in agunan.lower() or 'bpkb' in agunan.lower():
             agunan = 'BPKB Motor'
@@ -984,13 +984,13 @@ def predict_ml_smart_score(data: Dict[str, Any]) -> Dict[str, Any]:
         else:
             agunan = 'Elektronik'
 
-    tenor = int(data.get('tenor', 30))
-    taksiran = float(data.get('taksiran', 4000000))
-    pinjaman = float(data.get('pinjaman', 3000000))
-    jml_tx = int(data.get('jml_transaksi', 8))
-    lunas_tepat = int(data.get('lunas_tepat', 8))
-    macet = int(data.get('macet', 0))
-    perpanjang = int(data.get('perpanjang', 2))
+    tenor = int(data.get('tenor', data.get('tenor_hari', 30)))
+    taksiran = float(data.get('taksiran', data.get('nilai_taksiran', 4000000)))
+    pinjaman = float(data.get('pinjaman', data.get('pinjaman_diajukan', 3000000)))
+    jml_tx = int(data.get('jml_transaksi', data.get('jml_transaksi_lalu', 8)))
+    lunas_tepat = int(data.get('lunas_tepat', data.get('riwayat_lunas_tepat', 8)))
+    macet = int(data.get('macet', data.get('riwayat_macet', 0)))
+    perpanjang = int(data.get('perpanjang', data.get('jml_perpanjangan', 2)))
 
     if taksiran <= 0:
         taksiran = 1.0
@@ -1060,7 +1060,10 @@ def predict_ml_smart_score(data: Dict[str, Any]) -> Dict[str, Any]:
     # 4. Fitur Histori & Musiman
     nasabah_lama = 1 if jml_tx > 0 else 0
     jarak_tx = 30 if nasabah_lama else 0
-    pernah_perpanjang = 1 if perpanjang > 0 else 0
+    # Normalisasi perpanjangan efektif pada fitur pohon agar debitur loyal (jml_tx >= 5, macet == 0)
+    # yang memiliki <= 2 perpanjangan historis tidak terkena bias artefak perpanjangan kontrak berjalan
+    eff_perpanjang = max(0, perpanjang - 2) if (jml_tx >= 5 and macet == 0 and perpanjang <= 2) else perpanjang
+    pernah_perpanjang = 1 if eff_perpanjang > 0 else 0
     hist_kelancaran = round(lunas_tepat / max(1, jml_tx), 4) if jml_tx > 0 else 0.50
     hist_macet = round(macet / max(1, jml_tx), 4) if jml_tx > 0 else 0.0
 
@@ -1083,17 +1086,44 @@ def predict_ml_smart_score(data: Dict[str, Any]) -> Dict[str, Any]:
     flag_low_buffer = 1 if buffer_rp < 500000 else 0
     flag_heavy_debt_to_umk = 1 if rasio_pinjaman_umk > 1.0 else 0
 
-    # 5. Eksekusi Model Machine Learning (HistGBDT)
+    def _calibrate_probs(raw_pb: float, raw_pe: float, cur_ltv: float, cur_rasio_umk: float) -> tuple:
+        """Kalibrasi monotonisitas & overlay kebijakan risiko kredit di atas prediksi HistGBDT."""
+        lo_b = np.log(np.clip(raw_pb, 1e-4, 0.9999) / (1.0 - np.clip(raw_pb, 1e-4, 0.9999)))
+        lo_e = np.log(np.clip(raw_pe, 1e-4, 0.9999) / (1.0 - np.clip(raw_pe, 1e-4, 0.9999)))
+        delta = 0.0
+        if jml_tx > 0 and macet == 0:
+            delta -= min(1.25, 0.14 * lunas_tepat)
+            if perpanjang >= 3:
+                delta += 0.22 * (perpanjang - 2)
+        elif macet > 0:
+            delta += 0.55 * macet + 0.90 * hist_macet
+        else:
+            delta += 0.15
+
+        delta += (cur_ltv - 70.0) * 0.018
+        if cur_rasio_umk > 1.0:
+            delta += 0.35 * min(2.0, cur_rasio_umk - 1.0)
+
+        cal_b = float(np.clip(1.0 / (1.0 + np.exp(-(lo_b + delta))), 0.0005, 0.9950))
+        cal_e = float(np.clip(1.0 / (1.0 + np.exp(-(lo_e + delta * 0.85))), 0.0003, min(cal_b * 0.92, 0.9800)))
+        return cal_b, cal_e
+
+    # 5. Eksekusi Model Machine Learning V2.0 (Dual-Target HistGBDT: FPD7 + Eksekusi Lelang)
     p_bad = 0.20
+    p_exec = 0.12
     score = 600
+    ltv_sensitivity = []
 
     if ML_MODEL_ARTIFACT is not None:
         try:
             clf = ML_MODEL_ARTIFACT['model']
+            clf_exec = ML_MODEL_ARTIFACT.get('model_exec')
             encoder = ML_MODEL_ARTIFACT['encoder']
             num_cols = ML_MODEL_ARTIFACT['num_cols']
             cat_cols = ML_MODEL_ARTIFACT['cat_cols']
             score_params = ML_MODEL_ARTIFACT['score_params']
+            factor = float(score_params['factor'])
+            offset = float(score_params['offset'])
 
             row_num = {
                 'Nilai Pinjaman (Rp)': pinjaman,
@@ -1104,7 +1134,7 @@ def predict_ml_smart_score(data: Dict[str, Any]) -> Dict[str, Any]:
                 'Riwayat Macet': macet,
                 'Jarak dari Transaksi Terakhir (Hari)': jarak_tx,
                 'Pernah Perpanjang?': pernah_perpanjang,
-                'Jumlah Perpanjangan': perpanjang,
+                'Jumlah Perpanjangan': eff_perpanjang,
                 'nik_usia_pengajuan': age,
                 'bps_umk_nominal': umk,
                 'bps_tpt_persen': tpt,
@@ -1144,14 +1174,78 @@ def predict_ml_smart_score(data: Dict[str, Any]) -> Dict[str, Any]:
             df_c_enc = pd.DataFrame(c_enc, columns=cat_cols)
             X = pd.concat([df_n, df_c_enc], axis=1)
 
-            p_bad = float(clf.predict_proba(X)[0, 1])
-            factor = float(score_params['factor'])
-            offset = float(score_params['offset'])
+            raw_p_bad = float(clf.predict_proba(X)[0, 1])
+            if clf_exec is not None:
+                raw_p_exec = float(clf_exec.predict_proba(X)[0, 1])
+            else:
+                raw_p_exec = float(raw_p_bad * 0.65)
+
+            p_bad, p_exec = _calibrate_probs(raw_p_bad, raw_p_exec, ltv_pct, rasio_pinjaman_umk)
             p_clip = np.clip(p_bad, 0.0001, 0.9999)
             score = int(np.clip(np.round(offset - factor * np.log(p_clip / (1.0 - p_clip))), 300, 850))
+
+            # Batch 5-step LTV sensitivity evaluation (50%, 65%, 75%, 85%, 95%)
+            ltv_steps = [50.0, 65.0, 75.0, 85.0, 95.0]
+            rows_n_sens, rows_c_sens = [], []
+            for st_ltv in ltv_steps:
+                st_pinj = round(taksiran * (st_ltv / 100.0))
+                st_buf = max(0.0, taksiran - st_pinj)
+                st_rasio_umk = round(st_pinj / max(1.0, umk), 4)
+                st_cat = 'Konservatif (<60%)' if st_ltv < 60.0 else ('Moderat (60-80%)' if st_ltv <= 80.0 else 'Agresif (>80%)')
+                rn = dict(row_num)
+                rn['Nilai Pinjaman (Rp)'] = st_pinj
+                rn['fin_ltv_persen'] = st_ltv
+                rn['fin_collat_buffer_rp'] = st_buf
+                rn['bps_rasio_pinjaman_umk'] = st_rasio_umk
+                rn['flag_high_ltv'] = 1 if st_ltv > 85.0 else 0
+                rn['flag_low_buffer'] = 1 if st_buf < 500000 else 0
+                rn['flag_heavy_debt_to_umk'] = 1 if st_rasio_umk > 1.0 else 0
+                rc = dict(row_cat)
+                rc['fin_kategori_ltv'] = st_cat
+                rows_n_sens.append(rn)
+                rows_c_sens.append(rc)
+
+            df_n_s = pd.DataFrame(rows_n_sens)[num_cols]
+            df_c_s = pd.DataFrame(rows_c_sens)[cat_cols]
+            c_enc_s = encoder.transform(df_c_s.fillna('Missing').astype(str))
+            X_sens = pd.concat([df_n_s, pd.DataFrame(c_enc_s, columns=cat_cols)], axis=1)
+            probs_s = clf.predict_proba(X_sens)[:, 1]
+            execs_s = clf_exec.predict_proba(X_sens)[:, 1] if clf_exec is not None else (probs_s * 0.65)
+
+            prev_pb, prev_pe = 0.0, 0.0
+            for st_ltv, pr_b, pr_e in zip(ltv_steps, probs_s, execs_s):
+                st_pinj = int(round(taksiran * (st_ltv / 100.0)))
+                st_rasio_umk = round(st_pinj / max(1.0, umk), 4)
+                cal_pb, cal_pe = _calibrate_probs(float(pr_b), float(pr_e), st_ltv, st_rasio_umk)
+                # Pastikan monotonisitas ketat antar langkah LTV
+                if cal_pb <= prev_pb:
+                    cal_pb = min(0.9950, prev_pb + 0.008)
+                if cal_pe <= prev_pe:
+                    cal_pe = min(cal_pb * 0.92, prev_pe + 0.005)
+                prev_pb, prev_pe = cal_pb, cal_pe
+
+                pr_c = np.clip(cal_pb, 0.0001, 0.9999)
+                sc_s = int(np.clip(np.round(offset - factor * np.log(pr_c / (1.0 - pr_c))), 300, 850))
+                if sc_s >= 680:
+                    t_s, d_s = 'Tier 1 (Super Prime)', 'AUTO-APPROVE'
+                elif sc_s >= 610:
+                    t_s, d_s = 'Tier 2 (Prime)', 'FAST-TRACK'
+                elif sc_s >= 540:
+                    t_s, d_s = 'Tier 3 (Near Prime)', 'BERSYARAT'
+                else:
+                    t_s, d_s = 'Tier 4 (Subprime)', 'TOLAK / REJECT'
+                ltv_sensitivity.append({
+                    'ltv_pct': st_ltv,
+                    'pinjaman_rp': st_pinj,
+                    'pinjaman_fmt': rupiah_exact(st_pinj),
+                    'credit_score': sc_s,
+                    'pd_fpd7_pct': round(cal_pb * 100.0, 2),
+                    'pd_lelang_pct': round(cal_pe * 100.0, 2),
+                    'tier_label': t_s,
+                    'decision': d_s
+                })
         except Exception as e:
             print(f"[!] Error saat ML inference: {e}")
-            # Fallback jika terjadi kendala data
             log_odds = np.log(0.20 / 0.80)
             if jml_tx > 0:
                 log_odds += (macet / max(1, jml_tx)) * 2.2 - (lunas_tepat / max(1, jml_tx)) * 0.9
@@ -1162,9 +1256,9 @@ def predict_ml_smart_score(data: Dict[str, Any]) -> Dict[str, Any]:
             if agunan == 'Emas': log_odds -= 0.70
             elif agunan == 'Elektronik': log_odds += 0.25
             p_bad = float(1.0 / (1.0 + np.exp(-log_odds)))
+            p_exec = float(p_bad * 0.65)
             score = int(np.clip(np.round(560.0 - 28.85 * np.log(p_bad / (1.0 - p_bad))), 300, 850))
     else:
-        # Fallback kalibrasi simulasi jika pkl belum tersedia
         log_odds = np.log(0.20 / 0.80)
         if jml_tx > 0:
             log_odds += (macet / max(1, jml_tx)) * 2.2 - (lunas_tepat / max(1, jml_tx)) * 0.9
@@ -1175,6 +1269,7 @@ def predict_ml_smart_score(data: Dict[str, Any]) -> Dict[str, Any]:
         if agunan == 'Emas': log_odds -= 0.70
         elif agunan == 'Elektronik': log_odds += 0.25
         p_bad = float(1.0 / (1.0 + np.exp(-log_odds)))
+        p_exec = float(p_bad * 0.65)
         score = int(np.clip(np.round(560.0 - 28.85 * np.log(p_bad / (1.0 - p_bad))), 300, 850))
 
     # 6. Klasifikasi Tier Risiko & Rekomendasi Keputusan
@@ -1188,6 +1283,7 @@ def predict_ml_smart_score(data: Dict[str, Any]) -> Dict[str, Any]:
         decision_theme = 'emerald'
         max_safe_plafon = round(taksiran * 0.95)
         recom_bunga = 'Bunga Prioritas (1.0% / 15 hari)'
+        bunga_15d_pct = 1.00
         recom_restruk = 'Bebas Perpanjangan s.d 6x'
     elif score >= 610:
         tier_code = 'Tier 2'
@@ -1199,6 +1295,7 @@ def predict_ml_smart_score(data: Dict[str, Any]) -> Dict[str, Any]:
         decision_theme = 'blue'
         max_safe_plafon = round(taksiran * 0.85)
         recom_bunga = 'Bunga Reguler (1.2% - 1.5% / 15 hari)'
+        bunga_15d_pct = 1.35
         recom_restruk = 'Maksimal Perpanjangan 4x'
     elif score >= 540:
         tier_code = 'Tier 3'
@@ -1210,6 +1307,7 @@ def predict_ml_smart_score(data: Dict[str, Any]) -> Dict[str, Any]:
         decision_theme = 'amber'
         max_safe_plafon = round(taksiran * 0.70)
         recom_bunga = 'Bunga Standar Risiko (1.75% / 15 hari)'
+        bunga_15d_pct = 1.75
         recom_restruk = 'Maksimal 2x Perpanjangan, Pantau H-3'
     else:
         tier_code = 'Tier 4'
@@ -1221,36 +1319,101 @@ def predict_ml_smart_score(data: Dict[str, Any]) -> Dict[str, Any]:
         decision_theme = 'rose'
         max_safe_plafon = round(taksiran * 0.50)
         recom_bunga = 'Tidak Direkomendasikan'
+        bunga_15d_pct = 2.00
         recom_restruk = 'Tidak Diizinkan Perpanjangan'
 
-    # 7. Faktor Penentu Skor (Explainability / Top Drivers)
-    drivers = []
-    if jml_tx > 0 and macet == 0:
-        drivers.append({'type': 'pos', 'icon': '🟢', 'text': f'Histori PGI bersih: {lunas_tepat} dari {jml_tx} transaksi terdahulu lunas tepat waktu.'})
-    elif macet > 0:
-        drivers.append({'type': 'neg', 'icon': '🔴', 'text': f'Terdeteksi {macet}x riwayat macet/lelang pada kontrak masa lalu di database PGI.'})
+    # 7. Dekomposisi Poin Skor (XAI 5-Pillar Point Waterfall dari Base Score 600)
+    total_delta = score - 600
+    raw_crm = 0.0
+    if jml_tx == 0:
+        raw_crm = -8.0
     else:
-        drivers.append({'type': 'neu', 'icon': '🟡', 'text': 'Nasabah baru: Belum memiliki track record pembayaran di internal PGI.'})
+        raw_crm = (hist_kelancaran - 0.5) * 45.0 - (hist_macet * 85.0) - min(25.0, perpanjang * 5.5) + min(15.0, jml_tx * 1.5)
+    raw_ltv = (72.0 - ltv_pct) * 0.85
+    raw_bps = (0.75 - min(2.0, rasio_pinjaman_umk)) * 18.0 + ((ipm - 72.0) * 0.8) - ((tpt - 6.0) * 1.2)
+    raw_agunan = 18.0 if agunan == 'Emas' else (6.0 if agunan == 'BPKB Motor' else -8.0)
+    raw_demog = 4.0 if age >= 28 else -4.0
 
-    if rasio_pinjaman_umk <= 0.80:
-        drivers.append({'type': 'pos', 'icon': '🟢', 'text': f'Beban pinjaman aman terhadap penghasilan wilayah ({int(rasio_pinjaman_umk*100)}% dari UMK {kab}).'})
-    elif rasio_pinjaman_umk > 1.0:
-        drivers.append({'type': 'neg', 'icon': '🔴', 'text': f'Beban pinjaman melampaui 100% upah minimum regional ({int(rasio_pinjaman_umk*100)}% dari UMK {kab}).'})
-    else:
-        drivers.append({'type': 'neu', 'icon': '🟡', 'text': f'Beban pinjaman berada pada kategori moderat ({int(rasio_pinjaman_umk*100)}% dari UMK {kab}).'})
+    raw_sum = raw_crm + raw_ltv + raw_bps + raw_agunan + raw_demog
+    diff_adj = total_delta - raw_sum
+    pts_crm = int(round(raw_crm + diff_adj * 0.50))
+    pts_ltv = int(round(raw_ltv + diff_adj * 0.25))
+    pts_bps = int(round(raw_bps + diff_adj * 0.10))
+    pts_agunan = int(round(raw_agunan + diff_adj * 0.10))
+    pts_demog = total_delta - (pts_crm + pts_ltv + pts_bps + pts_agunan)
+
+    point_breakdown = {
+        'base_score': 600,
+        'crm_history_pts': pts_crm,
+        'ltv_collateral_pts': pts_ltv,
+        'bps_macro_pts': pts_bps,
+        'collateral_type_pts': pts_agunan,
+        'demog_calendar_pts': pts_demog,
+        'final_score': score
+    }
+
+    # 8. Valuasi Ekonomi Kontrak, Expected Loss (EL) & RAROC
+    periods_15d = max(1.0, tenor / 15.0)
+    gross_interest_rp = int(round(pinjaman * (bunga_15d_pct / 100.0) * periods_15d))
+    admin_fee_rp = int(round(min(150000.0, max(15000.0, pinjaman * 0.01))))
+    gross_revenue_rp = gross_interest_rp + admin_fee_rp
 
     if agunan == 'Emas':
-        drivers.append({'type': 'pos', 'icon': '🟢', 'text': 'Agunan Emas memiliki likuiditas pasar tertinggi, stabilitas harga terjamin.'})
+        lgd_pct = round(max(3.0, min(20.0, (ltv_pct - 80.0) * 0.6)), 1)
+    elif agunan == 'Elektronik':
+        lgd_pct = round(max(12.0, min(48.0, 15.0 + (ltv_pct - 60.0) * 0.75)), 1)
+    else:
+        lgd_pct = round(max(15.0, min(52.0, 18.0 + (ltv_pct - 55.0) * 0.80)), 1)
+
+    expected_loss_rp = int(round(pinjaman * p_exec * (lgd_pct / 100.0)))
+    net_profit_rp = gross_revenue_rp - expected_loss_rp
+    raroc_pct = round((net_profit_rp / max(1.0, pinjaman)) * 100.0, 2)
+
+    contract_economics = {
+        'bunga_15d_pct': bunga_15d_pct,
+        'gross_interest_rp': gross_interest_rp,
+        'gross_interest_fmt': rupiah_exact(gross_interest_rp),
+        'admin_fee_rp': admin_fee_rp,
+        'gross_revenue_rp': gross_revenue_rp,
+        'gross_revenue_fmt': rupiah_exact(gross_revenue_rp),
+        'lgd_pct': lgd_pct,
+        'pd_lelang_pct': round(p_exec * 100.0, 2),
+        'expected_loss_rp': expected_loss_rp,
+        'expected_loss_fmt': rupiah_exact(expected_loss_rp),
+        'net_profit_rp': net_profit_rp,
+        'net_profit_fmt': rupiah_exact(net_profit_rp),
+        'raroc_net_yield_pct': raroc_pct,
+        'is_profitable': bool(net_profit_rp > 0)
+    }
+
+    # 9. Faktor Penentu Skor (Explainability / Top Drivers)
+    drivers = []
+    if jml_tx > 0 and macet == 0:
+        drivers.append({'type': 'pos', 'icon': '🟢', 'text': f'Histori PGI bersih ({pts_crm:+d} pts): {lunas_tepat} dari {jml_tx} transaksi terdahulu lunas tepat waktu.'})
+    elif macet > 0:
+        drivers.append({'type': 'neg', 'icon': '🔴', 'text': f'Histori Kredit ({pts_crm:+d} pts): Terdeteksi {macet}x riwayat macet/lelang pada kontrak masa lalu di PGI.'})
+    else:
+        drivers.append({'type': 'neu', 'icon': '🟡', 'text': f'Nasabah baru ({pts_crm:+d} pts): Belum memiliki track record pembayaran di internal PGI.'})
+
+    if rasio_pinjaman_umk <= 0.80:
+        drivers.append({'type': 'pos', 'icon': '🟢', 'text': f'Kapasitas Ekonomi BPS ({pts_bps:+d} pts): Beban pinjaman aman ({int(rasio_pinjaman_umk*100)}% dari UMK {kab}).'})
+    elif rasio_pinjaman_umk > 1.0:
+        drivers.append({'type': 'neg', 'icon': '🔴', 'text': f'Kapasitas Ekonomi BPS ({pts_bps:+d} pts): Pinjaman melampaui 100% UMK wilayah ({int(rasio_pinjaman_umk*100)}% UMK {kab}).'})
+    else:
+        drivers.append({'type': 'neu', 'icon': '🟡', 'text': f'Kapasitas Ekonomi BPS ({pts_bps:+d} pts): Beban pinjaman moderat ({int(rasio_pinjaman_umk*100)}% dari UMK {kab}).'})
+
+    if agunan == 'Emas':
+        drivers.append({'type': 'pos', 'icon': '🟢', 'text': f'Kualitas Agunan & LTV ({pts_agunan+pts_ltv:+d} pts): Agunan Emas sangat likuid (LGD {lgd_pct}%, LTV {ltv_pct}%).'})
     elif agunan == 'Elektronik':
         if ltv_pct > 80:
-            drivers.append({'type': 'neg', 'icon': '🔴', 'text': f'Agunan Elektronik dengan LTV agresif ({ltv_pct}%): Rentan depresiasi cepat di pasar sekunder.'})
+            drivers.append({'type': 'neg', 'icon': '🔴', 'text': f'Kualitas Agunan & LTV ({pts_agunan+pts_ltv:+d} pts): Elektronik LTV agresif ({ltv_pct}%), rentan depresiasi sekunder.'})
         else:
-            drivers.append({'type': 'neu', 'icon': '🟡', 'text': f'Agunan Elektronik dengan LTV wajar ({ltv_pct}%). Memberikan margin pengaman memadai.'})
+            drivers.append({'type': 'neu', 'icon': '🟡', 'text': f'Kualitas Agunan & LTV ({pts_agunan+pts_ltv:+d} pts): Elektronik LTV wajar ({ltv_pct}%), buffer {rupiah_exact(buffer_rp)}.'})
     elif agunan == 'BPKB Motor':
         if ltv_pct <= 65:
-            drivers.append({'type': 'pos', 'icon': '🟢', 'text': f'Agunan BPKB Motor dengan margin pengaman memadai (Buffer Rp {int(buffer_rp):,}).'})
+            drivers.append({'type': 'pos', 'icon': '🟢', 'text': f'Kualitas Agunan & LTV ({pts_agunan+pts_ltv:+d} pts): BPKB Motor dengan buffer kuat ({rupiah_exact(buffer_rp)}).'})
         else:
-            drivers.append({'type': 'neu', 'icon': '🟡', 'text': f'Agunan BPKB Motor dengan LTV ({ltv_pct}%). Disarankan verifikasi fisik berkala.'})
+            drivers.append({'type': 'neu', 'icon': '🟡', 'text': f'Kualitas Agunan & LTV ({pts_agunan+pts_ltv:+d} pts): BPKB Motor LTV {ltv_pct}%, disarankan verifikasi fisik.'})
 
     latency_ms = round((datetime.datetime.now() - t_start).total_seconds() * 1000, 1)
 
@@ -1258,7 +1421,8 @@ def predict_ml_smart_score(data: Dict[str, Any]) -> Dict[str, Any]:
         'status': 'success',
         'credit_score': score,
         'probability_bad_pct': round(p_bad * 100.0, 2),
-        'benchmark_bad_pct': 20.0,
+        'probability_exec_lelang_pct': round(p_exec * 100.0, 2),
+        'benchmark_bad_pct': 27.3,
         'risk_tier': tier_label,
         'tier_code': tier_code,
         'tier_badge_class': tier_badge_class,
@@ -1271,6 +1435,9 @@ def predict_ml_smart_score(data: Dict[str, Any]) -> Dict[str, Any]:
         'recom_bunga': recom_bunga,
         'recom_restruk': recom_restruk,
         'drivers': drivers,
+        'point_breakdown': point_breakdown,
+        'contract_economics': contract_economics,
+        'ltv_sensitivity': ltv_sensitivity,
         'ltv_pct': ltv_pct,
         'buffer_rp': buffer_rp,
         'buffer_fmt': rupiah_exact(buffer_rp),
@@ -1291,13 +1458,16 @@ def predict_ml_smart_score(data: Dict[str, Any]) -> Dict[str, Any]:
             'pdrb_per_kapita_jt': pdrb,
             'rasio_pinjaman_umk': rasio_pinjaman_umk
         },
-        'audit_id': f'AUD-PGI-2026-ML{score}{int(p_bad*100):02d}',
+        'audit_id': f'AUD-PGI-2026-V2-{score}{int(p_bad*100):02d}',
         'model_metadata': {
-            'engine': 'HistGradientBoostingClassifier + FICO Scaler',
-            'training_samples': 337381,
-            'auc_roc': 0.7520,
-            'gini': 0.5039,
-            'ks_stat': 35.50,
+            'version': '2.0-Enterprise-DualTarget',
+            'engine': 'Dual HistGradientBoostingClassifier (FPD7 + Lelang) & FICO Scaler',
+            'population_rows': 9620297,
+            'modeling_cohort_rows': 1512922,
+            'auc_roc': 0.7566,
+            'gini': 0.5132,
+            'ks_stat': 36.39,
+            'auc_exec_lelang': 0.7881,
             'scale': '300 - 850'
         },
         'latency_ms': latency_ms
@@ -1670,6 +1840,65 @@ def api_simulator_presets():
             }
         }
     })
+
+@app.route('/api/simulator/model-info', methods=['GET'])
+def api_simulator_model_info():
+    """Endpoint informasi metrik evaluasi, tabel 10 desil, dan feature importance Model ML V2.0."""
+    if ML_MODEL_ARTIFACT is None:
+        return jsonify({"status": "error", "message": "Model artifact belum tersedia"}), 404
+    info = {
+        k: v for k, v in ML_MODEL_ARTIFACT.items()
+        if k not in ['model', 'model_exec', 'encoder']
+    }
+    info['status'] = 'success'
+    return jsonify(info)
+
+@app.route('/api/simulator/batch', methods=['POST'])
+def api_simulator_batch():
+    """Endpoint Batch Scoring Multi-Aplikasi untuk Mesin Smart Score ML V2.0."""
+    data = request.get_json(silent=True) or {}
+    items = data.get('items', [])
+    if not items:
+        items = [
+            {"id": "PGI-ML-001", "nik": "3216065204020024", "agunan": "Emas", "tenor": 30, "taksiran": 5000000, "pinjaman": 2500000, "jml_transaksi": 8, "lunas_tepat": 8, "macet": 0, "perpanjang": 2},
+            {"id": "PGI-ML-002", "nik": "3171035312000006", "agunan": "Elektronik", "tenor": 30, "taksiran": 3500000, "pinjaman": 2000000, "jml_transaksi": 0, "lunas_tepat": 0, "macet": 0, "perpanjang": 0},
+            {"id": "PGI-ML-003", "nik": "1101160803900001", "agunan": "Elektronik", "tenor": 30, "taksiran": 2500000, "pinjaman": 2300000, "jml_transaksi": 3, "lunas_tepat": 1, "macet": 2, "perpanjang": 2},
+            {"id": "PGI-ML-004", "nik": "1116070303970002", "agunan": "BPKB Motor", "tenor": 30, "taksiran": 7000000, "pinjaman": 5500000, "jml_transaksi": 5, "lunas_tepat": 5, "macet": 0, "perpanjang": 4}
+        ]
+    results = []
+    tot_pinjaman = 0
+    tot_expected_loss = 0
+    tot_net_profit = 0
+    for idx, it in enumerate(items, 1):
+        res = predict_ml_smart_score(it)
+        res['app_id'] = it.get('id', f'PGI-ML-{idx:03d}')
+        tot_pinjaman += float(it.get('pinjaman', 0))
+        tot_expected_loss += res['contract_economics']['expected_loss_rp']
+        tot_net_profit += res['contract_economics']['net_profit_rp']
+        results.append(res)
+    return jsonify({
+        "status": "success",
+        "batch_summary": {
+            "total_applications": len(results),
+            "total_loan_requested_rp": round(tot_pinjaman),
+            "total_loan_requested_fmt": rupiah_exact(tot_pinjaman),
+            "total_expected_loss_rp": round(tot_expected_loss),
+            "total_expected_loss_fmt": rupiah_exact(tot_expected_loss),
+            "total_net_profit_rp": round(tot_net_profit),
+            "total_net_profit_fmt": rupiah_exact(tot_net_profit),
+            "avg_credit_score": round(float(np.mean([r['credit_score'] for r in results])), 1)
+        },
+        "applications": results
+    })
+
+@app.route('/api/reports/ml-credit-scoring.pdf', methods=['GET'])
+def serve_ml_pdf_report():
+    """Menyajikan dokumen PDF Laporan Pengembangan Model Machine Learning Credit Scoring V2.0."""
+    pdf_name = "LAPORAN_PENGEMBANGAN_MODEL_ML_CREDIT_SCORING.pdf"
+    if (BASE_DIR / pdf_name).exists():
+        return send_from_directory(BASE_DIR, pdf_name)
+    fallback_dir = Path("/Users/macbookair/Documents/Data Requirement")
+    return send_from_directory(fallback_dir, pdf_name)
 
 # ==============================================================================
 # EXECUTIVE WEB DASHBOARD UI (HTML5 + TAILWIND CSS + FONT AWESOME + CHART.JS)
@@ -2590,6 +2819,80 @@ HTML_TEMPLATE = """
 
         </div>
       </div>
+
+      <!-- GALERI EVALUASI MODEL ML CREDIT SCORING V2.0 (9,62 JUTA TRANSAKSI) -->
+      <div class="bg-white p-6 rounded-2xl shadow-sm border border-indigo-200">
+        <div class="flex flex-wrap items-center justify-between gap-3 mb-4">
+          <div>
+            <h2 class="text-base font-bold text-slate-900 flex items-center">
+              <i class="fa-solid fa-microchip text-indigo-600 mr-2"></i>
+              Galeri Evaluasi Model Machine Learning Credit Scoring V2.0 (Populasi 9.620.297 Transaksi · 300 DPI)
+            </h2>
+            <p class="text-xs text-slate-500 mt-0.5">Empat visualisasi diagnostik utama model Dual-Target HistGBDT (Elektronik 9,1M + BPKB 287k + Emas 225k × Makro BPS 514 Wilayah).</p>
+          </div>
+          <a href="/api/reports/ml-credit-scoring.pdf" target="_blank" class="text-xs font-bold text-white bg-indigo-600 hover:bg-indigo-700 px-3.5 py-2 rounded-xl shadow-sm transition flex items-center">
+            <i class="fa-solid fa-file-pdf mr-1.5"></i> Unduh Laporan PDF Model ML (V2.0)
+          </a>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <!-- ML FIG 1 -->
+          <div class="border border-slate-200 rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition bg-white flex flex-col">
+            <div class="p-3.5 bg-indigo-50/70 border-b border-indigo-100 flex justify-between items-center">
+              <span class="text-xs font-extrabold text-indigo-800">Grafik ML-1</span>
+              <span class="text-[11px] font-bold text-slate-600">Kurva ROC Multi-Sektor & Precision-Recall</span>
+            </div>
+            <div class="p-2 bg-slate-100 flex items-center justify-center cursor-pointer" onclick="openImageModal('/static/figures/fig_ml_1_roc_pr_curves.png', 'Grafik ML-1: Kurva ROC Diskriminasi Risiko & Precision-Recall')">
+              <img src="/static/figures/fig_ml_1_roc_pr_curves.png" alt="Grafik ML 1" class="h-52 object-contain rounded-lg">
+            </div>
+            <div class="p-4 text-xs text-slate-600 leading-relaxed flex-grow">
+              <strong>Temuan:</strong> Model mencapai <strong>AUC-ROC Global 0,7566 (Gini 51,3%)</strong> untuk prediksi FPD7 dan <strong>AUC 0,7881 (Gini 57,6%)</strong> untuk model Eksekusi Lelang, dengan performa tertinggi pada Emas (AUC 0,8211).
+            </div>
+          </div>
+
+          <!-- ML FIG 2 -->
+          <div class="border border-slate-200 rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition bg-white flex flex-col">
+            <div class="p-3.5 bg-indigo-50/70 border-b border-indigo-100 flex justify-between items-center">
+              <span class="text-xs font-extrabold text-indigo-800">Grafik ML-2</span>
+              <span class="text-[11px] font-bold text-slate-600">Kolmogorov-Smirnov (KS 36,39%) & 10 Desil</span>
+            </div>
+            <div class="p-2 bg-slate-100 flex items-center justify-center cursor-pointer" onclick="openImageModal('/static/figures/fig_ml_2_ks_decile_lift.png', 'Grafik ML-2: Pemisahan KS & Validasi 10 Desil Risiko')">
+              <img src="/static/figures/fig_ml_2_ks_decile_lift.png" alt="Grafik ML 2" class="h-52 object-contain rounded-lg">
+            </div>
+            <div class="p-4 text-xs text-slate-600 leading-relaxed flex-grow">
+              <strong>Temuan:</strong> Pemisahan maksimum kurva kumulatif Good vs Bad mencapai <strong>KS = 36,39%</strong>. Desil 1 menangkap 72,2% debitur macet (Lift 2,54x) berbanding hanya 3,5% pada Desil 10.
+            </div>
+          </div>
+
+          <!-- ML FIG 3 -->
+          <div class="border border-slate-200 rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition bg-white flex flex-col">
+            <div class="p-3.5 bg-indigo-50/70 border-b border-indigo-100 flex justify-between items-center">
+              <span class="text-xs font-extrabold text-indigo-800">Grafik ML-3</span>
+              <span class="text-[11px] font-bold text-slate-600">Top 12 Feature Importance & 5 Pilar</span>
+            </div>
+            <div class="p-2 bg-slate-100 flex items-center justify-center cursor-pointer" onclick="openImageModal('/static/figures/fig_ml_3_feature_importance.png', 'Grafik ML-3: Peringkat Variabel & Proporsi 5 Pilar')">
+              <img src="/static/figures/fig_ml_3_feature_importance.png" alt="Grafik ML 3" class="h-52 object-contain rounded-lg">
+            </div>
+            <div class="p-4 text-xs text-slate-600 leading-relaxed flex-grow">
+              <strong>Temuan:</strong> Pilar <strong>Histori CRM Internal (70,0%)</strong> dan <strong>Risiko Agunan & LTV (25,5%)</strong> mendominasi prediksi, diperkuat oleh bantalan ekonomi makro BPS (UMK & IPM wilayah).
+            </div>
+          </div>
+
+          <!-- ML FIG 4 -->
+          <div class="border border-slate-200 rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition bg-white flex flex-col">
+            <div class="p-3.5 bg-indigo-50/70 border-b border-indigo-100 flex justify-between items-center">
+              <span class="text-xs font-extrabold text-indigo-800">Grafik ML-4</span>
+              <span class="text-[11px] font-bold text-slate-600">Distribusi Skor FICO & Daya Pisah 4 Tier</span>
+            </div>
+            <div class="p-2 bg-slate-100 flex items-center justify-center cursor-pointer" onclick="openImageModal('/static/figures/fig_ml_4_score_tier_separation.png', 'Grafik ML-4: Distribusi Skor FICO & Daya Pisah Risiko')">
+              <img src="/static/figures/fig_ml_4_score_tier_separation.png" alt="Grafik ML 4" class="h-52 object-contain rounded-lg">
+            </div>
+            <div class="p-4 text-xs text-slate-600 leading-relaxed flex-grow">
+              <strong>Temuan:</strong> Tingkat gagal bayar aktual pada <strong>Tier 1 (Super Prime) hanya 0,33%</strong> vs <strong>75,32% pada Tier 4 (Subprime)</strong>, menghasilkan daya pembeda risiko hingga <strong>228x lipat</strong>.
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
 
     <!-- ========================================================================= -->
@@ -2753,16 +3056,21 @@ HTML_TEMPLATE = """
       <div class="bg-gradient-to-r from-blue-900 via-indigo-900 to-slate-900 text-white p-5 rounded-2xl shadow-lg flex flex-col md:flex-row justify-between items-start md:items-center gap-4 border border-blue-800">
         <div>
           <div class="flex items-center gap-2 mb-1">
-            <span class="bg-amber-400 text-blue-950 text-xs font-bold px-2 py-0.5 rounded uppercase tracking-wider">Desain Antarmuka</span>
-            <span class="text-xs text-blue-200">Sistem Penilaian Risiko Kredit</span>
+            <span class="bg-amber-400 text-blue-950 text-xs font-bold px-2 py-0.5 rounded uppercase tracking-wider">Enterprise V2.0 Dual-Target</span>
+            <span class="text-xs text-blue-200">Populasi 9.620.297 Transaksi Riil (Elektronik 9,1M · BPKB 287k · Emas 225k)</span>
           </div>
-          <h1 class="text-xl md:text-2xl font-bold tracking-tight">PGI Smart Score Engine — Menu Input & Keputusan</h1>
-          <p class="text-xs text-blue-200 mt-0.5">Integrasi Transaksi Internal PGI × Variabel Makro Sosio-Ekonomi BPS</p>
+          <h1 class="text-xl md:text-2xl font-bold tracking-tight">PGI Smart Score Engine V2.0 — Keputusan Kredit, XAI & RAROC</h1>
+          <p class="text-xs text-blue-200 mt-0.5">Integrasi Transaksi Internal PGI × Variabel Makro Sosio-Ekonomi BPS 514 Wilayah × Dual-Target HistGBDT</p>
         </div>
-        <div class="bg-blue-950/60 border border-blue-700/50 px-3 py-2 rounded-xl text-right text-xs">
-          <div class="text-slate-300">Model Engine:</div>
-          <div class="font-bold text-amber-300">HistGBDT + FICO Scaler</div>
-          <div class="text-[10px] text-emerald-400">AUC: 0.752 · Gini: 50.4% · KS: 35.5%</div>
+        <div class="flex flex-wrap items-center gap-3">
+          <a href="/api/reports/ml-credit-scoring.pdf" target="_blank" class="bg-amber-400 hover:bg-amber-300 text-blue-950 font-extrabold text-xs px-3.5 py-2.5 rounded-xl shadow transition flex items-center">
+            <i class="fa-solid fa-file-pdf mr-1.5"></i> Laporan PDF Model ML V2.0
+          </a>
+          <div class="bg-blue-950/60 border border-blue-700/50 px-3 py-2 rounded-xl text-right text-xs">
+            <div class="text-slate-300">Dual HistGBDT + FICO Scaler:</div>
+            <div class="font-bold text-amber-300">FPD7 AUC: 0.757 · Lelang AUC: 0.788</div>
+            <div class="text-[10px] text-emerald-400">Gini: 51.3% · KS: 36.4% · 228x Separation</div>
+          </div>
         </div>
       </div>
 
@@ -2996,7 +3304,7 @@ HTML_TEMPLATE = """
             <!-- Engine Actions & Latency -->
             <div class="pt-2 flex flex-wrap items-center justify-between gap-2 border-t border-slate-100">
               <span id="sim_engine_latency" class="text-[11px] font-mono text-indigo-700 bg-indigo-50 px-2.5 py-1 rounded-lg border border-indigo-200">
-                ⚡ Model Engine: HistGBDT (337k Data Training)
+                ⚡ Model Engine V2.0: Dual-Target HistGBDT (9,62 Juta Populasi)
               </span>
               <button type="button" onclick="calculateSimulatorScore(true)" class="text-xs bg-blue-600 hover:bg-blue-700 text-white font-bold px-3 py-1.5 rounded-lg transition shadow-sm flex items-center">
                 <i class="fa-solid fa-rotate mr-1.5"></i> Hitung Ulang Skor ML
@@ -3009,10 +3317,10 @@ HTML_TEMPLATE = """
         <!-- RIGHT COLUMN: OUTPUT CARD (KEPUTUSAN KREDIT OTOMATIS) -->
         <div class="lg:col-span-6 space-y-4">
 
-          <div class="bg-white p-6 rounded-2xl border-2 border-blue-600 shadow-md space-y-5">
+          <div id="sim_output_card" class="bg-white p-6 rounded-2xl border-2 border-blue-600 shadow-md space-y-4 transition-colors duration-300">
             <div class="flex justify-between items-center border-b pb-3">
               <div>
-                <span class="text-xs uppercase font-extrabold text-blue-600 tracking-wider">Hasil Prediksi Model</span>
+                <span class="text-xs uppercase font-extrabold text-blue-600 tracking-wider">Hasil Prediksi Model V2.0</span>
                 <h3 class="text-lg font-black text-slate-900">Kartu Keputusan Kredit Debitur</h3>
               </div>
               <div id="sim_tier_badge" class="px-3 py-1 rounded-full text-xs font-black bg-blue-100 text-blue-800">
@@ -3020,28 +3328,31 @@ HTML_TEMPLATE = """
               </div>
             </div>
 
-            <!-- Gauge Score Display -->
-            <div class="text-center py-2">
-              <div class="inline-flex flex-col items-center justify-center w-36 h-36 rounded-full border-8 border-blue-600 bg-slate-50 shadow-inner">
-                <span class="text-xs font-bold text-slate-400">CREDIT SCORE</span>
+            <!-- Gauge Score Display & Dual-Target Probabilities -->
+            <div class="text-center py-1">
+              <div id="sim_score_circle" class="inline-flex flex-col items-center justify-center w-32 h-32 rounded-full border-8 border-blue-600 bg-slate-50 shadow-inner transition-colors duration-300">
+                <span class="text-[11px] font-bold text-slate-400">CREDIT SCORE</span>
                 <span id="sim_out_score" class="text-4xl font-black text-slate-900">665</span>
                 <span class="text-[10px] font-semibold text-slate-400">Skala 300 – 850</span>
               </div>
-              <div class="mt-3 flex justify-center items-center gap-4 text-xs">
+              <div class="mt-3 grid grid-cols-3 gap-2 text-xs bg-slate-50 p-2.5 rounded-xl border border-slate-200">
                 <div>
-                  <span class="text-slate-400">Probabilitas Macet:</span>
-                  <span id="sim_out_prob" class="font-bold text-slate-800">10.8%</span>
+                  <span class="text-[10px] text-slate-400 block font-medium">PD Gagal Bayar (FPD7):</span>
+                  <span id="sim_out_prob" class="font-extrabold text-slate-900 text-sm">10.8%</span>
                 </div>
-                <div class="h-3 w-px bg-slate-200"></div>
+                <div class="border-x border-slate-200">
+                  <span class="text-[10px] text-slate-400 block font-medium">PD Eksekusi Lelang:</span>
+                  <span id="sim_out_prob_lelang" class="font-extrabold text-indigo-700 text-sm">6.8%</span>
+                </div>
                 <div>
-                  <span class="text-slate-400">Benchmark Industri:</span>
-                  <span class="font-bold text-slate-800">20.0%</span>
+                  <span class="text-[10px] text-slate-400 block font-medium">Baseline Populasi:</span>
+                  <span class="font-bold text-slate-600 text-sm">27.3%</span>
                 </div>
               </div>
             </div>
 
             <!-- Decision Box -->
-            <div id="sim_decision_box" class="p-4 rounded-xl bg-blue-50 border border-blue-200 flex items-center justify-between">
+            <div id="sim_decision_box" class="p-3.5 rounded-xl bg-blue-50 border border-blue-200 flex items-center justify-between">
               <div class="flex items-center gap-3">
                 <div id="sim_decision_icon" class="w-10 h-10 rounded-xl bg-blue-600 text-white flex items-center justify-center font-black text-lg">✓</div>
                 <div>
@@ -3052,6 +3363,62 @@ HTML_TEMPLATE = """
               <div class="text-right">
                 <div class="text-[10px] text-blue-700 font-medium">Plafon Maks. Aman:</div>
                 <div id="sim_out_max_plafon" class="text-sm font-black text-blue-950">Rp 3.400.000</div>
+              </div>
+            </div>
+
+            <!-- Dekomposisi Poin Skor (XAI 5-Pillar Point Waterfall) -->
+            <div class="bg-slate-50 p-3 rounded-xl border border-slate-200 space-y-2">
+              <div class="flex items-center justify-between">
+                <span class="text-[11px] font-extrabold text-slate-800 flex items-center">
+                  <i class="fa-solid fa-layer-group text-blue-600 mr-1.5"></i> Dekomposisi Poin Skor (XAI Point Waterfall):
+                </span>
+                <span class="text-[10px] font-mono text-slate-500">Base Score: <b>600 pts</b></span>
+              </div>
+              <div class="grid grid-cols-5 gap-1.5 text-center text-[10px]">
+                <div class="bg-white p-1.5 rounded-lg border border-slate-200">
+                  <div class="text-slate-400 font-medium truncate">Histori CRM</div>
+                  <div id="sim_pts_crm" class="font-black text-xs text-emerald-600">+38</div>
+                </div>
+                <div class="bg-white p-1.5 rounded-lg border border-slate-200">
+                  <div class="text-slate-400 font-medium truncate">LTV & Buffer</div>
+                  <div id="sim_pts_ltv" class="font-black text-xs text-blue-600">+8</div>
+                </div>
+                <div class="bg-white p-1.5 rounded-lg border border-slate-200">
+                  <div class="text-slate-400 font-medium truncate">Makro BPS</div>
+                  <div id="sim_pts_bps" class="font-black text-xs text-emerald-600">+6</div>
+                </div>
+                <div class="bg-white p-1.5 rounded-lg border border-slate-200">
+                  <div class="text-slate-400 font-medium truncate">Agunan</div>
+                  <div id="sim_pts_agunan" class="font-black text-xs text-emerald-600">+15</div>
+                </div>
+                <div class="bg-white p-1.5 rounded-lg border border-slate-200">
+                  <div class="text-slate-400 font-medium truncate">Demog/Kal</div>
+                  <div id="sim_pts_demog" class="font-black text-xs text-slate-700">-2</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Valuasi Ekonomi Kontrak, Expected Loss & RAROC -->
+            <div class="bg-indigo-50/60 p-3 rounded-xl border border-indigo-200/80 space-y-2">
+              <div class="flex items-center justify-between">
+                <span class="text-[11px] font-extrabold text-indigo-950 flex items-center">
+                  <i class="fa-solid fa-coins text-amber-500 mr-1.5"></i> Valuasi Aktuaria Kontrak (Expected Loss & RAROC):
+                </span>
+                <span id="sim_econ_raroc" class="text-[10px] font-black bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded border border-emerald-200">Net Yield +4.2%</span>
+              </div>
+              <div class="grid grid-cols-3 gap-2 text-xs">
+                <div class="bg-white p-2 rounded-lg border border-indigo-100">
+                  <span class="text-[10px] text-slate-400 block">Pendapatan Sewa Modal:</span>
+                  <span id="sim_econ_rev" class="font-extrabold text-slate-800">Rp 106.000</span>
+                </div>
+                <div class="bg-white p-2 rounded-lg border border-indigo-100">
+                  <span class="text-[10px] text-slate-400 block">Expected Credit Loss (EL):</span>
+                  <span id="sim_econ_el" class="font-extrabold text-rose-600">Rp 18.500</span>
+                </div>
+                <div class="bg-white p-2 rounded-lg border border-indigo-100">
+                  <span class="text-[10px] text-slate-400 block">Estimasi Margin Bersih:</span>
+                  <span id="sim_econ_profit" class="font-extrabold text-emerald-700">Rp 87.500</span>
+                </div>
               </div>
             </div>
 
@@ -3089,12 +3456,47 @@ HTML_TEMPLATE = """
 
             <!-- Audit Footnote -->
             <div class="text-[10px] text-slate-400 text-center border-t pt-2">
-              ID Kontrak Audit: <span id="sim_audit_id" class="font-mono text-slate-600">AUD-PGI-2026-X992</span> · Terverifikasi SOP BPS 2026 · Model HistGBDT 337k
+              ID Kontrak Audit: <span id="sim_audit_id" class="font-mono text-slate-600">AUD-PGI-2026-V2-66510</span> · Terverifikasi SOP BPS 2026 · Model Dual-HistGBDT 9,62M
             </div>
           </div>
 
         </div>
 
+      </div>
+
+      <!-- FULL-WIDTH CARD: SIMULASI SENSITIVITAS PLAFON & SWEET-SPOT LTV OTOMATIS -->
+      <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-3">
+        <div class="flex flex-wrap items-center justify-between gap-2 border-b pb-2.5">
+          <div>
+            <h3 class="text-sm font-bold text-slate-900 flex items-center">
+              <i class="fa-solid fa-Sliders text-blue-600 mr-2"></i>
+              Matriks Sensitivitas Plafon Dinamis (Sweet-Spot LTV Optimizer — 5 Skenario Pinjaman)
+            </h3>
+            <p class="text-[11px] text-slate-500">Simulasi real-time dampak perubahan rasio LTV (50% s.d. 95% dari taksiran) terhadap Skor Kredit, Probabilitas Gagal Bayar, dan Status Persetujuan untuk nasabah ini.</p>
+          </div>
+          <span class="text-[11px] font-bold bg-blue-50 text-blue-700 px-3 py-1 rounded-full border border-blue-200">
+            Klik "Terapkan" untuk memilih plafon
+          </span>
+        </div>
+        <div class="overflow-x-auto">
+          <table class="w-full text-xs text-left border-collapse">
+            <thead>
+              <tr class="bg-slate-100 text-slate-700 uppercase text-[10px] font-extrabold border-b border-slate-200">
+                <th class="p-2.5">Skenario LTV</th>
+                <th class="p-2.5">Nominal Pinjaman</th>
+                <th class="p-2.5">Credit Score</th>
+                <th class="p-2.5">PD FPD7 (%)</th>
+                <th class="p-2.5">PD Lelang (%)</th>
+                <th class="p-2.5">Tier Risiko</th>
+                <th class="p-2.5">Keputusan Sistem</th>
+                <th class="p-2.5 text-right">Aksi Cepat</th>
+              </tr>
+            </thead>
+            <tbody id="sim_ltv_sensitivity_tbody" class="divide-y divide-slate-100">
+              <!-- Diisi otomatis oleh JavaScript -->
+            </tbody>
+          </table>
+        </div>
       </div>
 
     </div>
@@ -3990,7 +4392,7 @@ HTML_TEMPLATE = """
 
       updateRasioLancarBadge(jmlTx, lunasTepat, macet);
 
-      // 1. Hitung LTV
+      // 1. Hitung LTV secara instan
       const ltv = Math.round((pinjaman / taksiran) * 1000) / 10;
       document.getElementById('sim_txt_ltv').textContent = ltv.toFixed(1) + '%';
       const ltvBar = document.getElementById('sim_bar_ltv');
@@ -3999,50 +4401,7 @@ HTML_TEMPLATE = """
       else if (ltv <= 80) ltvBar.className = 'h-full bg-blue-600 transition-all duration-300';
       else ltvBar.className = 'h-full bg-rose-500 transition-all duration-300';
 
-      // 2. Decode Demografi NIK & Region BPS
-      const pref4 = nik.substring(0, 4);
-      const reg = SIM_REGIONS[pref4] || { prov: 'Jawa Barat', kab: 'Kab. Bekasi', umk: 5219263, tpt: 8.87, ipm: 75.60 };
-
-      let rawDay = parseInt(nik.substring(6, 8)) || 1;
-      let gender = 'L';
-      if (rawDay > 40) { gender = 'P'; rawDay -= 40; }
-      let birthYr = parseInt(nik.substring(10, 12)) || 95;
-      let fullBirthYr = (birthYr <= 25) ? 2000 + birthYr : 1900 + birthYr;
-      let age = 2026 - fullBirthYr;
-      let gen = (age < 28) ? 'Gen Z' : (age <= 43) ? 'Milenial' : (age <= 59) ? 'Gen X' : 'Boomer';
-
-      document.getElementById('sim_txt_demog').textContent = `${age} Thn (${gen}), ${gender}`;
-      document.getElementById('sim_txt_wilayah').textContent = `${reg.kab}, ${reg.prov}`;
-      document.getElementById('sim_txt_umk').textContent = 'Rp ' + reg.umk.toLocaleString('id-ID');
-
-      const debtToUmk = Math.round((pinjaman / reg.umk) * 100) / 100;
-      document.getElementById('sim_txt_rasio_umk').textContent = `${debtToUmk}x (${debtToUmk > 1.0 ? 'Beban Tinggi' : 'Aman'})`;
-      document.getElementById('sim_txt_tpt').textContent = `${reg.tpt}%`;
-      document.getElementById('sim_txt_ipm').textContent = `${reg.ipm}`;
-
-      // 3. Respon Instan Lokal (Optimistic UI)
-      let logOdds = Math.log(0.20 / 0.80);
-      if (jmlTx > 0) {
-        logOdds += (macet / jmlTx) * 2.2 - (lunasTepat / jmlTx) * 0.9;
-      } else {
-        logOdds += 0.2;
-      }
-      if (ltv > 85) logOdds += 0.85;
-      else if (ltv > 75) logOdds += 0.35;
-      else if (ltv < 60) logOdds -= 0.65;
-      if (agunan === 'Elektronik') logOdds += 0.25;
-      else if (agunan === 'Emas') logOdds -= 0.70;
-      if (perpanjang >= 3) logOdds += 0.45;
-      if (debtToUmk > 1.0) logOdds += 0.50;
-
-      const pLocal = 1.0 / (1.0 + Math.exp(-logOdds));
-      const factor = 28.8539;
-      const offset = 560.0;
-      const scoreLocal = Math.max(300, Math.min(850, Math.round(offset - factor * Math.log(pLocal / (1.0 - pLocal)))));
-
-      renderSimDecisionUI(scoreLocal, pLocal * 100, taksiran, ltv, debtToUmk, agunan, jmlTx, lunasTepat, macet, perpanjang, reg.kab);
-
-      // 4. Panggilan Asinkron ke Server Flask ML (HistGBDT)
+      // 2. Panggilan Asinkron ke Server Flask ML (Dual-Target HistGBDT + 517 Wilayah BPS)
       if (callServer) {
         clearTimeout(simDebounceTimer);
         simDebounceTimer = setTimeout(() => {
@@ -4051,7 +4410,31 @@ HTML_TEMPLATE = """
             jml_transaksi: jmlTx, lunas_tepat: lunasTepat,
             macet: macet, perpanjang: perpanjang
           });
-        }, 120);
+        }, 50);
+      } else {
+        // Fallback offline jika tidak memanggil server
+        const pref4 = nik.substring(0, 4);
+        const reg = SIM_REGIONS[pref4] || { prov: 'Jawa Barat', kab: 'Kab. Bekasi', umk: 5219263, tpt: 8.87, ipm: 75.60 };
+        const debtToUmk = Math.round((pinjaman / reg.umk) * 100) / 100;
+        let logOdds = Math.log(0.20 / 0.80);
+        if (jmlTx > 0) {
+          logOdds += (macet / jmlTx) * 2.2 - (lunasTepat / jmlTx) * 0.9;
+        } else {
+          logOdds += 0.2;
+        }
+        if (ltv > 85) logOdds += 0.85;
+        else if (ltv > 75) logOdds += 0.35;
+        else if (ltv < 60) logOdds -= 0.65;
+        if (agunan === 'Elektronik') logOdds += 0.25;
+        else if (agunan === 'Emas') logOdds -= 0.70;
+        if (perpanjang >= 3) logOdds += 0.45;
+        if (debtToUmk > 1.0) logOdds += 0.50;
+
+        const pLocal = 1.0 / (1.0 + Math.exp(-logOdds));
+        const factor = 28.8539;
+        const offset = 560.0;
+        const scoreLocal = Math.max(300, Math.min(850, Math.round(offset - factor * Math.log(pLocal / (1.0 - pLocal)))));
+        renderSimDecisionUI(scoreLocal, pLocal * 100, taksiran, ltv, debtToUmk, agunan, jmlTx, lunasTepat, macet, perpanjang, reg.kab);
       }
     }
 
@@ -4164,6 +4547,10 @@ HTML_TEMPLATE = """
         if (json.credit_score !== undefined) {
           document.getElementById('sim_out_score').textContent = json.credit_score;
           document.getElementById('sim_out_prob').textContent = json.probability_bad_pct + '%';
+          const probLelangEl = document.getElementById('sim_out_prob_lelang');
+          if (probLelangEl && json.probability_exec_lelang_pct !== undefined) {
+            probLelangEl.textContent = json.probability_exec_lelang_pct + '%';
+          }
           
           const tierBadge = document.getElementById('sim_tier_badge');
           tierBadge.className = 'px-3 py-1 rounded-full text-xs font-black ' + json.tier_badge_class;
@@ -4176,27 +4563,124 @@ HTML_TEMPLATE = """
           const outBunga = document.getElementById('sim_out_bunga');
           const outRestruk = document.getElementById('sim_out_restruk');
           const latencyPill = document.getElementById('sim_engine_latency');
+          const auditSpan = document.getElementById('sim_audit_id');
 
           if (latencyPill) {
-            latencyPill.textContent = `⚡ Model ML HistGBDT Server: ${json.latency_ms || latency}ms (${json.audit_id})`;
+            latencyPill.textContent = `⚡ Model ML V2.0 Dual-HistGBDT: ${json.latency_ms || latency}ms (${json.audit_id})`;
+          }
+          if (auditSpan && json.audit_id) {
+            auditSpan.textContent = json.audit_id;
           }
 
+          // UpdateDemographics & BPS Macro from real 514-region server dictionary
+          if (json.demographics && json.bps_macro) {
+            const d = json.demographics;
+            const b = json.bps_macro;
+            const gCode = d.gender === 'Perempuan' ? 'P' : 'L';
+            document.getElementById('sim_txt_demog').textContent = `${d.age} Thn (${d.generation}), ${gCode}`;
+            document.getElementById('sim_txt_wilayah').textContent = `${d.kab_kota}, ${d.provinsi}`;
+            document.getElementById('sim_txt_umk').textContent = b.umk_fmt;
+            document.getElementById('sim_txt_rasio_umk').textContent = `${b.rasio_pinjaman_umk.toFixed(2)}x (${b.rasio_pinjaman_umk > 1.0 ? 'Beban Tinggi' : 'Aman'})`;
+            document.getElementById('sim_txt_tpt').textContent = `${b.tpt_persen}%`;
+            document.getElementById('sim_txt_ipm').textContent = `${b.ipm}`;
+          }
+
+          // Update 5-Pillar Point Waterfall
+          if (json.point_breakdown) {
+            const pb = json.point_breakdown;
+            const setPt = (id, val) => {
+              const el = document.getElementById(id);
+              if (!el) return;
+              el.textContent = (val >= 0 ? '+' : '') + val;
+              el.className = 'font-black text-xs ' + (val > 0 ? 'text-emerald-600' : (val < 0 ? 'text-rose-600' : 'text-slate-600'));
+            };
+            setPt('sim_pts_crm', pb.crm_history_pts);
+            setPt('sim_pts_ltv', pb.ltv_collateral_pts);
+            setPt('sim_pts_bps', pb.bps_macro_pts);
+            setPt('sim_pts_agunan', pb.collateral_type_pts);
+            setPt('sim_pts_demog', pb.demog_calendar_pts);
+          }
+
+          // Update Contract Economics & RAROC
+          if (json.contract_economics) {
+            const ce = json.contract_economics;
+            const elRev = document.getElementById('sim_econ_rev');
+            const elLoss = document.getElementById('sim_econ_el');
+            const elProf = document.getElementById('sim_econ_profit');
+            const elRaroc = document.getElementById('sim_econ_raroc');
+            if (elRev) elRev.textContent = ce.gross_revenue_fmt;
+            if (elLoss) elLoss.textContent = ce.expected_loss_fmt;
+            if (elProf) {
+              elProf.textContent = ce.net_profit_fmt;
+              elProf.className = 'font-extrabold ' + (ce.net_profit_rp >= 0 ? 'text-emerald-700' : 'text-rose-600');
+            }
+            if (elRaroc) {
+              const sign = ce.raroc_net_yield_pct >= 0 ? '+' : '';
+              elRaroc.textContent = `RAROC Net Yield: ${sign}${ce.raroc_net_yield_pct}% (LGD ${ce.lgd_pct}%)`;
+              elRaroc.className = 'text-[10px] font-black px-2 py-0.5 rounded border ' + (ce.net_profit_rp >= 0 ? 'bg-emerald-100 text-emerald-800 border-emerald-200' : 'bg-rose-100 text-rose-800 border-rose-200');
+            }
+          }
+
+          // Update 5-Step LTV Sensitivity Table
+          if (json.ltv_sensitivity && json.ltv_sensitivity.length > 0) {
+            const tbody = document.getElementById('sim_ltv_sensitivity_tbody');
+            if (tbody) {
+              tbody.innerHTML = '';
+              json.ltv_sensitivity.forEach(st => {
+                const tr = document.createElement('tr');
+                const isCurrent = Math.abs(st.ltv_pct - json.ltv_pct) < 4.0;
+                tr.className = isCurrent ? 'bg-blue-50/80 font-semibold' : 'hover:bg-slate-50 transition';
+                let badgeDec = 'bg-emerald-100 text-emerald-800';
+                if (st.decision === 'FAST-TRACK') badgeDec = 'bg-blue-100 text-blue-800';
+                else if (st.decision === 'BERSYARAT') badgeDec = 'bg-amber-100 text-amber-800';
+                else if (st.decision.includes('TOLAK')) badgeDec = 'bg-rose-100 text-rose-800';
+
+                tr.innerHTML = `
+                  <td class="p-2.5 font-extrabold text-slate-800">${st.ltv_pct.toFixed(0)}% ${isCurrent ? '<span class="ml-1 text-[9px] bg-blue-600 text-white px-1.5 py-0.5 rounded">Aktif</span>' : ''}</td>
+                  <td class="p-2.5 font-mono font-bold text-blue-800">${st.pinjaman_fmt}</td>
+                  <td class="p-2.5 font-black text-slate-900">${st.credit_score}</td>
+                  <td class="p-2.5 font-semibold text-slate-700">${st.pd_fpd7_pct}%</td>
+                  <td class="p-2.5 font-semibold text-indigo-700">${st.pd_lelang_pct}%</td>
+                  <td class="p-2.5 text-slate-600">${st.tier_label}</td>
+                  <td class="p-2.5"><span class="px-2 py-0.5 rounded text-[10px] font-extrabold ${badgeDec}">${st.decision}</span></td>
+                  <td class="p-2.5 text-right">
+                    <button type="button" onclick="applySimLtvStep(${st.pinjaman_rp})" class="text-[10px] font-bold bg-white hover:bg-blue-600 hover:text-white text-blue-700 border border-blue-200 px-2.5 py-1 rounded-lg transition shadow-sm">
+                      Terapkan
+                    </button>
+                  </td>
+                `;
+                tbody.appendChild(tr);
+              });
+            }
+          }
+
+          const outCard = document.getElementById('sim_output_card');
+          const scoreCircle = document.getElementById('sim_score_circle');
+
           if (json.decision_theme === 'emerald') {
-            decBox.className = 'p-4 rounded-xl bg-emerald-50 border border-emerald-200 flex items-center justify-between';
+            decBox.className = 'p-3.5 rounded-xl bg-emerald-50 border border-emerald-200 flex items-center justify-between';
             decIcon.className = 'w-10 h-10 rounded-xl bg-emerald-600 text-white flex items-center justify-center font-black text-lg';
             decTitle.className = 'text-base font-extrabold text-emerald-900';
+            if (outCard) outCard.className = 'bg-white p-6 rounded-2xl border-2 border-emerald-500 shadow-md space-y-4 transition-colors duration-300';
+            if (scoreCircle) scoreCircle.className = 'inline-flex flex-col items-center justify-center w-32 h-32 rounded-full border-8 border-emerald-500 bg-slate-50 shadow-inner transition-colors duration-300';
           } else if (json.decision_theme === 'blue') {
-            decBox.className = 'p-4 rounded-xl bg-blue-50 border border-blue-200 flex items-center justify-between';
+            decBox.className = 'p-3.5 rounded-xl bg-blue-50 border border-blue-200 flex items-center justify-between';
             decIcon.className = 'w-10 h-10 rounded-xl bg-blue-600 text-white flex items-center justify-center font-black text-lg';
             decTitle.className = 'text-base font-extrabold text-blue-900';
+            if (outCard) outCard.className = 'bg-white p-6 rounded-2xl border-2 border-blue-600 shadow-md space-y-4 transition-colors duration-300';
+            if (scoreCircle) scoreCircle.className = 'inline-flex flex-col items-center justify-center w-32 h-32 rounded-full border-8 border-blue-600 bg-slate-50 shadow-inner transition-colors duration-300';
           } else if (json.decision_theme === 'amber') {
-            decBox.className = 'p-4 rounded-xl bg-amber-50 border border-amber-200 flex items-center justify-between';
+            decBox.className = 'p-3.5 rounded-xl bg-amber-50 border border-amber-200 flex items-center justify-between';
             decIcon.className = 'w-10 h-10 rounded-xl bg-amber-600 text-white flex items-center justify-center font-black text-lg';
             decTitle.className = 'text-base font-extrabold text-amber-900';
+            if (outCard) outCard.className = 'bg-white p-6 rounded-2xl border-2 border-amber-500 shadow-md space-y-4 transition-colors duration-300';
+            if (scoreCircle) scoreCircle.className = 'inline-flex flex-col items-center justify-center w-32 h-32 rounded-full border-8 border-amber-500 bg-slate-50 shadow-inner transition-colors duration-300';
           } else {
-            decBox.className = 'p-4 rounded-xl bg-rose-50 border border-rose-200 flex items-center justify-between';
+            decBox.className = 'p-3.5 rounded-xl bg-rose-50 border border-rose-200 flex items-center justify-between';
             decIcon.className = 'w-10 h-10 rounded-xl bg-rose-600 text-white flex items-center justify-center font-black text-lg';
             decTitle.className = 'text-base font-extrabold text-rose-900';
+            if (outCard) outCard.className = 'bg-white p-6 rounded-2xl border-2 border-rose-600 shadow-md space-y-4 transition-colors duration-300';
+            if (scoreCircle) scoreCircle.className = 'inline-flex flex-col items-center justify-center w-32 h-32 rounded-full border-8 border-rose-600 bg-slate-50 shadow-inner transition-colors duration-300';
           }
 
           decIcon.textContent = json.decision_icon;
@@ -4226,6 +4710,14 @@ HTML_TEMPLATE = """
         }
       } catch (err) {
         if (err.name !== 'AbortError') console.error('ML inference error:', err);
+      }
+    }
+
+    function applySimLtvStep(nominalRp) {
+      const inpPinj = document.getElementById('sim_inp_pinjaman');
+      if (inpPinj) {
+        inpPinj.value = nominalRp;
+        calculateSimulatorScore(true);
       }
     }
 

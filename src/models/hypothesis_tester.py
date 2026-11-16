@@ -38,13 +38,13 @@ def evaluate_hypotheses(models: Dict[str, Any], df_subset_job_model: Any = None)
     t1 = test_term(m2, "C(kondisi_stnk, Treatment(reference='A/N SENDIRI'))[T.A/N ORANG LAIN]")
     results.append({
         "id": "H1",
-        "hipotesis": "Terdapat hubungan antara kepemilikan STNK (kondisi_name) dan NPL.",
+        "hipotesis": "Terdapat hubungan antara kepemilikan STNK (kondisi_stnk) dan NPL.",
         "variabel": "kondisi_stnk (A/N Orang Lain vs Sendiri)",
         "p_value": t1["p"] if t1 else None,
         "odds_ratio": round(t1["or"], 3) if t1 else None,
         "ci_95": f"[{t1['ci_lower']:.3f}, {t1['ci_upper']:.3f}]" if t1 else "",
         "kesimpulan": "DITERIMA (Signifikan)",
-        "interpretasi": "STNK atas nama orang lain meningkatkan odds kredit macet sebesar ~90% (OR = 1.90) dibanding nama sendiri secara sangat signifikan (p < 0.0001)."
+        "interpretasi": "STNK atas nama orang lain meningkatkan odds kredit macet sebesar +71,0% (OR = 1,710; Model 4 OR = 1,607) dibanding nama sendiri secara sangat signifikan (p < 0,0001)."
     })
 
     # H2: Pekerjaan (dievaluasi via subset model / overall significance)
@@ -53,10 +53,10 @@ def evaluate_hypotheses(models: Dict[str, Any], df_subset_job_model: Any = None)
         "hipotesis": "Terdapat hubungan antara pekerjaan dan NPL.",
         "variabel": "pekerjaan_group",
         "p_value": 0.00001,
-        "odds_ratio": 3.46,
-        "ci_95": "[2.45, 4.88]",
+        "odds_ratio": 2.434,
+        "ci_95": "[1.820, 3.255]",
         "kesimpulan": "DITERIMA (Signifikan pada subset)",
-        "interpretasi": "Terdapat variasi risiko antar profesi. Kelompok 'Belum Bekerja/Pengangguran' memiliki risiko 3.46x lebih tinggi dibanding Karyawan Swasta, sedangkan Guru dan BUMN memiliki risiko terendah."
+        "interpretasi": "Terdapat variasi risiko signifikan antar profesi (NPL 3,53% s/d 13,16%). Wiraswasta (OR = 2,434) dan Belum Bekerja (OR = 1,374) berisiko jauh lebih tinggi dibanding Guru/Dosen (OR = 0,651) dan PNS/BUMN (OR = 0,863)."
     })
 
     # H3: Merk Kendaraan
@@ -69,7 +69,7 @@ def evaluate_hypotheses(models: Dict[str, Any], df_subset_job_model: Any = None)
         "odds_ratio": round(t3["or"], 3) if t3 else None,
         "ci_95": f"[{t3['ci_lower']:.3f}, {t3['ci_upper']:.3f}]" if t3 else "",
         "kesimpulan": "DITERIMA (Signifikan)",
-        "interpretasi": "Merk Yamaha memiliki odds macet 7% lebih tinggi dibandingkan Honda (OR = 1.07, p = 0.007) setelah mengontrol variabel lainnya."
+        "interpretasi": "Merk Yamaha memiliki odds macet +5,0% lebih tinggi dibandingkan Honda pada Model 2 (OR = 1,050) dan +6,0% pada Model 4 (OR = 1,060, p = 0,022) setelah mengontrol variabel lainnya."
     })
 
     # H4: Usia Kendaraan
@@ -82,7 +82,7 @@ def evaluate_hypotheses(models: Dict[str, Any], df_subset_job_model: Any = None)
         "odds_ratio": round(t4["or"], 3) if t4 else None,
         "ci_95": f"[{t4['ci_lower']:.3f}, {t4['ci_upper']:.3f}]" if t4 else "",
         "kesimpulan": "DITERIMA (Signifikan)",
-        "interpretasi": "Setiap penambahan 1 tahun usia kendaraan meningkatkan odds kredit macet sebesar 7.6% (OR = 1.076, p < 0.0001)."
+        "interpretasi": "Setiap penambahan 1 tahun usia kendaraan meningkatkan odds kredit macet sebesar +9,3% pada Model 2 (OR = 1,093, p < 0,0001) dan +8,4% pada Model 4 (OR = 1,084)."
     })
 
     # H5: Status Pajak STNK
@@ -95,7 +95,7 @@ def evaluate_hypotheses(models: Dict[str, Any], df_subset_job_model: Any = None)
         "odds_ratio": round(t5["or"], 3) if t5 else None,
         "ci_95": f"[{t5['ci_lower']:.3f}, {t5['ci_upper']:.3f}]" if t5 else "",
         "kesimpulan": "DITERIMA (Signifikan)",
-        "interpretasi": "Pajak aktif memiliki odds macet sedikit lebih tinggi (OR = 1.07, p = 0.001) yang berkorelasi dengan plafon pinjaman yang lebih besar pada motor berpajak hidup."
+        "interpretasi": "Pajak aktif memiliki odds macet sedikit lebih tinggi pada Model 2 (OR = 1,118, p < 0,0001) dan Model 4 (OR = 1,059) yang berkorelasi dengan plafon pinjaman lebih besar pada motor berpajak hidup."
     })
 
     # H6: Pinjaman Pokok Awal
@@ -108,7 +108,7 @@ def evaluate_hypotheses(models: Dict[str, Any], df_subset_job_model: Any = None)
         "odds_ratio": round(t6["or"], 3) if t6 else None,
         "ci_95": f"[{t6['ci_lower']:.3f}, {t6['ci_upper']:.3f}]" if t6 else "",
         "kesimpulan": "DITERIMA (Signifikan)",
-        "interpretasi": "Setiap kenaikan Rp 1 juta pinjaman pokok meningkatkan odds kredit macet sebesar ~34% (OR = 1.34, p < 0.0001)."
+        "interpretasi": "Setiap kenaikan Rp 1 juta pinjaman pokok meningkatkan odds kredit macet sebesar +43,4% pada Model 2 (OR = 1,434, p < 0,0001) dan +38,5% pada Model 4 (OR = 1,385)."
     })
 
     # H7: LTV_MAX
@@ -121,7 +121,7 @@ def evaluate_hypotheses(models: Dict[str, Any], df_subset_job_model: Any = None)
         "odds_ratio": round(t7["or"], 3) if t7 else None,
         "ci_95": f"[{t7['ci_lower']:.3f}, {t7['ci_upper']:.3f}]" if t7 else "",
         "kesimpulan": "DITERIMA (Signifikan)",
-        "interpretasi": "Penambahan LTV_MAX terbukti meningkatkan kecocokan model secara signifikan (Likelihood Ratio Test p < 0.0001, menurunkan AIC sebesar 98 poin)."
+        "interpretasi": "Penambahan LTV_MAX terbukti meningkatkan kecocokan model secara signifikan (Likelihood Ratio Test p < 0,0001, menurunkan AIC sebesar 100,10 poin dibanding Model 1)."
     })
 
     # H8: Zona LTV

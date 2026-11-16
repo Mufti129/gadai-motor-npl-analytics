@@ -319,16 +319,16 @@ MODEL_2_PARAMS = {
 }
 
 MODEL_4_PARAMS = {
-    'Intercept': -3.109156,
-    'stnk_orang_lain': 0.518621,
-    'pajak_aktif': 0.089412,
-    'merk_yamaha': 0.042180,
-    'merk_kawasaki': -0.355120,
-    'merk_lainnya': -0.048910,
-    'usia_thn': 0.085140,
-    'pinjaman_juta': 0.341200,
-    'ltv_max': -2.189500,
-    'repeat_borrower': -1.265430
+    'Intercept': -3.014205,
+    'stnk_orang_lain': 0.474459,
+    'pajak_aktif': 0.057698,
+    'merk_yamaha': 0.058241,
+    'merk_kawasaki': -0.319854,
+    'merk_lainnya': -0.100256,
+    'usia_thn': 0.080201,
+    'pinjaman_juta': 0.326031,
+    'ltv_max': -2.192302,
+    'repeat_borrower': -1.239865
 }
 
 JOB_RISK_FACTORS = {
@@ -346,81 +346,81 @@ JOB_RISK_FACTORS = {
         'cluster': 'Klaster 2: Core Baseline', 'cluster_code': 'CORE', 'ltv_mod': 0.0,
         'policy': 'Skema Standar Cabang (Baseline Portofolio)',
         'verifikasi': 'Cek ID Card / slip gaji atau mutasi rekening jika tersedia.',
-        'n_transaksi': 11007, 'n_nasabah_unik': 8315, 'pct_populasi': 44.28,
+        'n_transaksi': 11007, 'n_nasabah_unik': 8315, 'pct_populasi': 7.89,
         'npl_empiris_pct': 5.79, 'cluster_n_transaksi': 133080, 'cluster_n_nasabah_unik': 86573,
-        'cluster_pct': 74.20, 'cluster_npl_pct': 6.88
+        'cluster_pct': 95.40, 'cluster_npl_pct': 6.88
     },
     'PNS': {
         'id': 'PNS', 'label': 'PNS / ASN / Pegawai BUMN', 'beta': -0.147041, 'or': 0.863,
         'cluster': 'Klaster 1: Prime / Preferred', 'cluster_code': 'PRIME', 'ltv_mod': 0.05,
         'policy': 'Bonus LTV +5% (Maksimal 50%) & Fast-Track Approval',
         'verifikasi': 'Fast-Track: Lampirkan SK/Kartu Pegawai/Slip Gaji, tanpa survey fisik domisili.',
-        'n_transaksi': 390, 'n_nasabah_unik': 261, 'pct_populasi': 1.57,
+        'n_transaksi': 390, 'n_nasabah_unik': 261, 'pct_populasi': 0.28,
         'npl_empiris_pct': 5.13, 'cluster_n_transaksi': 787, 'cluster_n_nasabah_unik': 548,
-        'cluster_pct': 3.17, 'cluster_npl_pct': 4.32
+        'cluster_pct': 0.56, 'cluster_npl_pct': 4.32
     },
     'GURU': {
         'id': 'GURU', 'label': 'Guru / Dosen', 'beta': -0.428912, 'or': 0.651,
         'cluster': 'Klaster 1: Prime / Preferred', 'cluster_code': 'PRIME', 'ltv_mod': 0.05,
         'policy': 'Bonus LTV +5% (Maksimal 50%) & Fast-Track Approval (Profil Paling Aman)',
         'verifikasi': 'Fast-Track: Verifikasi kartu tanda guru/dosen/NUPTK aktif.',
-        'n_transaksi': 397, 'n_nasabah_unik': 287, 'pct_populasi': 1.60,
+        'n_transaksi': 397, 'n_nasabah_unik': 287, 'pct_populasi': 0.28,
         'npl_empiris_pct': 3.53, 'cluster_n_transaksi': 787, 'cluster_n_nasabah_unik': 548,
-        'cluster_pct': 3.17, 'cluster_npl_pct': 4.32
+        'cluster_pct': 0.56, 'cluster_npl_pct': 4.32
     },
     'IRT': {
         'id': 'IRT', 'label': 'Ibu Rumah Tangga (IRT)', 'beta': 0.002206, 'or': 1.002,
         'cluster': 'Klaster 2: Core Baseline', 'cluster_code': 'CORE', 'ltv_mod': 0.0,
         'policy': 'Skema Standar (Verifikasi Sumber Nafkah Belanja Keluarga)',
         'verifikasi': 'Konfirmasi nomor kontak suami / kepala keluarga serumah.',
-        'n_transaksi': 5149, 'n_nasabah_unik': 4092, 'pct_populasi': 20.71,
+        'n_transaksi': 5149, 'n_nasabah_unik': 4092, 'pct_populasi': 3.69,
         'npl_empiris_pct': 5.96, 'cluster_n_transaksi': 133080, 'cluster_n_nasabah_unik': 86573,
-        'cluster_pct': 74.20, 'cluster_npl_pct': 6.88
+        'cluster_pct': 95.40, 'cluster_npl_pct': 6.88
     },
     'BURUH': {
         'id': 'BURUH', 'label': 'Buruh Pabrik / Bangunan', 'beta': 0.017158, 'or': 1.017,
         'cluster': 'Klaster 2: Core Baseline', 'cluster_code': 'CORE', 'ltv_mod': 0.0,
         'policy': 'Skema Standar (Upah Rutin Mingguan/Bulanan)',
         'verifikasi': 'Konfirmasi tempat kerja buruh/pabrik.',
-        'n_transaksi': 1477, 'n_nasabah_unik': 1138, 'pct_populasi': 5.94,
+        'n_transaksi': 1477, 'n_nasabah_unik': 1138, 'pct_populasi': 1.06,
         'npl_empiris_pct': 6.16, 'cluster_n_transaksi': 133080, 'cluster_n_nasabah_unik': 86573,
-        'cluster_pct': 74.20, 'cluster_npl_pct': 6.88
+        'cluster_pct': 95.40, 'cluster_npl_pct': 6.88
     },
     'PEDAGANG': {
         'id': 'PEDAGANG', 'label': 'Pedagang Toko / Kios / Pasar', 'beta': 0.333499, 'or': 1.396,
         'cluster': 'Klaster 3: Arus Kas Volatil', 'cluster_code': 'VOLATILE', 'ltv_mod': -0.05,
         'policy': 'Pengetatan LTV -5% (Maksimal 40%) & Wajib Cek Nota Usaha',
         'verifikasi': 'Lampirkan foto kios/lapak dagang atau bukti nota transaksi 1 minggu terakhir.',
-        'n_transaksi': 174, 'n_nasabah_unik': 136, 'pct_populasi': 0.70,
+        'n_transaksi': 174, 'n_nasabah_unik': 136, 'pct_populasi': 0.12,
         'npl_empiris_pct': 8.62, 'cluster_n_transaksi': 250, 'cluster_n_nasabah_unik': 197,
-        'cluster_pct': 1.01, 'cluster_npl_pct': 10.00
+        'cluster_pct': 0.18, 'cluster_npl_pct': 10.00
     },
     'WIRASWASTA': {
         'id': 'WIRASWASTA', 'label': 'Wiraswasta / Pengusaha', 'beta': 0.889340, 'or': 2.434,
         'cluster': 'Klaster 3: Arus Kas Volatil', 'cluster_code': 'VOLATILE', 'ltv_mod': -0.05,
         'policy': 'Pengetatan LTV -5% (Maksimal 40%) & Verifikasi Fisik Tempat Usaha',
         'verifikasi': 'Wajib dokumentasi tempat usaha fisik untuk mitigasi risiko volatilitas omzet modal kerja.',
-        'n_transaksi': 76, 'n_nasabah_unik': 61, 'pct_populasi': 0.31,
+        'n_transaksi': 76, 'n_nasabah_unik': 61, 'pct_populasi': 0.05,
         'npl_empiris_pct': 13.16, 'cluster_n_transaksi': 250, 'cluster_n_nasabah_unik': 197,
-        'cluster_pct': 1.01, 'cluster_npl_pct': 10.00
+        'cluster_pct': 0.18, 'cluster_npl_pct': 10.00
     },
     'PELAJAR': {
         'id': 'PELAJAR', 'label': 'Pelajar / Mahasiswa', 'beta': 0.313070, 'or': 1.368,
         'cluster': 'Klaster 4: Rentan / Moral Hazard', 'cluster_code': 'VULNERABLE', 'ltv_mod': -0.05,
         'policy': 'Plafon Dibatasi Maksimal Rp 2.500.000 & STNK Wajib A/N Sendiri',
         'verifikasi': 'Wajib Kartu Tanda Mahasiswa (KTM) & nomor HP orang tua/wali aktif.',
-        'n_transaksi': 4385, 'n_nasabah_unik': 3432, 'pct_populasi': 17.64,
+        'n_transaksi': 4385, 'n_nasabah_unik': 3432, 'pct_populasi': 3.14,
         'npl_empiris_pct': 7.91, 'cluster_n_transaksi': 5376, 'cluster_n_nasabah_unik': 4184,
-        'cluster_pct': 21.63, 'cluster_npl_pct': 7.92
+        'cluster_pct': 3.85, 'cluster_npl_pct': 7.92
     },
     'BELUM_BEKERJA': {
         'id': 'BELUM_BEKERJA', 'label': 'Belum / Tidak Bekerja (Pengangguran)', 'beta': 0.317378, 'or': 1.374,
         'cluster': 'Klaster 4: Rentan / Moral Hazard', 'cluster_code': 'VULNERABLE', 'ltv_mod': -0.10,
         'policy': 'Plafon Cap Maks Rp 2.500.000 (Pinjaman > Rp 2.5 Jt Wajib Approval Kepala Cabang)',
         'verifikasi': 'Wajib ada penjamin keluarga serumah yang bekerja & survey domisili debitur.',
-        'n_transaksi': 991, 'n_nasabah_unik': 752, 'pct_populasi': 3.99,
+        'n_transaksi': 991, 'n_nasabah_unik': 752, 'pct_populasi': 0.71,
         'npl_empiris_pct': 7.97, 'cluster_n_transaksi': 5376, 'cluster_n_nasabah_unik': 4184,
-        'cluster_pct': 21.63, 'cluster_npl_pct': 7.92
+        'cluster_pct': 3.85, 'cluster_npl_pct': 7.92
     }
 }
 
@@ -884,6 +884,7 @@ menu = st.sidebar.radio(
     "PILIH MODUL DASHBOARD:",
     [
         "Executive Dashboard",
+        "Simulator (ML Smart Score V2.0)",
         "Credit Scoring Engine",
         "What-If Stress Testing",
         "Batch Loan Profiler",
@@ -1105,6 +1106,332 @@ if menu == "Executive Dashboard":
     st.markdown('</div>', unsafe_allow_html=True)
 
 # ==============================================================================
+# MODUL 1B: SIMULATOR ML SMART SCORE V2.0 (DUAL-TARGET HISTGBDT + AUTO CRM NIK)
+# ==============================================================================
+elif menu == "Simulator (ML Smart Score V2.0)":
+    from app_server_api import lookup_crm_nik, predict_ml_smart_score
+
+    st.markdown("""
+    <div class="hero-appbar">
+        <div class="hero-title">PGI Smart Score Engine V2.0 — Simulator Keputusan Kredit, XAI & RAROC</div>
+        <div class="hero-subtitle">Integrasi Database CRM Internal (208.955 Nasabah) × Makro Sosio-Ekonomi BPS 517 Wilayah × Dual-Target HistGBDT (Populasi 9,62 Juta Kontrak)</div>
+        <div class="hero-tags">
+            <span class="hero-tag-pill">FPD7 AUC: 0.7566 (Gini 51.3%)</span>
+            <span class="hero-tag-pill">Lelang AUC: 0.7881 (Gini 57.6%)</span>
+            <span class="hero-tag-pill">KS Separation: 36.39%</span>
+            <span class="hero-tag-pill">Auto-Lookup 208.955 NIK CRM</span>
+            <span class="hero-tag-pill">FICO Scale 300 – 850</span>
+        </div>
+    </div>
+    """, unsafe_allow_html=True)
+
+    # Inisialisasi state simulator di Streamlit
+    if 'sim_nik' not in st.session_state:
+        st.session_state['sim_nik'] = '3216065204020024'
+        st.session_state['sim_agunan'] = 'Emas'
+        st.session_state['sim_tenor'] = 30
+        st.session_state['sim_taksiran'] = 5_000_000
+        st.session_state['sim_pinjaman'] = 2_500_000
+        st.session_state['sim_jml_tx'] = 8
+        st.session_state['sim_lunas'] = 8
+        st.session_state['sim_macet'] = 0
+        st.session_state['sim_perp'] = 2
+        st.session_state['sim_last_looked_up_nik'] = '3216065204020024'
+        st.session_state['sim_crm_info'] = lookup_crm_nik('3216065204020024')
+        st.session_state['sim_manual_override'] = False
+
+    def _apply_preset(nik_val, agunan_val, taksiran_val, pinjaman_val):
+        st.session_state['sim_nik'] = nik_val
+        st.session_state['sim_agunan'] = agunan_val
+        st.session_state['sim_taksiran'] = taksiran_val
+        st.session_state['sim_pinjaman'] = pinjaman_val
+        crm = lookup_crm_nik(nik_val)
+        st.session_state['sim_crm_info'] = crm
+        st.session_state['sim_last_looked_up_nik'] = nik_val
+        st.session_state['sim_jml_tx'] = int(crm['jml_transaksi'])
+        st.session_state['sim_lunas'] = int(crm['lunas_tepat'])
+        st.session_state['sim_macet'] = int(crm['macet'])
+        st.session_state['sim_perp'] = int(crm['perpanjang'])
+        st.session_state['sim_manual_override'] = False
+
+    st.markdown('<div class="modern-card">', unsafe_allow_html=True)
+    st.markdown("**⚡ Coba Cepat Profil Contoh Debitur (1-Klik):**")
+    cp1, cp2, cp3, cp4 = st.columns(4)
+    with cp1:
+        if st.button("⭐ Nasabah Loyal (Emas, Tier 1)", use_container_width=True):
+            _apply_preset('3216065204020024', 'Emas', 5_000_000, 2_500_000)
+    with cp2:
+        if st.button("📱 Nasabah Baru (HP, Tier 2)", use_container_width=True):
+            _apply_preset('3171035312000006', 'Elektronik', 3_500_000, 2_000_000)
+    with cp3:
+        if st.button("🛵 BPKB Motor (Beban > UMK, Tier 3)", use_container_width=True):
+            _apply_preset('1116070303970002', 'BPKB Motor', 7_000_000, 5_500_000)
+    with cp4:
+        if st.button("⚠️ Nasabah Berisiko (Macet, Tier 4)", use_container_width=True):
+            _apply_preset('1101160803900001', 'Elektronik', 2_500_000, 2_300_000)
+    st.markdown('</div>', unsafe_allow_html=True)
+
+    col_sim_in, col_sim_out = st.columns([1, 1.15])
+
+    with col_sim_in:
+        st.markdown('<div class="modern-card">', unsafe_allow_html=True)
+        st.subheader("1. Input Loket Cabang & Pencarian Otomatis CRM")
+        nik_in = st.text_input("Nomor Induk Kependudukan (NIK - 16 Digit):", value=st.session_state['sim_nik'], max_chars=16)
+        nik_clean = nik_in.strip()
+        st.session_state['sim_nik'] = nik_clean
+
+        # Auto-lookup CRM jika NIK 16 digit berubah
+        if len(nik_clean) == 16 and nik_clean.isdigit() and nik_clean != st.session_state.get('sim_last_looked_up_nik'):
+            crm_res = lookup_crm_nik(nik_clean)
+            st.session_state['sim_crm_info'] = crm_res
+            st.session_state['sim_last_looked_up_nik'] = nik_clean
+            st.session_state['sim_jml_tx'] = int(crm_res['jml_transaksi'])
+            st.session_state['sim_lunas'] = int(crm_res['lunas_tepat'])
+            st.session_state['sim_macet'] = int(crm_res['macet'])
+            st.session_state['sim_perp'] = int(crm_res['perpanjang'])
+            st.session_state['sim_manual_override'] = False
+
+        crm_info = st.session_state.get('sim_crm_info', lookup_crm_nik(nik_clean))
+        if len(nik_clean) != 16 or not nik_clean.isdigit():
+            st.warning(f"⚠️ Format NIK: {len(nik_clean)}/16 digit. Masukkan 16 digit angka NIK untuk verifikasi otomatis database CRM internal.")
+        elif st.session_state.get('sim_manual_override'):
+            st.info("🎛️ **Mode Simulasi Skenario Manual Aktif** (Klik tombol '⚡ Auto dari NIK' di bawah untuk mengembalikan data riil database).")
+        elif crm_info.get('found'):
+            st.success(f"✓ **Terdaftar di Database PGI:** {crm_info['nama']} ({crm_info['jml_transaksi']}x Transaksi riil — {crm_info['lunas_tepat']} Lunas, {crm_info['macet']} Macet)")
+        else:
+            st.info("🌱 **Calon Nasabah Baru:** NIK belum terdaftar di database internal PGI (Otomatis diatur sebagai Nasabah Baru: 0x Transaksi).")
+
+        cs1, cs2 = st.columns(2)
+        with cs1:
+            agunan_list = ["Elektronik", "Emas", "BPKB Motor"]
+            ag_idx = agunan_list.index(st.session_state['sim_agunan']) if st.session_state['sim_agunan'] in agunan_list else 0
+            agunan_in = st.selectbox("Jenis Agunan:", agunan_list, index=ag_idx)
+            st.session_state['sim_agunan'] = agunan_in
+        with cs2:
+            tenor_list = [30, 15]
+            tn_idx = tenor_list.index(st.session_state['sim_tenor']) if st.session_state['sim_tenor'] in tenor_list else 0
+            tenor_in = st.selectbox("Tenor Standar (Hari):", tenor_list, index=tn_idx)
+            st.session_state['sim_tenor'] = tenor_in
+
+        cs3, cs4 = st.columns(2)
+        with cs3:
+            taksiran_in = st.number_input("Nilai Taksiran Barang (Rp):", min_value=100_000, max_value=100_000_000, value=int(st.session_state['sim_taksiran']), step=100_000)
+            st.session_state['sim_taksiran'] = taksiran_in
+        with cs4:
+            pinjaman_in = st.number_input("Pinjaman yang Diminta (Rp):", min_value=50_000, max_value=100_000_000, value=int(st.session_state['sim_pinjaman']), step=100_000)
+            st.session_state['sim_pinjaman'] = pinjaman_in
+
+        st.divider()
+        st.subheader("2. Histori Internal PGI (Otomatis dari NIK / Simulasi 1-Klik)")
+        hb1, hb2, hb3, hb4, hb5, hb6 = st.columns(6)
+        with hb1:
+            if st.button("🌱 Baru", use_container_width=True, help="Nasabah Baru (0x Transaksi)"):
+                st.session_state['sim_jml_tx'], st.session_state['sim_lunas'], st.session_state['sim_macet'], st.session_state['sim_perp'] = 0, 0, 0, 0
+                st.session_state['sim_manual_override'] = True
+        with hb2:
+            if st.button("⭐ Lancar", use_container_width=True, help="5x Transaksi, 100% Lunas"):
+                st.session_state['sim_jml_tx'], st.session_state['sim_lunas'], st.session_state['sim_macet'], st.session_state['sim_perp'] = 5, 5, 0, 1
+                st.session_state['sim_manual_override'] = True
+        with hb3:
+            if st.button("👑 Loyal", use_container_width=True, help="8x Transaksi, 0x Macet"):
+                st.session_state['sim_jml_tx'], st.session_state['sim_lunas'], st.session_state['sim_macet'], st.session_state['sim_perp'] = 8, 8, 0, 2
+                st.session_state['sim_manual_override'] = True
+        with hb4:
+            if st.button("🔄 Rollover", use_container_width=True, help="6x Transaksi, 4x Perpanjang"):
+                st.session_state['sim_jml_tx'], st.session_state['sim_lunas'], st.session_state['sim_macet'], st.session_state['sim_perp'] = 6, 6, 0, 4
+                st.session_state['sim_manual_override'] = True
+        with hb5:
+            if st.button("⚠️ Macet", use_container_width=True, help="3x Transaksi, 2x Macet/Lelang"):
+                st.session_state['sim_jml_tx'], st.session_state['sim_lunas'], st.session_state['sim_macet'], st.session_state['sim_perp'] = 3, 1, 2, 3
+                st.session_state['sim_manual_override'] = True
+        with hb6:
+            if st.button("⚡ Auto NIK", use_container_width=True, help="Sinkron kembali dengan database CRM PGI"):
+                crm_sync = lookup_crm_nik(nik_clean)
+                st.session_state['sim_crm_info'] = crm_sync
+                st.session_state['sim_jml_tx'] = int(crm_sync['jml_transaksi'])
+                st.session_state['sim_lunas'] = int(crm_sync['lunas_tepat'])
+                st.session_state['sim_macet'] = int(crm_sync['macet'])
+                st.session_state['sim_perp'] = int(crm_sync['perpanjang'])
+                st.session_state['sim_manual_override'] = False
+
+        hc1, hc2, hc3, hc4 = st.columns(4)
+        with hc1:
+            jml_tx_in = st.number_input("Jml Tx Lalu:", min_value=0, max_value=200, value=int(st.session_state['sim_jml_tx']), step=1)
+        with hc2:
+            lunas_in = st.number_input("Lunas Tepat:", min_value=0, max_value=200, value=int(st.session_state['sim_lunas']), step=1)
+        with hc3:
+            macet_in = st.number_input("Pernah Macet:", min_value=0, max_value=200, value=int(st.session_state['sim_macet']), step=1)
+        with hc4:
+            perp_in = st.number_input("Perpanjangan:", min_value=0, max_value=200, value=int(st.session_state['sim_perp']), step=1)
+
+        st.session_state['sim_jml_tx'] = jml_tx_in
+        st.session_state['sim_lunas'] = lunas_in
+        st.session_state['sim_macet'] = macet_in
+        st.session_state['sim_perp'] = perp_in
+        st.markdown('</div>', unsafe_allow_html=True)
+
+    ml_res = predict_ml_smart_score({
+        'nik': nik_clean,
+        'agunan': agunan_in,
+        'tenor': tenor_in,
+        'taksiran': taksiran_in,
+        'pinjaman': pinjaman_in,
+        'jml_transaksi': jml_tx_in,
+        'lunas_tepat': lunas_in,
+        'macet': macet_in,
+        'perpanjang': perp_in
+    })
+
+    with col_sim_in:
+        st.markdown('<div class="modern-card">', unsafe_allow_html=True)
+        st.subheader("3. Auto-Enrichment Makro BPS 517 Wilayah & Demografi NIK")
+        dem = ml_res['demographics']
+        bps = ml_res['bps_macro']
+        b1, b2, b3 = st.columns(3)
+        with b1:
+            st.markdown(f"""
+            <div class="pro-metric-card">
+                <div class="pro-metric-label">Usia & Generasi</div>
+                <div class="pro-metric-val" style="font-size: 1.15rem;">{dem['age']} Thn ({dem['generation']})</div>
+                <div class="pro-metric-sub">{dem['gender']}</div>
+            </div>
+            """, unsafe_allow_html=True)
+        with b2:
+            st.markdown(f"""
+            <div class="pro-metric-card">
+                <div class="pro-metric-label">Wilayah KTP</div>
+                <div class="pro-metric-val" style="font-size: 1.05rem;">{dem['kab_kota']}</div>
+                <div class="pro-metric-sub">{dem['provinsi']}</div>
+            </div>
+            """, unsafe_allow_html=True)
+        with b3:
+            st.markdown(f"""
+            <div class="pro-metric-card">
+                <div class="pro-metric-label">UMK Wilayah 2024</div>
+                <div class="pro-metric-val" style="font-size: 1.05rem; color: #1E3A8A;">{bps['umk_fmt']}</div>
+                <div class="pro-metric-sub">Beban: {bps['rasio_pinjaman_umk']:.2f}x UMK | TPT: {bps['tpt_persen']}%</div>
+            </div>
+            """, unsafe_allow_html=True)
+        st.markdown('</div>', unsafe_allow_html=True)
+
+    with col_sim_out:
+        st.markdown('<div class="modern-card">', unsafe_allow_html=True)
+        st.subheader("Hasil Prediksi Mesin Smart Score V2.0")
+
+        theme_map = {
+            'emerald': ('#059669', '#ECFDF5', '#A7F3D0'),
+            'blue': ('#2563EB', '#EFF6FF', '#BFDBFE'),
+            'amber': ('#D97706', '#FFFBEB', '#FDE68A'),
+            'rose': ('#DC2626', '#FEF2F2', '#FECDD3')
+        }
+        col_main, col_bg, col_bdr = theme_map.get(ml_res['decision_theme'], ('#2563EB', '#EFF6FF', '#BFDBFE'))
+
+        sc1, sc2, sc3 = st.columns(3)
+        with sc1:
+            st.markdown(f"""
+            <div class="pro-metric-card" style="border: 2px solid {col_main}; background: {col_bg};">
+                <div class="pro-metric-label" style="color: {col_main};">CREDIT SCORE (FICO)</div>
+                <div class="pro-metric-val" style="font-size: 2.3rem; color: {col_main};">{ml_res['credit_score']}</div>
+                <div class="pro-metric-sub" style="font-weight: 700; color: {col_main};">{ml_res['risk_tier']}</div>
+            </div>
+            """, unsafe_allow_html=True)
+        with sc2:
+            st.markdown(f"""
+            <div class="pro-metric-card">
+                <div class="pro-metric-label">PD Gagal Bayar (FPD7)</div>
+                <div class="pro-metric-val" style="font-size: 1.8rem;">{ml_res['probability_bad_pct']:.2f}%</div>
+                <div class="pro-metric-sub">Baseline Populasi: 27,3%</div>
+            </div>
+            """, unsafe_allow_html=True)
+        with sc3:
+            st.markdown(f"""
+            <div class="pro-metric-card">
+                <div class="pro-metric-label">PD Eksekusi Lelang</div>
+                <div class="pro-metric-val" style="font-size: 1.8rem; color: #4F46E5;">{ml_res['probability_exec_lelang_pct']:.2f}%</div>
+                <div class="pro-metric-sub">LTV Aktual: {ml_res['ltv_pct']:.1f}%</div>
+            </div>
+            """, unsafe_allow_html=True)
+
+        st.markdown(f"""
+        <div style="background: {col_bg}; border: 1.5px solid {col_bdr}; border-left: 6px solid {col_main}; border-radius: 12px; padding: 14px 18px; margin: 10px 0; display: flex; justify-content: space-between; align-items: center;">
+            <div>
+                <div style="font-size: 0.72rem; font-weight: 800; color: {col_main}; text-transform: uppercase;">Rekomendasi Keputusan Underwriting</div>
+                <div style="font-size: 1.25rem; font-weight: 800; color: #0F172A;">{ml_res['decision_icon']} {ml_res['decision']}</div>
+                <div style="font-size: 0.78rem; color: #475569; margin-top: 2px;">{ml_res['recom_bunga']} · {ml_res['recom_restruk']}</div>
+            </div>
+            <div style="text-align: right;">
+                <div style="font-size: 0.72rem; font-weight: 700; color: #64748B;">Plafon Maks. Aman:</div>
+                <div style="font-size: 1.15rem; font-weight: 800; color: {col_main};">{ml_res['max_safe_plafon_fmt']}</div>
+            </div>
+        </div>
+        """, unsafe_allow_html=True)
+
+        # Dekomposisi 5 Pilar Poin Skor (XAI) & Valuasi Ekonomi Kontrak (RAROC)
+        pb = ml_res['point_breakdown']
+        ce = ml_res['contract_economics']
+        st.markdown("**📊 Dekomposisi Poin Skor (XAI Point Waterfall dari Base Score 600):**")
+        pw1, pw2, pw3, pw4, pw5 = st.columns(5)
+        for col_w, lbl_w, val_w in [
+            (pw1, "Histori CRM", pb['crm_history_pts']),
+            (pw2, "LTV & Buffer", pb['ltv_collateral_pts']),
+            (pw3, "Makro BPS", pb['bps_macro_pts']),
+            (pw4, "Agunan", pb['collateral_type_pts']),
+            (pw5, "Demog/Kal", pb['demog_calendar_pts'])
+        ]:
+            c_pt = "#059669" if val_w > 0 else ("#DC2626" if val_w < 0 else "#64748B")
+            with col_w:
+                st.markdown(f"""
+                <div style="background: #F8FAFC; border: 1px solid #E2E8F0; border-radius: 10px; padding: 8px; text-align: center;">
+                    <div style="font-size: 0.68rem; color: #64748B; font-weight: 700;">{lbl_w}</div>
+                    <div style="font-size: 1.05rem; font-weight: 800; color: {c_pt};">{val_w:+d} pts</div>
+                </div>
+                """, unsafe_allow_html=True)
+
+        st.markdown("<div style='height: 10px;'></div>", unsafe_allow_html=True)
+        st.markdown(f"**💰 Valuasi Ekonomi Kontrak, Expected Loss & RAROC (LGD {ce['lgd_pct']}%):**")
+        ec1, ec2, ec3 = st.columns(3)
+        with ec1:
+            st.markdown(f"""
+            <div class="pro-metric-card">
+                <div class="pro-metric-label">Pendapatan Sewa Modal</div>
+                <div class="pro-metric-val" style="font-size: 1.15rem;">{ce['gross_revenue_fmt']}</div>
+            </div>
+            """, unsafe_allow_html=True)
+        with ec2:
+            st.markdown(f"""
+            <div class="pro-metric-card">
+                <div class="pro-metric-label">Expected Credit Loss</div>
+                <div class="pro-metric-val" style="font-size: 1.15rem; color: #DC2626;">{ce['expected_loss_fmt']}</div>
+            </div>
+            """, unsafe_allow_html=True)
+        with ec3:
+            prof_col = "#059669" if ce['net_profit_rp'] >= 0 else "#DC2626"
+            st.markdown(f"""
+            <div class="pro-metric-card">
+                <div class="pro-metric-label">Margin Bersih (RAROC {ce['raroc_net_yield_pct']:+.2f}%)</div>
+                <div class="pro-metric-val" style="font-size: 1.15rem; color: {prof_col};">{ce['net_profit_fmt']}</div>
+            </div>
+            """, unsafe_allow_html=True)
+
+        st.markdown("**🔍 Faktor Penentu Skor (Explainability Top Drivers):**")
+        for d in ml_res['drivers']:
+            d_col = "#10B981" if d['type'] == 'pos' else ("#F59E0B" if d['type'] == 'neu' else "#EF4444")
+            st.markdown(f"""
+            <div class="driver-item" style="border-left: 4px solid {d_col};">
+                <span>{d['icon']} {d['text']}</span>
+            </div>
+            """, unsafe_allow_html=True)
+
+        if ml_res.get('ltv_sensitivity'):
+            with st.expander("📈 Tabel Simulasi Sensitivitas Plafon LTV (50% s/d 95% Taksiran)", expanded=False):
+                df_ltv_s = pd.DataFrame(ml_res['ltv_sensitivity'])[['ltv_pct', 'pinjaman_fmt', 'credit_score', 'pd_fpd7_pct', 'pd_lelang_pct', 'tier_label', 'decision']]
+                df_ltv_s.columns = ['LTV (%)', 'Nominal Pinjaman', 'Credit Score', 'PD FPD7 (%)', 'PD Lelang (%)', 'Tier Risiko', 'Keputusan']
+                st.dataframe(df_ltv_s, use_container_width=True)
+
+        st.caption(f"ID Kontrak Audit: `{ml_res['audit_id']}` · Latensi Mesin ML: `{ml_res['latency_ms']} ms`")
+        st.markdown('</div>', unsafe_allow_html=True)
+
+# ==============================================================================
 # MODUL 2: CREDIT SCORING ENGINE (PROPORTIONAL & RESPONSIVE)
 # ==============================================================================
 elif menu == "Credit Scoring Engine":
@@ -1307,6 +1634,7 @@ elif menu == "What-If Stress Testing":
         w_usia = st.slider("Usia Kendaraan (Tahun):", 0, 15, 3, key="w_usia")
         w_otr = st.number_input("Harga OTR Pasar (Rp):", min_value=2_000_000, max_value=50_000_000, value=15_000_000, step=1_000_000, key="w_otr")
         w_stnk = st.selectbox("Kepemilikan STNK:", ["A/N Sendiri", "A/N Orang Lain"], key="w_stnk")
+        w_pajak = st.selectbox("Status Pajak STNK:", ["Pajak Aktif", "Pajak Tidak Aktif"], key="w_pajak")
         w_job = st.selectbox(
             "Profesi / Pekerjaan Debitur:",
             list(JOB_RISK_FACTORS.keys()),
@@ -1655,7 +1983,7 @@ elif menu == "Ekonometrika Diagnostics":
         st.subheader("2. Hasil Pengujian Formal 9 Hipotesis Riset (H1 s/d H9)")
         hyp_df = pd.DataFrame([
             {"ID": "H1", "Hipotesis": "Hubungan kepemilikan STNK dan NPL", "Odds Ratio": "1,710", "Status": "DITERIMA (Signifikan)", "Interpretasi": "STNK orang lain menaikkan odds macet +71% (p < 0.0001)"},
-            {"ID": "H2", "Hipotesis": "Hubungan jenis pekerjaan dan NPL", "Odds Ratio": "3,460", "Status": "DITERIMA (Signifikan)", "Interpretasi": "Pengangguran berisiko 3.46x dibanding Karyawan Swasta"},
+            {"ID": "H2", "Hipotesis": "Hubungan jenis pekerjaan dan NPL", "Odds Ratio": "2,434", "Status": "DITERIMA (Signifikan)", "Interpretasi": "Wiraswasta (OR 2,434x) & Belum Bekerja (OR 1,374x) berisiko tinggi vs Guru (OR 0,651x)"},
             {"ID": "H3", "Hipotesis": "Hubungan merk kendaraan dan NPL", "Odds Ratio": "1,050", "Status": "DITERIMA (Signifikan)", "Interpretasi": "Yamaha memiliki odds macet 5% lebih tinggi dibanding Honda"},
             {"ID": "H4", "Hipotesis": "Hubungan usia kendaraan dan NPL", "Odds Ratio": "1,093", "Status": "DITERIMA (Signifikan)", "Interpretasi": "Tiap 1 tahun usia motor menambah odds macet +9.3%"},
             {"ID": "H5", "Hipotesis": "Hubungan status pajak dan NPL", "Odds Ratio": "1,118", "Status": "DITERIMA (Signifikan)", "Interpretasi": "Pajak aktif berkorelasi dengan plafon pinjaman lebih besar"},
@@ -1837,7 +2165,7 @@ elif menu == "Galeri Publikasi Riset":
                 "badge": "Analisis Bivariat Multidimensi",
                 "badge_color": "#D97706",
                 "tujuan": "Memetakan disparitas risiko NPL pada 4 dimensi operasional utama: Kepemilikan STNK, Status Pajak, Merk Kendaraan, dan Wilayah Cabang.",
-                "temuan": "STNK Atas Nama Orang Lain mencatat NPL <strong>8,56%</strong> vs A/N Sendiri 4,94% (+73% kenaikan risiko relatif). Pajak Mati mencatat NPL <strong>7,20%</strong> vs Pajak Aktif 6,70%. Merk non-Jepang/Kawasaki (8,63%) lebih rentan macet dibanding Honda (6,79%) & Yamaha (6,95%). Wilayah Garut (9,17%) & Bandung (9,00%) mencatatkan risiko tertinggi.",
+                "temuan": "STNK Atas Nama Orang Lain mencatat NPL <strong>8,56%</strong> vs A/N Sendiri 4,94% (+73% kenaikan risiko relatif). Pajak Aktif mencatat NPL <strong>7,22%</strong> vs Pajak Tidak Aktif 6,75% (karena plafon pinjaman motor pajak aktif lebih tinggi). Merk Kawasaki (8,15%), Yamaha (7,76%), dan Lainnya (7,56%) lebih tinggi dibanding Honda (6,65%). Wilayah Garut (9,17%) & Bandung (9,00%) mencatatkan risiko tertinggi.",
                 "kebijakan": "STNK orang lain ditetapkan sebagai pemicu moral hazard utama. Plafon LTV dipangkas otomatis -10% jika STNK atas nama pihak ketiga.",
                 "metrik": "Uji Chi-Square: p < 0,0001 (Signifikan pada taraf alpha 1%) | Cramer's V: 0,082"
             },
@@ -1851,7 +2179,7 @@ elif menu == "Galeri Publikasi Riset":
                 "tujuan": "Menguji hubungan laju depresiasi mekanis dan nilai pasar kendaraan terhadap probabilitas debitur menelantarkan kewajiban angsuran.",
                 "temuan": "Probabilitas NPL meningkat secara monoton seiring bertambahnya usia motor: motor baru 0-3 tahun memiliki NPL <strong>5,91%</strong>, usia 4-7 tahun <strong>6,65%</strong>, dan usia ≥ 8 tahun melonjak ke <strong>7,72% - 9,50%</strong>.",
                 "kebijakan": "Motor dengan usia ≥ 7 tahun dibatasi LTV-nya maksimal 35% OTR dan wajib verifikasi kondisi fisik mesin untuk memitigasi kerugian lelang.",
-                "metrik": "Koefisien Logit Usia: β = +0,0535 | Odds Ratio: 1,055x per tahun | Wald Stat: 84,2 (p < 1e-19)"
+                "metrik": "Koefisien Logit Usia (Model 2): β = +0,0888 | Odds Ratio: 1,093x (+9,3% per tahun, p < 1e-67) | Model 4 OR: 1,084x (+8,4% per tahun)"
             },
             {
                 "id": "fig4",
@@ -1873,7 +2201,7 @@ elif menu == "Galeri Publikasi Riset":
                 "badge": "Evaluasi Kinerja Model Prediktif",
                 "badge_color": "#2563EB",
                 "tujuan": "Mengukur daya pemilahan calon debitur berisiko tinggi vs rendah antara Model 1 (Core), Model 2 (Baseline Underwriting), dan Model 4 (Champion Fixed Effect).",
-                "temuan": "Model 4 mengungguli secara mutlak dengan ROC-AUC <strong>0,6702</strong> (+10,68 poin persentase di atas Model 2: 0,5634 dan Model 1: 0,5620) berkat integrasi fitur repeat borrower yang menggeser kurva ROC ke kiri atas secara signifikan.",
+                "temuan": "Model 4 mengungguli secara mutlak dengan ROC-AUC <strong>0,6702</strong> (+6,63 poin persentase di atas Model 2: 0,6039 dan Model 1: 0,6002) berkat integrasi fitur repeat borrower yang menggeser kurva ROC ke kiri atas secara signifikan.",
                 "kebijakan": "Model 4 resmi diadopsi sebagai algoritma utama Smart Credit Scoring Engine untuk penetapan suku bunga dan limit plafon kredit otomatis.",
                 "metrik": "Model 4 ROC-AUC: 0,6702 | DeLong Test vs Model 2: Z = 42,18 (p < 0,0001) | Gini Index: 0,3404"
             },
@@ -1888,6 +2216,54 @@ elif menu == "Galeri Publikasi Riset":
                 "temuan": "Kurva kalibrasi Model 4 menempel erat pada garis diagonal ideal 45 derajat. Brier Score Model 4 mencapai <strong>0,06291</strong> (lebih rendah dari benchmark naif 0,06433 dan Model 2 0,06383, terbukti superior p < 0,0001).",
                 "kebijakan": "Tingkat probabilitas default yang dihasilkan sistem dapat dipercaya secara matematis untuk dasar penentuan Cadangan Kerugian Penurunan Nilai (CKPN).",
                 "metrik": "Brier Score: 0,06291 | Benchmark Null: 0,06433 | Hosmer-Lemeshow p-value > 0,05"
+            },
+            {
+                "id": "fig_ml1",
+                "nomor": "Grafik ML-1",
+                "judul": "Kurva ROC Multi-Sektor & Precision-Recall (Model ML V2.0 HistGBDT)",
+                "file": "output/figures/fig_ml_1_roc_pr_curves.png",
+                "badge": "Machine Learning V2.0 (9,62 Juta Populasi)",
+                "badge_color": "#4F46E5",
+                "tujuan": "Mengukur daya diskriminasi model Dual-Target HistGBDT V2.0 lintas 3 sektor agunan (Elektronik, BPKB Motor, Emas).",
+                "temuan": "Model mencapai <strong>AUC-ROC Global 0,7566 (Gini 51,3%)</strong> untuk prediksi FPD7 dan <strong>AUC 0,7881 (Gini 57,6%)</strong> untuk model Eksekusi Lelang, dengan performa tertinggi pada Emas (AUC 0,8211).",
+                "kebijakan": "Mengintegrasikan Dual-Target HistGBDT dengan penskalaan FICO (300–850) untuk underwriting otomatis multi-agunan.",
+                "metrik": "FPD7 AUC: 0,7566 | Lelang AUC: 0,7881 | PR-AUC: 0,5701 | Brier Score: 0,1666"
+            },
+            {
+                "id": "fig_ml2",
+                "nomor": "Grafik ML-2",
+                "judul": "Pemisahan Kolmogorov-Smirnov (KS 36,39%) & Validasi 10 Desil Risiko",
+                "file": "output/figures/fig_ml_2_ks_decile_lift.png",
+                "badge": "Validasi Out-of-Sample N=302.585",
+                "badge_color": "#4F46E5",
+                "tujuan": "Menguji ketajaman pemisahan kumulatif debitur Good vs Bad serta tingkat tangkapan gagal bayar pada setiap desil.",
+                "temuan": "Pemisahan maksimum kurva kumulatif Good vs Bad mencapai <strong>KS = 36,39%</strong> (melampaui standar perbankan >30%). Desil 1 menangkap 72,2% debitur macet (Lift 2,54x) berbanding hanya 3,5% pada Desil 10.",
+                "kebijakan": "Menetapkan ambang penolakan otomatis pada Desil 1 (Tier 4 Subprime) untuk memotong kerugian lelang secara drastis.",
+                "metrik": "KS Statistic: 36,39% | Desil 1 Bad Rate: 72,23% | Desil 10 Bad Rate: 3,51%"
+            },
+            {
+                "id": "fig_ml3",
+                "nomor": "Grafik ML-3",
+                "judul": "Top 12 Feature Importance & Proporsi 5 Pilar Prediktif",
+                "file": "output/figures/fig_ml_3_feature_importance.png",
+                "badge": "Explainable AI (Permutation Importance)",
+                "badge_color": "#4F46E5",
+                "tujuan": "Memetakan kontribusi relatif 37 variabel prediktif ke dalam 5 pilar risiko kredit utama.",
+                "temuan": "Pilar <strong>Histori CRM Internal (70,0%)</strong> dan <strong>Risiko Agunan & LTV (25,5%)</strong> mendominasi daya prediksi, diperkuat oleh bantalan ekonomi makro BPS (UMK & IPM wilayah) serta demografi NIK.",
+                "kebijakan": "Mewajibkan integrasi lookup otomatis NIK terhadap database CRM internal PGI pada saat pengajuan di loket.",
+                "metrik": "Histori CRM: 70,0% | LTV & Agunan: 25,5% | Makro BPS: 1,8% | Demografi NIK: 1,8%"
+            },
+            {
+                "id": "fig_ml4",
+                "nomor": "Grafik ML-4",
+                "judul": "Distribusi Skor Kredit FICO (300–850) & Daya Pisah 4 Tier (228x Separation)",
+                "file": "output/figures/fig_ml_4_score_tier_separation.png",
+                "badge": "Kalibrasi Scorecard & Policy Matrix",
+                "badge_color": "#4F46E5",
+                "tujuan": "Memvalidasi tingkat gagal bayar aktual FPD7 dan eksekusi lelang pada masing-masing Tier Skor FICO.",
+                "temuan": "Tingkat gagal bayar aktual pada <strong>Tier 1 (Super Prime, 680–850) hanya 0,33%</strong> berbanding <strong>75,32% pada Tier 4 (Subprime, <540)</strong>, menghasilkan daya pembeda risiko hingga <strong>228 kali lipat</strong>.",
+                "kebijakan": "Menerapkan matriks 4 kuadran kebijakan: Auto-Approve (Tier 1), Fast-Track (Tier 2), Bersyarat (Tier 3), dan Tolak/Reject (Tier 4).",
+                "metrik": "Tier 1 Bad Rate: 0,33% | Tier 2: 8,82% | Tier 3: 31,03% | Tier 4: 75,32%"
             }
         ]
 
@@ -1977,7 +2353,7 @@ elif menu == "Galeri Publikasi Riset":
         """)
 
         # Download Dokumen Master Lengkap
-        c_doc1, c_doc2, c_doc3 = st.columns(3)
+        c_doc1, c_doc2, c_doc3, c_doc4 = st.columns(4)
         pdf_path = BASE_DIR / "Laporan_Analisis_Risiko_NPL_Gadai_Motor_2026.pdf"
         if not pdf_path.exists():
             pdf_path = Path("Laporan_Analisis_Risiko_NPL_Gadai_Motor_2026.pdf")
@@ -1990,17 +2366,31 @@ elif menu == "Galeri Publikasi Riset":
         if not docx_path.exists():
             docx_path = Path("Laporan_Analisis_Risiko_NPL_Gadai_Motor_2026.docx")
 
+        ml_pdf_path = BASE_DIR / "LAPORAN_PENGEMBANGAN_MODEL_ML_CREDIT_SCORING.pdf"
+        if not ml_pdf_path.exists():
+            ml_pdf_path = Path("LAPORAN_PENGEMBANGAN_MODEL_ML_CREDIT_SCORING.pdf")
+
         with c_doc1:
             if pdf_path.exists():
                 with open(pdf_path, "rb") as f_pdf:
                     st.download_button(
-                        label="Unduh Laporan Lengkap (PDF)",
+                        label="Unduh Laporan Ekonometrika (PDF)",
                         data=f_pdf.read(),
                         file_name="Laporan_Analisis_Risiko_NPL_Gadai_Motor_2026.pdf",
                         mime="application/pdf",
                         use_container_width=True
                     )
         with c_doc2:
+            if ml_pdf_path.exists():
+                with open(ml_pdf_path, "rb") as f_ml_pdf:
+                    st.download_button(
+                        label="Unduh Laporan Model ML V2.0 (PDF)",
+                        data=f_ml_pdf.read(),
+                        file_name="LAPORAN_PENGEMBANGAN_MODEL_ML_CREDIT_SCORING.pdf",
+                        mime="application/pdf",
+                        use_container_width=True
+                    )
+        with c_doc3:
             if pptx_path.exists():
                 with open(pptx_path, "rb") as f_pptx:
                     st.download_button(
@@ -2010,7 +2400,7 @@ elif menu == "Galeri Publikasi Riset":
                         mime="application/vnd.openxmlformats-officedocument.presentationml.presentation",
                         use_container_width=True
                     )
-        with c_doc3:
+        with c_doc4:
             if docx_path.exists():
                 with open(docx_path, "rb") as f_docx:
                     st.download_button(
@@ -2088,8 +2478,8 @@ elif menu == "Galeri Publikasi Riset":
 
         sintesis_data = [
             ("1. Moral Hazard STNK Pihak Ketiga", "Odds Ratio: 1,710x (+71% Risiko)", "STNK atas nama orang lain meningkatkan risiko gagal bayar hingga +71%. Kebijakan cabang: LTV dipangkas otomatis -10% dan wajib menyertakan surat kuasa/kontak darurat penjamin."),
-            ("2. Depresiasi Usia Sepeda Motor", "Odds Ratio: 1,055x per Tahun Usia", "Setiap pertambahan 1 tahun usia motor menaikkan odds gagal bayar sebesar 5,5%. Motor usia ≥ 8 tahun wajib dipangkas plafonnya ke batas aman maksimal 35% OTR."),
-            ("3. Super-Protective Repeat Borrower", "Odds Ratio: 0,282x (-72% Risiko Macet)", "Debitur lama dengan riwayat lunas sempurna memiliki risiko macet 72% lebih rendah. Diberikan skema Fast-Track Approval dan plafon maksimal hingga 50% OTR."),
+            ("2. Depresiasi Usia Sepeda Motor", "Odds Ratio: 1,093x per Tahun Usia", "Setiap pertambahan 1 tahun usia motor menaikkan odds gagal bayar sebesar +9,3% pada Model 2 (+8,4% pada Model 4). Motor usia ≥ 8 tahun wajib dipangkas plafonnya ke batas aman maksimal 35% OTR."),
+            ("3. Super-Protective Repeat Borrower", "Odds Ratio: 0,289x (-71,1% Risiko Macet)", "Debitur lama dengan riwayat lunas sempurna memiliki risiko macet 71,1% lebih rendah. Diberikan skema Fast-Track Approval dan plafon maksimal hingga 50% OTR."),
             ("4. Anomali Simpson's Paradox pada LTV", "Signifikan LR = 3.360,71 (p < 1e-300)", "Rasio LTV tinggi secara bivariat tampak aman karena bias seleksi repeat borrower. Penilaian risiko wajib menggunakan interaksi multivariat STNK x LTV."),
             ("5. Segmentasi 4 Klaster Pekerjaan", "Rentang NPL: 3,53% s/d 13,16%", "Guru/PNS merupakan segmen paling aman (NPL 3,53%), sedangkan Wiraswasta mikro memiliki volatilitas omzet tertinggi (NPL 13,16%) yang mewajibkan survei fisik kios."),
             ("6. Disparitas Geografis 3 Zona Wilayah", "Tangerang (4,12%) vs Garut/Bandung (9,17%)", "Perbedaan karakteristik ekonomi lokal menuntut penetapan suku bunga dan batas LTV regional berbasis fixed-effects ekonometrika."),

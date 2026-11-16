@@ -115,7 +115,7 @@ Model dievaluasi secara bertingkat mulai dari *Null Model* hingga *Full Enhanced
   9. $\beta_8$: `LTV_MAX` (Kontinu 3)
   10. $\beta_9$: `is_repeat_borrower` (Dummy 1)
 * **Korelasi dengan Desain Awal Dokumen PDF Riset:**
-  - Pada dokumen desain riset awal (`Laporan_Design_Riset_NPL_Gadai_Kendaraan.pdf` Halaman 5-6), Model 4 diusulkan sebagai: $NPL \sim Core + LTV\_MAX + zona\_ltv$.
+  - Pada dokumen desain riset awal (`Laporan_Design_Riset_NPL_Gadai_Kendaraan.pdf` Halaman 5-6), Model 4 diusulkan sebagai: $NPL \\sim Core + LTV\\_MAX + zona\\_ltv$.
   - Namun dokumen PDF Halaman 6 menegaskan: *"Model 4 hanya digunakan jika audit konseptual dan diagnostik menunjukkan bahwa ltv_max dan zona_ltv membawa informasi berbeda serta tidak menimbulkan masalah multikolinearitas."*
   - Karena memasukkan `zona_ltv` bersama `LTV_MAX` menimbulkan redundansi informasi (kolinearitas) dan variabel `pekerjaan` memiliki missing rate 81,8% (sehingga diuji terpisah pada Sensitivity Analysis), model diperkaya dengan prediktor terkuat: **`is_repeat_borrower`**.
   - Hasilnya, dengan $k=10$ parameter, Model 4 memangkas AIC sebesar **2.156 poin** (dari 68.931,6 ke 66.775,2) dan menaikkan ROC-AUC dari **0,6039** menjadi **0,6702**.
@@ -164,7 +164,7 @@ Model dievaluasi secara bertingkat mulai dari *Null Model* hingga *Full Enhanced
 
 ### A. Uji Multikolinearitas (Variance Inflation Factor / VIF)
 {vif_md}
-> **Kesimpulan VIF:** Seluruh prediktor memiliki nilai VIF < 1,5, jauh di bawah ambang batas kritis (VIF = 5,0). Tidak ditemukan indikasi multikolinearitas yang membahayakan stabilitas koefisien.
+> **Kesimpulan VIF:** Seluruh prediktor memiliki nilai VIF < 2,3 (maksimum 2,21 pada `pinjaman_juta`), jauh di bawah ambang batas kritis (VIF = 5,0). Tidak ditemukan indikasi multikolinearitas yang membahayakan stabilitas koefisien.
 
 ### B. Analisis Sensitivitas Missing Variabel Pekerjaan
 {sens_md}

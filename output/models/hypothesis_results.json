@@ -1,23 +1,23 @@
 [
   {
     "id": "H1",
-    "hipotesis": "Terdapat hubungan antara kepemilikan STNK (kondisi_name) dan NPL.",
+    "hipotesis": "Terdapat hubungan antara kepemilikan STNK (kondisi_stnk) dan NPL.",
     "variabel": "kondisi_stnk (A/N Orang Lain vs Sendiri)",
     "p_value": 8.578572616511621e-101,
     "odds_ratio": 1.71,
     "ci_95": "[1.628, 1.797]",
     "kesimpulan": "DITERIMA (Signifikan)",
-    "interpretasi": "STNK atas nama orang lain meningkatkan odds kredit macet sebesar ~90% (OR = 1.90) dibanding nama sendiri secara sangat signifikan (p < 0.0001)."
+    "interpretasi": "STNK atas nama orang lain meningkatkan odds kredit macet sebesar +71,0% (OR = 1,710; Model 4 OR = 1,607) dibanding nama sendiri secara sangat signifikan (p < 0,0001)."
   },
   {
     "id": "H2",
     "hipotesis": "Terdapat hubungan antara pekerjaan dan NPL.",
     "variabel": "pekerjaan_group",
     "p_value": 1e-05,
-    "odds_ratio": 3.46,
-    "ci_95": "[2.45, 4.88]",
+    "odds_ratio": 2.434,
+    "ci_95": "[1.820, 3.255]",
     "kesimpulan": "DITERIMA (Signifikan pada subset)",
-    "interpretasi": "Terdapat variasi risiko antar profesi. Kelompok 'Belum Bekerja/Pengangguran' memiliki risiko 3.46x lebih tinggi dibanding Karyawan Swasta, sedangkan Guru dan BUMN memiliki risiko terendah."
+    "interpretasi": "Terdapat variasi risiko signifikan antar profesi (NPL 3,53% s/d 13,16%). Wiraswasta (OR = 2,434) dan Belum Bekerja (OR = 1,374) berisiko jauh lebih tinggi dibanding Guru/Dosen (OR = 0,651) dan PNS/BUMN (OR = 0,863)."
   },
   {
     "id": "H3",
@@ -27,7 +27,7 @@
     "odds_ratio": 1.05,
     "ci_95": "[0.999, 1.103]",
     "kesimpulan": "DITERIMA (Signifikan)",
-    "interpretasi": "Merk Yamaha memiliki odds macet 7% lebih tinggi dibandingkan Honda (OR = 1.07, p = 0.007) setelah mengontrol variabel lainnya."
+    "interpretasi": "Merk Yamaha memiliki odds macet +5,0% lebih tinggi dibandingkan Honda pada Model 2 (OR = 1,050) dan +6,0% pada Model 4 (OR = 1,060, p = 0,022) setelah mengontrol variabel lainnya."
   },
   {
     "id": "H4",
@@ -37,7 +37,7 @@
     "odds_ratio": 1.093,
     "ci_95": "[1.082, 1.104]",
     "kesimpulan": "DITERIMA (Signifikan)",
-    "interpretasi": "Setiap penambahan 1 tahun usia kendaraan meningkatkan odds kredit macet sebesar 7.6% (OR = 1.076, p < 0.0001)."
+    "interpretasi": "Setiap penambahan 1 tahun usia kendaraan meningkatkan odds kredit macet sebesar +9,3% pada Model 2 (OR = 1,093, p < 0,0001) dan +8,4% pada Model 4 (OR = 1,084)."
   },
   {
     "id": "H5",
@@ -47,7 +47,7 @@
     "odds_ratio": 1.118,
     "ci_95": "[1.070, 1.169]",
     "kesimpulan": "DITERIMA (Signifikan)",
-    "interpretasi": "Pajak aktif memiliki odds macet sedikit lebih tinggi (OR = 1.07, p = 0.001) yang berkorelasi dengan plafon pinjaman yang lebih besar pada motor berpajak hidup."
+    "interpretasi": "Pajak aktif memiliki odds macet sedikit lebih tinggi pada Model 2 (OR = 1,118, p < 0,0001) dan Model 4 (OR = 1,059) yang berkorelasi dengan plafon pinjaman lebih besar pada motor berpajak hidup."
   },
   {
     "id": "H6",
@@ -57,7 +57,7 @@
     "odds_ratio": 1.434,
     "ci_95": "[1.383, 1.486]",
     "kesimpulan": "DITERIMA (Signifikan)",
-    "interpretasi": "Setiap kenaikan Rp 1 juta pinjaman pokok meningkatkan odds kredit macet sebesar ~34% (OR = 1.34, p < 0.0001)."
+    "interpretasi": "Setiap kenaikan Rp 1 juta pinjaman pokok meningkatkan odds kredit macet sebesar +43,4% pada Model 2 (OR = 1,434, p < 0,0001) dan +38,5% pada Model 4 (OR = 1,385)."
   },
   {
     "id": "H7",
@@ -67,7 +67,7 @@
     "odds_ratio": 0.097,
     "ci_95": "[0.063, 0.152]",
     "kesimpulan": "DITERIMA (Signifikan)",
-    "interpretasi": "Penambahan LTV_MAX terbukti meningkatkan kecocokan model secara signifikan (Likelihood Ratio Test p < 0.0001, menurunkan AIC sebesar 98 poin)."
+    "interpretasi": "Penambahan LTV_MAX terbukti meningkatkan kecocokan model secara signifikan (Likelihood Ratio Test p < 0,0001, menurunkan AIC sebesar 100,10 poin dibanding Model 1)."
   },
   {
     "id": "H8",

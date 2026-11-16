@@ -129,8 +129,8 @@ Model dievaluasi secara bertingkat mulai dari *Null Model* hingga *Full Enhanced
 
 | ID | Pernyataan Hipotesis | Variabel Penguji | p-value | Odds Ratio (95% CI) | Status Hasil |
 | :---: | :--- | :--- | :---: | :---: | :---: |
-| **H1** | Terdapat hubungan antara kepemilikan STNK (kondisi_name) dan NPL. | kondisi_stnk (A/N Orang Lain vs Sendiri) | 8.5786e-101 | **1.71** ([1.628, 1.797]) | **DITERIMA (Signifikan)** |
-| **H2** | Terdapat hubungan antara pekerjaan dan NPL. | pekerjaan_group | 1.0000e-05 | **3.46** ([2.45, 4.88]) | **DITERIMA (Signifikan pada subset)** |
+| **H1** | Terdapat hubungan antara kepemilikan STNK (kondisi_stnk) dan NPL. | kondisi_stnk (A/N Orang Lain vs Sendiri) | 8.5786e-101 | **1.71** ([1.628, 1.797]) | **DITERIMA (Signifikan)** |
+| **H2** | Terdapat hubungan antara pekerjaan dan NPL. | pekerjaan_group | 1.0000e-05 | **2.434** ([1.820, 3.255]) | **DITERIMA (Signifikan pada subset)** |
 | **H3** | Terdapat hubungan antara merk kendaraan dan NPL. | merk_group (Yamaha vs Honda) | 5.3464e-02 | **1.05** ([0.999, 1.103]) | **DITERIMA (Signifikan)** |
 | **H4** | Usia kendaraan berhubungan dengan NPL. | usia_kendaraan_thn | 3.4284e-68 | **1.093** ([1.082, 1.104]) | **DITERIMA (Signifikan)** |
 | **H5** | Terdapat hubungan antara status pajak dan NPL. | pajak_status (Pajak Aktif vs Tidak Aktif) | 6.8570e-07 | **1.118** ([1.070, 1.169]) | **DITERIMA (Signifikan)** |
@@ -154,7 +154,7 @@ Model dievaluasi secara bertingkat mulai dari *Null Model* hingga *Full Enhanced
 | C(pajak_status, Treatment(reference='Pajak Tidak Aktif'))[T.Pajak Aktif] | 1.0433 | Aman (VIF < 5) |
 | C(merk_group, Treatment(reference='Honda'))[T.Kawasaki]                  | 1.0373 | Aman (VIF < 5) |
 | C(merk_group, Treatment(reference='Honda'))[T.LAINNYA]                   | 1.0056 | Aman (VIF < 5) |
-> **Kesimpulan VIF:** Seluruh prediktor memiliki nilai VIF < 1,5, jauh di bawah ambang batas kritis (VIF = 5,0). Tidak ditemukan indikasi multikolinearitas yang membahayakan stabilitas koefisien.
+> **Kesimpulan VIF:** Seluruh prediktor memiliki nilai VIF < 2,3 (maksimum 2,21 pada `pinjaman_juta`), jauh di bawah ambang batas kritis (VIF = 5,0). Tidak ditemukan indikasi multikolinearitas yang membahayakan stabilitas koefisien.
 
 ### B. Analisis Sensitivitas Missing Variabel Pekerjaan
 | Variabel Inti            |   Full Dataset OR (N=139k) |   Subset Tanpa Job OR (N=25k) |   Subset DENGAN Job OR (N=25k) |   Perubahan Beta (%): | Stabilitas         |
